@@ -43,7 +43,7 @@ $(document).ready(function() {
         return true;
       } else {
         $('#contact_email').focus();
-        $('#contact_email_error').text('! Please enter your office email ID.').css({'margin-top':'5px', 'color':'red', 'font-size':'12px'}).show();
+        $('#contact_email_error').text('Please enter your official email ID.').css({'margin-top':'5px', 'color':'red', 'font-size':'12px'}).show();
         setTimeout(function() {
           $('#contact_email_error').hide()
         }, 5000);

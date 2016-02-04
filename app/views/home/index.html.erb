@@ -3,13 +3,15 @@
     <div class="col-xs-12 centered">
       <div class="row">
         <div class="col-xs-12 text-center">
-          <%= image_tag "/assets/logo.png", width: "100%", height: "100%", alt: "PipeCandy", :class => "main-logo", align: "middle", title: "Email Prospecting Software For Sales Reps!" %>
+          <a href="/" title="PipeCandy">
+            <%= image_tag "/assets/logo.png", width: "100%", height: "100%", alt: "PipeCandy", :class => "main-logo", align: "middle", title: "Email Prospecting Software For Sales Reps!" %>
+          </a>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 text-center full-spaced full-spaced-bottom">
           <p class="lead ubuntu-medium">PipeCandy replaces your cold emails with warm handshakes...</p>
-          <p class="ubuntu-light">... and our <a href="" class="logo-story" target="_blank" rel="nofollow">logo story</a> is better than <a href="" class="logo-story" target="_blank" rel="nofollow">Uber's</a>!</p>
+          <p class="ubuntu-light">... and our <a href="https://medium.com/@Ashwinizer/5ac444d1ca3e" class="logo-story" target="_blank" rel="nofollow">logo story</a> is better than <a href="http://www.wired.com/2016/02/the-inside-story-behind-ubers-colorful-redesign/" class="logo-story" target="_blank" rel="nofollow">Uber's</a>!</p>
         </div>
       </div>
       <div class="row">
@@ -21,10 +23,10 @@
                   <%= form_for :email, url: email_process_path, method: :post, html: {id: "email_process", :class => "form-horizontal"} do |f| %>
                     <div class="row form-group">
                       <div class="col-sm-8 col-xs-12 group-field">
-                        <%= f.email_field :email, id: "contact_email", :class => "form-control clearfix", required: true, placeholder: "Drop your official email ID" %>
+                        <%= f.email_field :email, id: "contact_email", :class => "form-control clearfix", required: true, placeholder: "Drop your official email ID", style: "height: 45px;" %>
                       </div>
                       <div class="col-sm-4 col-xs-12 group-field">
-                        <%= f.submit "Get Early Access!", :class => "btn btn-block btn-pink white-color ubuntu-bold" %>
+                        <%= f.submit "Get Early Access!", :class => "btn btn-block btn-pink white-color ubuntu-bold", style: "height: 45px;" %>
                       </div>
                       <div id="contact_email_error"></div>
                     </div>
