@@ -43,5 +43,5 @@ development:
 production:
   <<: *default
   database: pipecandy
-  username: pipecandy
-  password: <%= ENV['PIPECANDY_DATABASE_PASSWORD'] %>
+  username: contractiq
+  password: "CIQMain0302"

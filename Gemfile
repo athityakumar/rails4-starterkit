@@ -12,10 +12,13 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+# To enable html compression
+gem 'htmlcompressor', group: :production
+
 group :development do
 
   # Use Capistrano for deployment
-  gem 'capistrano-rails'
+  gem 'capistrano', '~> 2.15.5'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
