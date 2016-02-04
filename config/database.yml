@@ -43,5 +43,5 @@ development:
 production:
   <<: *default
   database: pipecandy
-  username: contractiq
+  username: pipecandy
   password: "CIQMain0302"
