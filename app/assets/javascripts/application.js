@@ -23,7 +23,7 @@ window.onload = function() {
 
         email.focus();
         var email_error_ele = document.getElementById('contact_email_error');
-        email_error_ele.setAttribute('style', 'display: block; font-size: 12px; color: red; margin-top: 5px;');
+        email_error_ele.setAttribute('style', 'display: block; position: absolute; font-size: 12px; color: red; margin-top: 3px;');
         email_error_ele.innerHTML = 'Please enter your official email ID.';
 
         setTimeout(function() {
