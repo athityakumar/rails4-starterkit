@@ -17,13 +17,21 @@
     <%# Add All Stylesheets here %>
     <%= stylesheet_link_tag  "application", media: "all", cache: true, recursive: true %>
   </head>
-  <body>
-
-    <div class="top-strip"></div>
-
-    <%= yield %>
-
-    <div class="bottom-strip"></div>
+  <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    <center>
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+        <tr>
+          <td align="center" valign="middle">
+            <div class="top-strip"></div>
+            <%= yield %>
+            <div id="footer">
+              <small>Copyright &copy; PipeCandy | All Rights Reserved</small>
+            </div>
+            <div class="bottom-strip"></div>
+          </td>
+        </tr>
+      </table>
+    </center>
 
     <%# Add all Javascripts here %>
     <%= javascript_include_tag 'application', cache: true %>

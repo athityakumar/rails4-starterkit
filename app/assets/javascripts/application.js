@@ -2,33 +2,37 @@
 
 window.onload = function() {
 
-  document.getElementById('email_process_btn').addEventListener('click', function(event) {
+  if (document.getElementById('email_process_btn') != null) {
 
-    event.preventDefault();
+    document.getElementById('email_process_btn').addEventListener('click', function(event) {
 
-    var email = document.getElementById('contact_email');
+      event.preventDefault();
 
-    var form = document.getElementById('email_process');
+      var email = document.getElementById('contact_email');
 
-    var email_validate = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      var form = document.getElementById('email_process');
 
-    if (email_validate.test(email.value)) {
+      var email_validate = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-      form.submit();
-      return true;
+      if (email_validate.test(email.value)) {
 
-    } else {
+        form.submit();
+        return true;
 
-      email.focus();
-      var email_error_ele = document.getElementById('contact_email_error');
-      email_error_ele.setAttribute('style', 'display: block; font-size: 12px; color: red; margin-top: 5px;');
-      email_error_ele.innerHTML = 'Please enter your official email ID.';
+      } else {
 
-      setTimeout(function() {
-        email_error_ele.style.display = 'none';
-      }, 5000);
+        email.focus();
+        var email_error_ele = document.getElementById('contact_email_error');
+        email_error_ele.setAttribute('style', 'display: block; font-size: 12px; color: red; margin-top: 5px;');
+        email_error_ele.innerHTML = 'Please enter your official email ID.';
 
-    }
-  });
+        setTimeout(function() {
+          email_error_ele.style.display = 'none';
+        }, 5000);
+
+      }
+    });
+    
+  }
 
 }
