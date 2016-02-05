@@ -23,12 +23,12 @@
                   <%= form_for :email, url: email_process_path, method: :post, html: {id: "email_process", :class => "form-horizontal"} do |f| %>
                     <div class="row form-group">
                       <div class="col-sm-8 col-xs-12 group-field">
-                        <%= f.email_field :email, id: "contact_email", :class => "form-control clearfix", required: true, placeholder: "Drop your official email ID", style: "height: 45px;" %>
+                        <%= f.email_field :email, id: "contact_email", :class => "form-control clearfix", placeholder: "Drop your official email ID", style: "height: 45px;" %>
                       </div>
                       <div class="col-sm-4 col-xs-12 group-field">
-                        <%= f.submit "Get Early Access!", :class => "btn btn-block btn-pink white-color ubuntu-bold", style: "height: 45px;" %>
+                        <%= f.submit "Get Early Access!", id: "email_process_btn", :class => "btn btn-block btn-pink white-color ubuntu-bold", style: "height: 45px;" %>
                       </div>
-                      <div id="contact_email_error"></div>
+                      <div id="contact_email_error" class="row col-xs-12"></div>
                     </div>
                   <% end %>
                 </div>
