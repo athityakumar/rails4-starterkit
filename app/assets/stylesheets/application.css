@@ -282,6 +282,14 @@ a:hover, a:focus {
     float: left;
     width: 41.66666667%;
   }
+  .hidden-lg {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .visible-sm-inline {
