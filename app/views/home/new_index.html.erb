@@ -22,16 +22,16 @@
                           <span>Extend warm handshakes.<br/>Not, cold emails!</span>
                         </div>
                       </div>
-                      <%= form_for :email, url: email_process_path, method: :post, html: {id: "email_process", :class => "form-horizontal"} do |f| %>
+                      <%= form_for :email, url: email_process_path, method: :post, html: {:class => "form-horizontal"} do |f| %>
                         <div class="row form-group">
                           <div class="col-xs-12 text-right clearfix">
-                            <%= f.email_field :email, id: "contact_email", :class => "early-access-text flat-input clearfix", placeholder: "Enter email address" %>
-                            <div id="contact_email_error"></div>
+                            <%= f.email_field :email, :class => "early-access-text flat-input clearfix", placeholder: "Enter email address" %>
+                            <div class="row col-xs-12 contact-email-error" style="display: block;position: absolute;font-size: 12px;color: rgb(255, 0, 0);text-align: right"></div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12 text-right">
-                            <%= f.submit "GET EARLY ACCESS!", id: "email_process_btn", :class => "btn early-access-btn" %>
+                            <%= f.submit "GET EARLY ACCESS!", onclick: "$.fn.submit_contact_details(event, this);", :class => "btn early-access-btn" %>
                           </div>
                         </div>
                       <% end %>
@@ -189,17 +189,17 @@
                     </div>
                     <div class="row">
                       <div class="col-xs-12">
-                        <%= form_for :email, url: email_process_path, method: :post, html: {id: "email_process", :class => "form-horizontal", style: "padding-top: 20px;"} do |f| %>
+                        <%= form_for :email, url: email_process_path, method: :post, html: {:class => "form-horizontal", style: "padding-top: 20px;"} do |f| %>
                           <div class="row form-group">
                             <div class="col-sm-8 col-xs-12 group-field">
-                              <%= f.email_field :email, id: "contact_email", :class => "form-control clearfix", placeholder: "Enter email address", style: "height: 45px;" %>
+                              <%= f.email_field :email, :class => "form-control clearfix", placeholder: "Enter email address", style: "height: 45px;" %>
                             </div>
                             <div class="col-sm-4 col-xs-12 group-field">
-                              <%= f.submit "GET EARLY ACCESS", id: "email_process_btn", :class => "btn subscribe-btn", style: "height: 45px;" %>
+                              <%= f.submit "GET EARLY ACCESS", onclick: "$.fn.submit_contact_details(event, this);", :class => "btn subscribe-btn", style: "height: 45px;" %>
                             </div>
                           </div>
+                          <div class="row col-xs-12 contact-email-error" style="display: block;position: absolute;font-size: 12px;color: rgb(255, 0, 0);"></div>
                         <% end %>
-                        <div id="contact_email_error" class="row"></div>
                       </div>
                     </div>
                   </div>
