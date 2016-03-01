@@ -1,9 +1,13 @@
 class HomeController < ApplicationController
   def index
   end
+
   def email_process
     Email.create(email_params)
     redirect_to thank_you_path
+  end
+
+  def new_index
   end
 
   private

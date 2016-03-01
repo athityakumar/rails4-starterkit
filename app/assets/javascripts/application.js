@@ -1,5 +1,5 @@
+//= require_tree
 'use strict';
-
 window.onload = function() {
 
   if (document.getElementById('email_process_btn') != null) {
@@ -36,3 +36,10 @@ window.onload = function() {
   }
 
 }
+
+$(document).ready(function() {
+  $('#fullpage').fullpage({
+    css3: true,
+    scrollingSpeed: 1000
+  })
+})

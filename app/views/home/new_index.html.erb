@@ -1,0 +1,224 @@
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tbody>
+    <tr>
+      <td valign="middle">
+        <div class="container-fluid" id="fullpage">
+          <section class="section" id="section_1">
+            <div class="row">
+              <div class="top-strip"></div>
+            </div>
+            <div class="row">
+              <div class="row-sm-height">
+                <div class="col-sm-7 col-sm-height col-middle col-xs-12 col-no-gutter">
+                  <div class="row">
+                    <div class="col-xs-12 home-padding">
+                      <div class="row">
+                        <div class="col-xs-12 text-right">
+                          <a href="/" title="PipeCandy">
+                            <%= image_tag "/assets/logo.png", width: "100%", height: "100%", alt: "PipeCandy", :class => "logo", align: "middle", title: "Email Prospecting Software For Sales Reps!" %>
+                          </a>
+                        </div>
+                        <div class="col-xs-12 text-right heading">
+                          <span>Extend warm handshakes.<br/>Not, cold emails!</span>
+                        </div>
+                      </div>
+                      <%= form_for :email, url: email_process_path, method: :post, html: {id: "email_process", :class => "form-horizontal"} do |f| %>
+                        <div class="row form-group">
+                          <div class="col-xs-12 text-right clearfix">
+                            <%= f.email_field :email, id: "contact_email", :class => "early-access-text flat-input clearfix", placeholder: "Enter email address" %>
+                            <div id="contact_email_error"></div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12 text-right">
+                            <%= f.submit "GET EARLY ACCESS!", id: "email_process_btn", :class => "btn early-access-btn" %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5 col-sm-height col-middle col-xs-12 col-no-gutter">
+                  <%= image_tag "/assets/Banner.jpg", width: "100%", height: "100%", alt: "Banner PipeCandy", :class => "img-responsive", align: "middle" %>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_2">
+            <div class="row">
+              <div class="row-sm-height">
+                <div class="col-sm-7 col-sm-height col-middle col-xs-12 col-no-gutter black-background">
+                  <%= image_tag "/assets/laptop.jpg", width: "100%", height: "100%", alt: "PipeCandy", :class => "img-responsive", align: "middle" %>
+                </div>
+                <div class="col-sm-5 col-sm-height col-middle col-xs-12 col-no-gutter black-background">
+                  <div class="home-padding">
+                    <div class="heading">PipeCandy is setting the gold standard for email prospecting</div>
+                    <br/>
+                    <br/>
+                    <div class="note">
+                      <p>PipeCandy is intelligent, well mannered and understands the nuances of sales prospecting. It learns about your organization, customers and offerings and recommends prospects, scores them for you. PipeCandy sends your prospects personalized emails &amp; demands very little time from you.<br/><br/>With data, predictive models and our deep understanding of 'good salesmanship', PipeCandy works like your alterego.<br/><br/>Forget mass email campaigns, the tyranny of building email lists &amp; running out of time and ideas. It&rsquo;s time you get PipeCandy &amp; put email prospecting on the cruise mode.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_3">
+            <div class="row">
+              <div class="col-xs-12 col-no-gutter">
+                <div class="carousel">
+                  <div class="carousel-inner">
+                    <%= image_tag "/assets/collage.jpg", width: "100%", height: "100%", alt: "PipeCandy", :class => "img-responsive", align: "middle" %>
+                    <div class="carousel-caption">
+                      <div class="row">
+                        <div class="col-sm-7 col-xs-12 col-centered">
+                          <div class="card">
+                            <div class="heading">Spend zero time in building prospect lists &amp; contacts</div>
+                            <div class="note">
+                              <p>Creating email lists in where most prospecting initiatives come to a halt. It&rsquo;s not that sales organizations don&rsquo;t care much about prospecting, but it takes forever to build lists and often, there isn&rsquo;t anyone to do it forever.<br/><br/>We&rsquo;ve killed list building. You tell us what your target market is, the types of organizations and the roles that would be your ideal prospects. PipeCandy finds matching companies, people and their contacts. Even better, your lists now update themselves, the moment there is a new match or a change in your existing list. Say Hello! to <span class="highlight">Dynamic Lists <sup>TM</sup></span><br/><br/>Got existing lists? PipeCandy takes them in and makes them <span class="highlight">Dynamic Lists <sup>TM</sup></span></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_5">
+            <div class="row">
+              <div class="row-sm-height">
+                <div class="col-sm-7 col-sm-height col-middle col-xs-12 col-no-gutter black-background">
+                  <%= image_tag "/assets/pencils.jpg", width: "100%", height: "100%", alt: "PipeCandy", :class => "img-responsive", align: "middle" %>
+                </div>
+                <div class="col-sm-5 col-sm-height col-middle col-xs-12 col-no-gutter black-background">
+                  <div class="home-padding">
+                    <div class="heading">PipeCandy writes the email for you, well almost!</div>
+                    <br/>
+                    <br/>
+                    <div class="note">
+                      <p>What good is a gorgeous, sophisticated email prospecting software if it can&rsquo;t get you results? We hear you. PipeCandy comes with pre-built email templates for common prospecting scenarios. We didn&rsquo;t write them during the weekends when we had to find a channel for our creative urges. These are battle-tested emails that have worked for us over the years.</p><br/><br/>The sophistication of these templates is hidden behind the simple and clean interface. <span class="highlight">Smart Tags <sup>TM</sup></span> embedded in these templates magically decide if there is enough data to personalize for a specific recipient and accordingly adds, modifies or redacts sentences.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_6">
+            <div class="row">
+              <div class="row-sm-height">
+                <div class="col-sm-7 col-sm-height col-middle col-xs-12 col-no-gutter">
+                  <div class="home-padding">
+                    <div class="heading">PipeCandy is like a courteous, well mannered puppy that&rsquo;s helpful</div>
+                    <br/>
+                    <br/>
+                    <div class="note">
+                     <p>We have trained PipeCandy to be courteous, thoughtful and positively surprising.<br/><br/>For instance, we understand when your prospects generally open your emails and deliver just at that time. Hurricane in the east coast? We&rsquo;ll remind you to send a 'stay safe' note. Trouble at a prospect&rsquo;s factory and you know a supply chain expert? We&rsquo;ll connect those dots for you, so that you can be genuinely helpful.<br/><br/>Helping is the best form of selling. We&rsquo;ll help you do it every day, effortlessly!</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5 col-sm-height col-middle col-xs-12 col-no-gutter">
+                  <%= image_tag "/assets/dog.jpg", width: "100%", height: "100%", alt: "PipeCandy", :class => "img-responsive", align: "middle" %>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_7">
+            <div class="row">
+              <div class="row-sm-height">
+                <div class="col-sm-8 col-sm-height col-middle col-xs-12 black-background col-no-gutter">
+                  <div class="home-padding">
+                    <div class="heading">Meet your Concierge</div>
+                    <br/>
+                    <br/>
+                    <div class="note">
+                      <p>Some of our early customers confirmed our fear - in spite of good intentions to scale outbound prospecting, there is a skill and/or time availability issue in many organizations. If this is true of your organization as well, we&rsquo;ve something for you.</p>
+                    </div>
+                    <div class="row">
+                      <div class="row-sm-height">
+                        <div class="col-sm-6 col-sm-height col-middle col-xs-12">
+                          <p><span class="note-2">Conceirge,</span><span class="note"> is a bespoke outbound prospecting program for organizations that are in a hurry but can&rsquo;t devote the time such a strategic initiative needs. The Conceirge team setup a professional outbound prospecting program after a diligent review of your context and expectations.</span></p>
+                        </div>
+                        <div class="col-sm-6 col-sm-height col-middle col-xs-12">
+                          <p><span class="note">Concierge is a fine blend of best of the breed tools, field-tested processes, highly experienced consultants and smart, hands-on campaign runners.</span><br/><br/><span class="note-3">PipeCandy gives you intelligence &amp; scale. Conceirge gives you the leverage of experience.</span></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="display: none;">
+                      <div class="col-xs-12 text-left" style="padding-top: 40px;">
+                        <a href="#" class="btn conceirge-btn" style="padding: 20px 0px;">REQUEST ACCESS</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-sm-height col-middle col-xs-12 black-background col-no-gutter">
+                  <%= image_tag "/assets/butler.jpg", width: "100%", height: "100%", alt: "PipeCandy", :class => "img-responsive", align: "middle" %>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_8">
+            <div class="row">
+              <div class="row-sm-height">
+                <div class="col-sm-5 col-sm-height col-middle col-xs-12 col-no-gutter">
+                  <div class="home-padding">
+                    <div class="heading">We&rsquo;ve packed a lot more</div>
+                    <br/>
+                    <br/>
+                    <div class="note">
+                     <p>We&rsquo;re literally moving mountains (of data), putting earnest efforts to learn about your business and solving some really hard machine learning problems, so that you get that additional qualified lead and reclaim several hours in your busy day. There are many 'That&rsquo;s so obvious. Why didn&rsquo;t we have it already' features, that are keeping us excited.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-7 col-sm-height col-middle col-xs-12 col-no-gutter">
+                  <%= image_tag "/assets/laptop2.png", width: "100%", height: "100%", alt: "PipeCandy", :class => "img-responsive", align: "middle" %>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section_9">
+            <div class="row">
+              <div class="col-xs-12 light-dark-background">
+                <div class="row">
+                  <div class="col-sm-9 col-xs-12 col-centered">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="subscribe-heading">Looks like we&rsquo;re doing a lot of talking. Why don&rsquo;t you sign up for early access?<br/>We'll continue this conversion later.</div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <%= form_for :email, url: email_process_path, method: :post, html: {id: "email_process", :class => "form-horizontal", style: "padding-top: 20px;"} do |f| %>
+                          <div class="row form-group">
+                            <div class="col-sm-8 col-xs-12 group-field">
+                              <%= f.email_field :email, id: "contact_email", :class => "form-control clearfix", placeholder: "Enter email address", style: "height: 45px;" %>
+                            </div>
+                            <div class="col-sm-4 col-xs-12 group-field">
+                              <%= f.submit "GET EARLY ACCESS", id: "email_process_btn", :class => "btn subscribe-btn", style: "height: 45px;" %>
+                            </div>
+                          </div>
+                        <% end %>
+                        <div id="contact_email_error" class="row"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<%#
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <p>We&rsquo;ve every data point you need to personalize</p>
+    <p>Remember, we talked about warm handshakes? That&rsquo;s possible because, PipeCandy tells you everything you need to know about a prospect.</p>
+    <p>PipeCandy has some of the best data scientists that have the experience in dealing with internet scale data &amp; building customer acquisition models. We also have partnerships with world&rsquo;s leading data providers.</p>
+  </div>  
+</div>
+%>
