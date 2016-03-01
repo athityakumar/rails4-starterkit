@@ -20,7 +20,7 @@ set :application, 'pipecandy'
 set :scm, :git
 
 # Git Repository
-set :repository, 'git@bitbucket.org:thangadurai-cse/pipecandy.git'
+set :repository, 'git@bitbucket.org:ashwinizer/pipecandy.git'
 
 # If you need to touch public/images, public/javascripts, and public/stylesheets on each deploy
 # set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
