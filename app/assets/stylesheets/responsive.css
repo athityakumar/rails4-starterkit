@@ -45,6 +45,9 @@
     padding-left: 60px;
     padding-right: 0px;
   }
+  #section_9 .subscribe-padding {
+    margin-left: 60px;
+  }
 }
 @media (max-width: 768px) {
   .col-no-gutter {
@@ -64,6 +67,9 @@
   #section_1 .home-padding {
     padding-top: 90px;
     padding-bottom: 90px;
+  }
+  #section_9 .subscribe-padding {
+    margin-left: 15px;
   }
 }
 @media (min-width: 480px) {

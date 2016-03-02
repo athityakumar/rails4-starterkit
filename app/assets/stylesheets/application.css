@@ -371,16 +371,18 @@ a:hover, a:focus {
   height: 61px;
   color: #fff;
 }
+#section_9 .subscribe-padding {
+  margin-left: 13%;
+}
 #section_9 .subscribe-heading {
-  color:  #ffffff;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 300;
-  line-height: 33px;
+  line-height: 30px;
   text-align: left;
 }
 #section_9 .subscribe-btn {
   color: #ffffff;
-  border-radius: 5px;
+  border-radius: 0px 5px 5px 0px;
   background-color:  #ef215f;
   width: 231px;
 }
