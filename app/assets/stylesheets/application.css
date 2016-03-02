@@ -45,7 +45,7 @@ html {
       -ms-text-size-adjust: 100%;
 }
 body {
-  font-family: "ubuntu-regular";
+  font-family: "ubuntu-light";
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
@@ -53,7 +53,7 @@ body {
   margin: 0;
 }
 p {
-  margin: 0 0 10px;
+  margin: 0 0 0px;
 }
 h1 {
   font-size: 36px;
@@ -284,6 +284,59 @@ a:hover, a:focus {
 .spaced {
   padding-top: 20px;
 }
+/*On focus input remove the placeholder*/
+input:focus::-webkit-input-placeholder { color: transparent; }
+input:focus:-moz-placeholder { color: transparent; }
+input:focus::-moz-placeholder { color: transparent; }
+input:focus:-ms-input-placeholder { color: transparent; }
+/*Placeholder must be right align */
+/* webkit solution */
+/*#section_1 .early-access-text::-webkit-input-placeholder { text-align:right; }*/
+/* mozilla solution */
+/*#section_1 .early-access-text:-moz-placeholder { text-align:right; }*/
+/*For all headings*/
+.heading {
+  font-size: 30px;
+  font-weight: 300;
+  text-align: left;
+}
+#section_2 .heading, #section_6 .heading {
+  color:  #ff6549;
+}
+#section_3 .heading {
+  color:  #31ab86;
+}
+#section_4 .heading {
+  color:  #1277b7;  
+}
+#section_5 .heading {
+  color:  #ff7f6b;
+}
+#section_7 .heading, #section_8 .heading {
+  color:  #ef215f;
+}
+/*For all paragraph's*/
+.note {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+#section_2 .note, #section_5 .note, #section_7 .note {
+  color:  #fff;
+}
+#section_3 .note, #section_4 .note, #section_6 .note, #section_8 .note {
+  color:  #142a38;
+}
+#section_3 .note .highlight, #section_5 .note .highlight, #section_7 .note .highlight {
+  color:  #ef215f;
+  font-style: italic;
+  font-weight: normal;
+}
+#section_7 .note .highlight-bold { 
+  color:  #ef215f;
+  font-weight: 700;
+}
 #section_1 .home-padding {
   padding: 0px 90px;
 }
@@ -300,24 +353,17 @@ a:hover, a:focus {
   color:  #ababab;
   font-size: 20px;
   line-height: 24px;
-  text-align: right;
+  text-align: left;
   height: 34px;
   width: 300px;
   font-size: 14px;
   line-height: 1.42857143;
-  padding: 6px 0px 6px 12px;
+  padding: 6px 12px 6px 0px;
 }
-input:focus::-webkit-input-placeholder { color:transparent; }
-input:focus:-moz-placeholder { color:transparent; }
-input:focus::-moz-placeholder { color:transparent; }
-input:focus:-ms-input-placeholder { color:transparent; }
+
 #section_1 .early-access-text:focus {
   padding: 6px 12px;
 }
-/* webkit solution */
-#section_1 .early-access-text::-webkit-input-placeholder { text-align:right; }
-/* mozilla solution */
-#section_1 .early-access-text:-moz-placeholder { text-align:right; }
 #section_1 .early-access-btn {
   font-family: "ubuntu-light";
   border: 5px solid transparent;
@@ -332,20 +378,6 @@ input:focus:-ms-input-placeholder { color:transparent; }
   text-align: center;
   margin-top: 5px;
   letter-spacing: 1px;
-}
-#section_2 .heading {
-  color:  #ff6549;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_2 .note {
-  font-family: "ubuntu-light";
-  color:  #ffffff;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
 }
 #section_3 .carousel-caption {
   text-shadow: none;
@@ -370,128 +402,12 @@ input:focus:-ms-input-placeholder { color:transparent; }
   background-color: #FFF;
   padding: 30px;
 }
-#section_3 .heading {
-  color:  #31ab86;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_3 .note {
-  font-family: "ubuntu-light";
-  color:  #142a38;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-}
-#section_3 .note .highlight {
-  font-family: "ubuntu-light";
-  color:  #ef215f;
-  font-size: 15px;
-  font-style: italic;
-  line-height: 24px;
-  text-align: left;
-}
-#section_4 .heading {
-  color:  #1277b7;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_4 .note {
-  font-family: "ubuntu-light";
-  color:  #142a38;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-}
-#section_5 .heading {
-  color:  #ff7f6b;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_5 .note {
-  font-family: "ubuntu-light";
-  color:  #ffffff;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-}
-#section_5 .note .highlight {
-  font-family: "ubuntu-light";
-  color:  #ef215f;
-  font-size: 15px;
-  font-style: italic;
-  line-height: 24px;
-  text-align: left;
-}
-#section_6 .heading {
-  color:  #ff6549;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_6 .note {
-  font-family: "ubuntu-light";
-  color:  #142a38;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-}
-#section_7 .heading {
-  color:  #ef215f;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_7 .note {
-  font-family: "ubuntu-light";
-  color:  #ffffff;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-}
-#section_7 .note-2 {
-  font-family: "ubuntu-light";
-  color:  #ef215f;
-  font-size: 15px;
-  font-style: italic;
-  line-height: 24px;
-  text-align: left;
-}
-#section_7 .note-3 {
-  font-family: "ubuntu-light";
-  color:  #ef215f;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 24px;
-  text-align: left;
-}
 #section_7 .conceirge-btn {
   border-radius: 5px;
   background-color:  #1793e0;
   width: 370px;
   height: 61px;
   color: #fff;
-}
-#section_8 .heading {
-  color:  #ef215f;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: left;
-}
-#section_8 .note {
-  font-family: "ubuntu-light";
-  color:  #142a38;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
 }
 .light-dark-background {
   background-color:  #142a38;
