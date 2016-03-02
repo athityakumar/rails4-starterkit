@@ -71,6 +71,10 @@
   #section_9 .subscribe-padding {
     margin-left: 15px;
   }
+  #section_9 .teams .team-profile img {
+    width: 100px;
+    height: 100px;
+  }
 }
 @media (min-width: 480px) {
   .row-xs-height {

@@ -218,6 +218,10 @@ a:hover, a:focus {
   background-color:  #142a38;
   color: #fff;
 }
+.dark-background {
+  background-color:  #061118;
+  color: #fff;
+}
 .centered {
   position: absolute;
   top: 50%;
@@ -385,4 +389,33 @@ a:hover, a:focus {
   border-radius: 0px 5px 5px 0px;
   background-color:  #ef215f;
   width: 231px;
+}
+#section_9 .teams .heading{
+  color:  #ff826b;
+  font-size: 30px;
+  text-align: center;
+}
+#section_9 .teams .team-profile {
+  font-size: 14px;
+  font-weight: 400;
+}
+#section_9 .teams .team-profile .name {
+  color:  #ff826b;
+  font-weight: 700;
+  padding-top: 20px;
+}
+#section_9 .teams .team-profile .designation {
+  color:  #ffffff;
+}
+#section_9 .teams .team-profile .description {
+  color:  #88a7ba;
+  padding: 10px 5px 0px 5px;
+}
+#section_9 .teams .team-profile img {
+  width: 170px;
+  height: 170px;
+}
+#section_9 .copyright {
+  color:  #446276;
+  font-size: 12px;
 }
