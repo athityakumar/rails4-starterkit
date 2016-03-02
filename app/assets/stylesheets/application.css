@@ -392,6 +392,20 @@ input:focus:-ms-input-placeholder { color:transparent; }
   line-height: 24px;
   text-align: left;
 }
+#section_4 .heading {
+  color:  #1277b7;
+  font-size: 30px;
+  font-weight: 300;
+  text-align: left;
+}
+#section_4 .note {
+  font-family: "ubuntu-light";
+  color:  #142a38;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
 #section_5 .heading {
   color:  #ff7f6b;
   font-size: 30px;
