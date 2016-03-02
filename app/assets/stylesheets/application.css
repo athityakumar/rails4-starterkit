@@ -13,13 +13,9 @@
  */
 
 /*Include all the ubuntu fonts*/
-@font-face {
+/*@font-face {
   font-family: "ubuntu-bold";
   src: url('/assets/Ubuntu-B.ttf') format("truetype");
-}
-@font-face {
-  font-family: "ubuntu-light";
-  src: url('/assets/Ubuntu-L.ttf') format("truetype");
 }
 @font-face {
   font-family: "ubuntu-light-italic";
@@ -36,6 +32,10 @@
 @font-face {
   font-family: "ubuntu-regular";
   src: url('/assets/Ubuntu-R.ttf') format("truetype");
+}*/
+@font-face {
+  font-family: "ubuntu-light";
+  src: url('/assets/Ubuntu-L.ttf') format("truetype");
 }
 html {
   font-family: sans-serif;
@@ -52,9 +52,9 @@ body {
   background-color: #fff;
   margin: 0;
 }
-p {
+/*p {
   margin: 0 0 0px;
-}
+}*/
 h1 {
   font-size: 36px;
   font-family: inherit;
@@ -76,9 +76,11 @@ input {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
 }
-small {
-  font-size: 85%;
-}
+/*On focus input remove the placeholder*/
+input:focus::-webkit-input-placeholder { color: transparent; }
+input:focus:-moz-placeholder { color: transparent; }
+input:focus::-moz-placeholder { color: transparent; }
+input:focus:-ms-input-placeholder { color: transparent; }
 a {
   background-color: transparent;
   color: #337ab7;
@@ -93,9 +95,6 @@ a:hover, a:focus {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.4;
-}
-.text-center {
-  text-align: center;
 }
 .white-color {
   color: #FFF !important;
@@ -121,11 +120,8 @@ a:hover, a:focus {
 .full-spaced-bottom {
   padding-bottom: 30px;
 }
-.ubuntu-bold {
+/*.ubuntu-bold {
   font-family: "ubuntu-bold";
-}
-.ubuntu-light {
-  font-family: "ubuntu-light";
 }
 .ubuntu-light-italic {
   font-family: "ubuntu-light-italic";
@@ -138,6 +134,9 @@ a:hover, a:focus {
 }
 .ubuntu-regular {
   font-family: "ubuntu-regular";
+}*/
+.ubuntu-light {
+  font-family: "ubuntu-light";
 }
 /* Bootstrap Additional Class */
 .row-height {
@@ -166,87 +165,6 @@ a:hover, a:focus {
 .col-centered {
   float: none;
   margin: 0 auto;
-}
-@media (min-width: 480px) {
-  .row-xs-height {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-  .col-xs-height {
-    display: table-cell;
-    float: none;
-    height: 100%;
-  }
-}
-@media (min-width: 768px) {
-  .row-sm-height {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-  .col-sm-height {
-    display: table-cell;
-    float: none;
-    height: 100%;
-  }
-}
-@media (min-width: 992px) {
-  .row-md-height {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-  .col-md-height {
-    display: table-cell;
-    float: none;
-    height: 100%;
-  }
-}
-@media (min-width: 1200px) {
-  .row-lg-height {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-  .col-lg-height {
-    display: table-cell;
-    float: none;
-    height: 100%;
-  }
-}
-.top-strip, .bottom-strip {
-  width: 100%;
-  height: 5px;
-  background: url(/assets/tile.png);
-  background-size: 344px 5px, cover;
-}
-.top-strip {
-  top: 0;
-}
-.bottom-strip {
-  bottom: 0;
-}
-.home-padding {
-  padding: 0px 60px;
-}
-.logo {
-  width: 232px;
-}
-.black-background {
-  background: #000;
-  color: #fff;
-}
-.centered {
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
 }
 .flat-input {
   border-radius: 0px 0px 0px 0px;
@@ -281,24 +199,73 @@ a:hover, a:focus {
   border-color: #66afe9;
   outline: 0;
 }
-.spaced {
-  padding-top: 20px;
+.social-floater {
+  position: fixed;
+  top: 5px;
+  right: 0px;
+  width: 32px;
+  z-index: 10;
 }
-/*On focus input remove the placeholder*/
-input:focus::-webkit-input-placeholder { color: transparent; }
-input:focus:-moz-placeholder { color: transparent; }
-input:focus::-moz-placeholder { color: transparent; }
-input:focus:-ms-input-placeholder { color: transparent; }
+.social-profile {
+  position: absolute;
+  z-index: 10;
+}
+.black-background {
+  background: #000;
+  color: #fff;
+}
+.light-dark-background {
+  background-color:  #142a38;
+  color: #fff;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.top-strip {
+  top: 0;
+  width: 100%;
+  height: 5px;
+  background: url(/assets/tile.png);
+  background-size: 344px 5px, cover;
+}
+.logo {
+  width: 232px;
+}
 /*Placeholder must be right align */
 /* webkit solution */
 /*#section_1 .early-access-text::-webkit-input-placeholder { text-align:right; }*/
 /* mozilla solution */
 /*#section_1 .early-access-text:-moz-placeholder { text-align:right; }*/
+/*Custom Padding for each section*/
+.custom-padding {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+#section_2 .custom-padding, #section_5 .custom-padding {
+  padding: 15px 20% 15px 10%;
+}
+#section_4 .custom-padding {
+  padding-left: 25%;
+  padding-right: 0%;
+}
+#section_6 .custom-padding, #section_8 .custom-padding {
+  padding-left: 25%;
+  padding-right: 25%;
+}
+#section_7 .custom-padding {
+  padding-left: 22%;
+  padding-right: 0%;
+}
 /*For all headings*/
 .heading {
   font-size: 30px;
   font-weight: 300;
   text-align: left;
+  padding-bottom: 20px;
 }
 #section_2 .heading, #section_6 .heading {
   color:  #ff6549;
@@ -337,9 +304,6 @@ input:focus:-ms-input-placeholder { color: transparent; }
   color:  #ef215f;
   font-weight: 700;
 }
-#section_1 .home-padding {
-  padding: 0px 90px;
-}
 #section_1 .heading {
   color:  #142a38;
   font-size: 26px;
@@ -360,12 +324,10 @@ input:focus:-ms-input-placeholder { color: transparent; }
   line-height: 1.42857143;
   padding: 6px 12px 6px 0px;
 }
-
 #section_1 .early-access-text:focus {
   padding: 6px 12px;
 }
 #section_1 .early-access-btn {
-  font-family: "ubuntu-light";
   border: 5px solid transparent;
   background-color:  #ef215f;
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.39);
@@ -408,11 +370,6 @@ input:focus:-ms-input-placeholder { color: transparent; }
   width: 370px;
   height: 61px;
   color: #fff;
-}
-.light-dark-background {
-  background-color:  #142a38;
-  padding-top: 40px;
-  padding-bottom: 40px;
 }
 #section_9 .subscribe-heading {
   color:  #ffffff;
