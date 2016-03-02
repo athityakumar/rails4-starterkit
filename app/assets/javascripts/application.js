@@ -6,7 +6,7 @@ $(document).ready(function() {
     event.preventDefault();
     var element = $(ele);
     var form = element.closest('form');
-    var email = form.find('input[name="email"]');
+    var email = form.find('input[type="email"]');
     var email_validate = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (email_validate.test(email.val())) {
       form.submit();

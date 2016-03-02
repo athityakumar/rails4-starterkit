@@ -19,10 +19,10 @@
                           </a>
                         </div>
                         <div class="col-xs-12 text-right heading">
-                          <span>Extend warm handshakes.<br/>Not, cold emails!</span>
+                          <span>Say hello with warm handshakes. Not, cold emails!</span>
                         </div>
                       </div>
-                      <%= form_for :email, url: email_process_path, method: :post, html: {:class => "form-horizontal"} do |f| %>
+                      <%= form_for :email, url: email_process_path, method: :post, html: {:class => "form-horizontal", style: "padding-top: 25px;"} do |f| %>
                         <div class="row form-group">
                           <div class="col-xs-12 text-right clearfix">
                             <%= f.email_field :email, :class => "early-access-text flat-input clearfix", placeholder: "Enter email address" %>
@@ -74,6 +74,8 @@
                         <div class="col-sm-7 col-xs-12 col-centered">
                           <div class="card">
                             <div class="heading">Spend zero time in building prospect lists &amp; contacts</div>
+                            <br/>
+                            <br/>
                             <div class="note">
                               <p>Creating email lists in where most prospecting initiatives come to a halt. It&rsquo;s not that sales organizations don&rsquo;t care much about prospecting, but it takes forever to build lists and often, there isn&rsquo;t anyone to do it forever.<br/><br/>We&rsquo;ve killed list building. You tell us what your target market is, the types of organizations and the roles that would be your ideal prospects. PipeCandy finds matching companies, people and their contacts. Even better, your lists now update themselves, the moment there is a new match or a change in your existing list. Say Hello! to <span class="highlight">Dynamic Lists <sup>TM</sup></span><br/><br/>Got existing lists? PipeCandy takes them in and makes them <span class="highlight">Dynamic Lists <sup>TM</sup></span></p>
                             </div>
