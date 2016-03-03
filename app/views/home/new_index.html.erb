@@ -297,7 +297,7 @@
       <div class="modal-content">
         <div class="top-strip"></div>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><%= image_tag "/assets/cancel.png", width: "24", height: "24" %></button>
-        <div class="modal-body">
+        <div class="modal-body modal-body-1">
           <div class="row">
             <div class="col-xs-12">
               <p><span class="highlight">Concierge</span> being a very personalized service, we&rsquo;re opening access to a limited set of customers every month.</p>
@@ -326,15 +326,33 @@
             </div>
             <div class="row">
               <div class="col-xs-12 text-center full-spaced">
-                <%= f.submit "REQUEST ACCESS", :class => "btn conceirge-btn" %>
+                <%= f.submit "REQUEST ACCESS", id: "request_access_submit", :class => "btn conceirge-btn" %>
               </div>
             </div>
           <% end %>
+        </div>
+        <div class="modal-body modal-body-2" style="display: none">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="heading">CONCIERGE TEAM SAYS 'THANK YOU!'</div>
+            </div>
+            <div class="col-xs-12 spaced">
+              <div class="note">
+                <p>Thanks <span id="request_person_name"></span>! I can't wait to get you started with Concierge.</p>
+                <p>If you have any questions or simply want to get connected personally, please do get in touch with me, Ashwin, at <a href="mailto:ashwin@pipecandy.com" target="_blank">ashwin@pipecandy.com</a>. I'm also on twitter at <a href="https://twitter.com/ashwinizer" target="_blank" rel="nofollow">@ashwinizer</a>.</p>
+                <p>Follow us at <a href="https://twitter.com/PipeCandyHQ" target="_blank" rel="nofollow">@PipeCandyHQ</a> to stay up to date.</p>
+                <br/>
+                <br/>
+                <p>Ashwin Ramasamy<br/>Co-founder &amp; CEO of PipeCandy</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <%#
 <div class="row">
   <div class="hidden-lg hidden-md hidden-sm">

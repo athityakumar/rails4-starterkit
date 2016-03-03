@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     if @prospect.save
       PipecandyMailer.concierge_mail(@prospect).deliver_now
     end
-    redirect_to thank_you_path
+    render nothing: true, status: 201
   end
 
   def no_route_match_error
