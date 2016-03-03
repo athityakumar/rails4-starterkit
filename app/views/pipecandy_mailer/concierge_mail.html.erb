@@ -1,0 +1,30 @@
+<div>Hi Ashwin,</div>
+<br/>
+<div>We've got a prospect interested in the Concierge services. I've the details below.</div>
+<br/>
+<table align="left">
+  <tbody>
+    <tr>
+      <td valign="top" style="padding-top: 10px">Name</td>
+      <td valign="top" style="padding-top: 10px">:</td>
+      <td valign="top" style="padding-top: 10px"><%= @prospect.name %></td>
+    </tr>
+    <tr>
+      <td valign="top" style="padding-top: 10px">Email</td>
+      <td valign="top" style="padding-top: 10px">:</td>
+      <td valign="top" style="padding-top: 10px"><%= @prospect.email %></td>
+    </tr>
+    <tr>
+      <td valign="top" style="padding-top: 10px">Company</td>
+      <td valign="top" style="padding-top: 10px">:</td>
+      <td valign="top" style="padding-top: 10px"><%= @prospect.company %></td>
+    </tr>
+    <% unless @prospect.description.blank? %>
+      <tr>
+        <td valign="top" style="padding-top: 10px">Description</td>
+        <td valign="top" style="padding-top: 10px">:</td>
+        <td valign="top" style="padding-top: 10px"><%= @prospect.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -99,4 +99,17 @@ Rails.application.configure do
     remove_style_attributes: true,
     simple_boolean_attributes: true,
     simple_doctype: false
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.mandrillapp.com",
+    :port                 => 587,
+    :user_name            => "ashwin@tapiphany.org",
+    :password             => "-rjR335JJJ7qtMOce4Y3GA",
+    :authentication       => :plain,
+    :enable_starttls_auto => true
+  }
+
+  config.action_mailer.default_url_options = { :host => "pipecandy.com" }
+
 end

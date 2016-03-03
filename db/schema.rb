@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20160303051910) do
     t.string   "name",        limit: 255
     t.string   "email",       limit: 255
     t.string   "company",     limit: 255
-    t.string   "description", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "emails", force: :cascade do |t|

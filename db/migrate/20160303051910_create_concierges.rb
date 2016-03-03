@@ -4,7 +4,7 @@ class CreateConcierges < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :company
-      t.string :description
+      t.text :description
 
       t.timestamps null: false
     end
