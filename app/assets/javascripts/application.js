@@ -1,24 +1,17 @@
+//= require jquery
 //= require_tree
 'use strict';
 $(document).ready(function() {
-  $.fn.submit_contact_details = function(event, ele) {
-    event = event || window.event;
-    event.preventDefault();
-    var element = $(ele);
-    var form = element.closest('form');
-    var email = form.find('input[type="email"]');
-    var email_validate = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (email_validate.test(email.val())) {
-      form.submit();
-      return true;
-    } else {
-      email.focus();
-      var email_error_ele = form.find('.contact-email-error');
-      email_error_ele.css('margin-top','3px');
-      email_error_ele.html('Please enter your email ID.');
-      setTimeout(function() {
-        email_error_ele.html('').css('margin-top','');
-      }, 5000);
-    }
+  if ( $('#concierge_modal').length > 0 ) {
+    $('#concierge_modal').parsley();
+  }
+  if ( $('.email-subscribe-form').length > 0 ) {
+    $('.email-subscribe-form').parsley();
+  }
+  $.fn.show_request_access_modal = function() {
+    // Set to scrollTop
+    $(document).scrollTop($('#section_7').position().top);
+    // Show the bootstrap modal
+    $('#request_access_modal').modal('show');
   }
 });

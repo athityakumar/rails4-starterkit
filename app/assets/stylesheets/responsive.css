@@ -75,6 +75,12 @@
     width: 100px;
     height: 100px;
   }
+  #request_access_modal .modal-body {
+    padding: 30px 60px;
+  }
+  #request_access_modal .early-access-text {
+    width: 100%;
+  }
 }
 @media (min-width: 480px) {
   .row-xs-height {
@@ -100,6 +106,9 @@
     display: table-cell;
     float: none;
     height: 100%;
+  }
+  #request_access_modal .modal-dialog {
+    width: 725px;
   }
 }
 @media (min-width: 992px) {

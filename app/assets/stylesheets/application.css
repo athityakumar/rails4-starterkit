@@ -8,8 +8,8 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require_tree .
+ *= require_self
  */
 
 /*Include all the ubuntu fonts*/
@@ -166,6 +166,30 @@ a:hover, a:focus {
   float: none;
   margin: 0 auto;
 }
+/*Align bootstrap modal to center of the window*/
+.modal.fade {
+  -webkit-transition: opacity .15s linear, top .25s ease-out;
+  -moz-transition: opacity .15s linear, top .25s ease-out;
+  -o-transition: opacity .15s linear, top .25s ease-out;
+  transition: opacity .15s linear, top .25s ease-out;
+}
+.modal-vertical-align-helper {
+  display:table;
+  height: 100%;
+  width: 100%;
+  pointer-events:none;
+}
+.modal-vertical-center {
+  display: table-cell;
+  vertical-align: middle;
+  pointer-events:none;
+}
+.modal-content {
+  width:inherit;
+  height:inherit;
+  margin: 0 auto;
+  pointer-events: all;
+}
 .flat-input {
   border-radius: 0px 0px 0px 0px;
   border-width: 0px 0px 1px;
@@ -198,6 +222,17 @@ a:hover, a:focus {
   margin-bottom: 5px;
   border-color: #66afe9;
   outline: 0;
+}
+.parsley-errors-list {
+  margin: 0px;
+  list-style-type: none;
+  -webkit-margin-before: 0px;
+  -webkit-margin-after: 0px;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+  font-size: 10px;
+  color: red;
 }
 .social-floater {
   position: fixed;
@@ -316,11 +351,8 @@ a:hover, a:focus {
   text-align: right;
   padding-top: 25px;
 }
-#section_1 .early-access-text {
-  font-family: "ubuntu-light";
+.early-access-text {
   color:  #ababab;
-  font-size: 20px;
-  line-height: 24px;
   text-align: left;
   height: 34px;
   width: 300px;
@@ -328,7 +360,7 @@ a:hover, a:focus {
   line-height: 1.42857143;
   padding: 6px 12px 6px 0px;
 }
-#section_1 .early-access-text:focus {
+.early-access-text:focus {
   padding: 6px 12px;
 }
 #section_1 .early-access-btn {
@@ -371,7 +403,7 @@ a:hover, a:focus {
 #section_7 .conceirge-btn {
   border-radius: 5px;
   background-color:  #1793e0;
-  width: 370px;
+  padding: 20px 80px;
   height: 61px;
   color: #fff;
 }
@@ -418,4 +450,32 @@ a:hover, a:focus {
 #section_9 .copyright {
   color:  #446276;
   font-size: 12px;
+}
+#request_access_modal .modal-body .highlight {
+  color:  #ef215f;
+  font-weight: 700;
+}
+#request_access_modal .modal-content {
+  border-radius: 0px;
+  box-shadow: none;
+}
+#request_access_modal .modal-body {
+  padding: 45px 90px;
+}
+#request_access_modal .modal-body .conceirge-btn {
+  border-radius: 5px;
+  background-color:  #1793e0;
+  padding: 12px 48px;
+  color: #fff;
+}
+#request_access_modal .early-access-text {
+  width: 250px;
+  font-size: 13px;
+}
+#request_access_modal .close {
+  position: absolute;
+  z-index: 1;
+  opacity: 1;
+  right: 10px;
+  top: 10px;
 }
