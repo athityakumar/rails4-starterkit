@@ -27,7 +27,7 @@ set :repository, 'git@bitbucket.org:ashwinizer/pipecandy.git'
 set :normalize_asset_timestamps, false
 
 # Improve Performance with Remote Cache
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 
 # By default, Capistrano will try to use sudo to do certain operations (setting up your servers, restarting your application, etc.). If you are on a shared host, sudo might be unavailable to you, or maybe you just want to avoid using sudo.
 set :use_sudo, false
