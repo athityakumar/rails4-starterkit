@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#new_index'
 
-  get    "/thank-you"           => "home#thank_you",         as: :thank_you
-  post   "/email/process"       => "home#email_process",     as: :email_process
-  post   "/concierge/process"   => "home#concierge_process", as: :concierge_process
+  # get    "/thank-you"           => "home#thank_you",         as: :thank_you
+  # post   "/email/process"       => "home#email_process",     as: :email_process
+  post   "/concierge/process"    => "home#concierge_process", as: :concierge_process
+  get    "*unmatched_route"      => "home#no_route_match_error"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

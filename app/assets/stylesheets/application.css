@@ -280,6 +280,8 @@ a:hover, a:focus {
 /*#section_1 .early-access-text::-webkit-input-placeholder { text-align:right; }*/
 /* mozilla solution */
 /*#section_1 .early-access-text:-moz-placeholder { text-align:right; }*/
+::-webkit-input-placeholder { color: #c4c4c4; }
+:-moz-placeholder { color: #c4c4c4; }
 /*Custom Padding for each section*/
 .custom-padding {
   padding-left: 60px;
@@ -353,7 +355,8 @@ a:hover, a:focus {
   padding-top: 25px;
 }
 .early-access-text {
-  color:  #ababab;
+  /*color:  #ababab;*/
+  color:  #999999;
   text-align: left;
   height: 34px;
   width: 300px;

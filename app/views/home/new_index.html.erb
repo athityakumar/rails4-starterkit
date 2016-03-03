@@ -22,15 +22,16 @@
                           <span>Say hello with warm handshakes. Not, cold emails!</span>
                         </div>
                       </div>
-                      <%= form_for :email, url: email_process_path, method: :post, html: {:class => "form-horizontal email-subscribe-form"} do |f| %>
+                      <%= form_tag "#", class: "form-horizontal", onsubmit: "return false;" do %>
                         <div class="row form-group">
                           <div class="col-xs-12 text-right clearfix">
-                            <%= f.email_field :email, :class => "early-access-text flat-input clearfix", "data-parsley-error-message" => "Could you fill the email address please?", required: true, placeholder: "Enter email address" %>
+                            <%= email_field_tag :email, "", :class => "early-access-text flat-input clearfix clearfield", "data-parsley-error-message" => "Could you fill the email address please?", required: true, placeholder: "Enter email address" %>
+                            <div class="email-error" style="font-size: 12px;color: rgb(255, 0, 0);"></div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12 text-right">
-                            <%= f.submit "GET EARLY ACCESS!", :class => "btn early-access-btn" %>
+                            <%= submit_tag "GET EARLY ACCESS!", onclick: "$.fn.get_early_access(event, this)", :class => "btn early-access-btn" %>
                           </div>
                         </div>
                       <% end %>
@@ -180,13 +181,11 @@
                         </div>
                       </div>
                     </div>
-                    <% if @show_concierge_request_access %>
-                      <div class="row">
-                        <div class="col-xs-12 text-left" style="padding-top: 40px;">
-                          <a href="javascript:void(0);" onclick="$.fn.show_request_access_modal();" class="btn conceirge-btn">REQUEST ACCESS</a>
-                        </div>
+                    <div class="row">
+                      <div class="col-xs-12 text-left" style="padding-top: 40px;">
+                        <a href="javascript:void(0);" onclick="$.fn.show_request_access_modal();" class="btn conceirge-btn">REQUEST ACCESS</a>
                       </div>
-                    <% end %>
+                    </div>
                   </div>
                 </div>
                 <div class="hidden-xs col-sm-4 col-sm-height col-middle col-xs-12 black-background col-no-gutter">
@@ -224,14 +223,14 @@
                     </div>
                     <div class="row">
                       <div class="col-xs-12">
-                        <%= form_for :email, url: email_process_path, method: :post, html: {:class => "form-horizontal email-subscribe-form", style: "padding-top: 20px;"} do |f| %>
+                        <%= form_tag "#", class: "form-horizontal spaced", onsubmit: "return false;" do %>
                           <div class="input-group">
-                            <%= f.email_field :email, :class => "form-control clearfix", "data-parsley-error-message" => "Could you fill the email address please?", required: true, "data-parsley-errors-container" => "#subscribe_error_container", placeholder: "Enter email address", style: "height: 45px;" %>
+                            <%= email_field_tag :email, "", :class => "form-control clearfix clearfield", placeholder: "Enter email address", style: "height: 45px;" %>
                             <span class="input-group-btn">
-                              <%= f.submit "GET EARLY ACCESS", :class => "btn subscribe-btn", style: "height: 45px;" %>
+                              <%= submit_tag "GET EARLY ACCESS!", onclick: "$.fn.get_early_access(event, this)", :class => "btn subscribe-btn", style: "height: 45px;" %>
                             </span>
                           </div>
-                          <div id="subscribe_error_container" class="row col-xs-12" style="display: block;position: absolute;font-size: 12px;color: rgb(255, 0, 0);"></div>
+                          <div class="row col-xs-12 email-error" style="display: block;position: absolute;font-size: 12px;color: rgb(255, 0, 0);margin-top: 5px;"></div>
                         <% end %>
                       </div>
                     </div>
@@ -292,53 +291,50 @@
   </tbody>
 </table>
 
-<% if @show_concierge_request_access %>
-  <div id="request_access_modal" class="modal fade" aria-labelledby="Concierge" aria-hidden="true">
-    <div class="modal-vertical-align-helper">
-      <div class="modal-dialog modal-vertical-center">
-        <div class="modal-content">
-          <div class="top-strip"></div>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><%= image_tag "/assets/cancel.png", width: "24", height: "24" %></button>
-          <div class="modal-body">
+<div id="request_access_modal" class="modal fade" aria-labelledby="Concierge" aria-hidden="true">
+  <div class="modal-vertical-align-helper">
+    <div class="modal-dialog modal-vertical-center">
+      <div class="modal-content">
+        <div class="top-strip"></div>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><%= image_tag "/assets/cancel.png", width: "24", height: "24" %></button>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <p><span class="highlight">Concierge</span> being a very personalized service, we&rsquo;re opening access to a limited set of customers every month.</p>
+              <p class="half-spaced">Please fill in your details and you'll hear from us very soon on the way forward.</p>
+            </div>
+          </div>
+          <%= form_for :concierge, url: concierge_process_path, method: :post, html: {:class => "form-horizontal full-spaced", id: "concierge_modal"} do |f| %>
             <div class="row">
-              <div class="col-xs-12">
-                <p><span class="highlight">Concierge</span> being a very personalized service, we&rsquo;re opening access to a limited set of customers every month.</p>
-                <p class="half-spaced">Please fill in your details and you'll hear from us very soon on the way forward.</p>
+              <div class="row-sm-height">
+                <div class="col-sm-6 col-sm-height col-middle col-xs-12 clearfix">
+                  <div>
+                    <%= f.text_field :name, :class => "flat-input early-access-text clearfield", "data-parsley-error-message" => "Oops! Your name is missing.", required: true, placeholder: "Your name" %>
+                  </div>
+                  <div class="half-spaced">
+                    <%= f.email_field :email, :class => "flat-input early-access-text clearfield", "data-parsley-error-message" => "Mmm. Could you fill the email address please?", required: true, placeholder: "Email address" %>
+                  </div>
+                  <div class="half-spaced">
+                    <%= f.text_field :company, :class => "flat-input early-access-text clearfield", "data-parsley-error-message" => "Again, what's the name of your organization?", required: true, placeholder: "Name of your organization" %>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-sm-height col-middle col-xs-12">
+                  <div class="hidden-lg hidden-md hidden-sm spaced"></div>
+                  <%= f.text_area :description, rows: 7, :class => "form-control clearfield", placeholder: "A short description of your business", style: "font-size: 13px;border-radius: 0px;" %>
+                </div>
               </div>
             </div>
-            <%= form_for :concierge, url: concierge_process_path, method: :post, html: {:class => "form-horizontal full-spaced", id: "concierge_modal"} do |f| %>
-              <div class="row">
-                <div class="row-sm-height">
-                  <div class="col-sm-6 col-sm-height col-middle col-xs-12 clearfix">
-                    <div>
-                      <%= f.text_field :name, :class => "flat-input early-access-text", "data-parsley-error-message" => "Oops! Your name is missing.", required: true, placeholder: "Your name" %>
-                    </div>
-                    <div class="half-spaced">
-                      <%= f.email_field :email, :class => "flat-input early-access-text", "data-parsley-error-message" => "Mmm. Could you fill the email address please?", required: true, placeholder: "Email address" %>
-                    </div>
-                    <div class="half-spaced">
-                      <%= f.text_field :company, :class => "flat-input early-access-text", "data-parsley-error-message" => "Again, what's the name of your organization?", required: true, placeholder: "Name of your organization" %>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-sm-height col-middle col-xs-12">
-                    <div class="hidden-lg hidden-md hidden-sm spaced"></div>
-                    <%= f.text_area :description, rows: 7, :class => "form-control", placeholder: "A short description of your business", style: "font-size: 13px;border-radius: 0px;" %>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-xs-12 text-center full-spaced">
+                <%= f.submit "REQUEST ACCESS", :class => "btn conceirge-btn" %>
               </div>
-              <div class="row">
-                <div class="col-xs-12 text-center full-spaced">
-                  <%= f.submit "REQUEST ACCESS", :class => "btn conceirge-btn" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
-<% end %>
-
+</div>
 <%#
 <div class="row">
   <div class="hidden-lg hidden-md hidden-sm">
