@@ -8,8 +8,9 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require bootstrap
  *= require_self
+ *= require_tree .
  */
 
 /*Include all the ubuntu fonts*/
@@ -420,7 +421,7 @@ a:hover, a:focus {
   color: #ffffff;
   border-radius: 0px 5px 5px 0px;
   background-color:  #ef215f;
-  width: 231px;
+  padding: 10px 40px;
 }
 #section_9 .teams .heading{
   color:  #ff826b;
