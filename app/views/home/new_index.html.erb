@@ -183,7 +183,7 @@
                     </div>
                     <div class="row" style="display: none;">
                       <div class="col-xs-12 text-left" style="padding-top: 40px;">
-                        <a href="#" class="btn conceirge-btn" style="padding: 20px 0px;">REQUEST ACCESS</a>
+                        <a href="javascript:void(0);" onclick="$('#request_access_modal').modal('show');" class="btn conceirge-btn" style="padding: 20px 0px;">REQUEST ACCESS</a>
                       </div>
                     </div>
                   </div>
@@ -254,7 +254,7 @@
                         <div class="designation">Co-founder &amp; Chief Executive Officer</div>
                         <div class="description">
                           <div>
-                            Founded ContractIQ, which was among the earliest B2B marketplaces for mobile outsourcing. Server customers like Philips, H&amp;R Block, Soylent.<br/><br/>Alumnus of IIT Madras
+                            Founded ContractIQ, a B2B marketplaces for mobile outsourcing that served customers like Philips, H&amp;R Block and Soylent.<br/><br/>Alumnus of IIT Madras
                           </div>
                         </div>
                       </div>
@@ -291,6 +291,28 @@
   </tbody>
 </table>
 
+<!-- <div id="request_access_modal" class="modal fade" aria-labelledby="Concierge" aria-hidden="true">
+  <div class="modal-vertical-align-helper">
+    <div class="modal-dialog modal-vertical-center">
+      <div class="modal-content clearfix">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <p><span>Concierge</span> being a very personalized service, we&rsquo;re opening access to a limited set of customers every month.</p>
+              <p>Please fill in your details and you'll hear from us very soon on the way forward.</p>
+            </div>
+          </div>
+          <%#= form_for :concierge, url: concierge_process_path, method: :post, html: {:class => "form-horizontal", id: "concierge_modal"} do |f| %>
+            <div class="">
+          <%# end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
 <%#
 <div class="row">
   <div class="hidden-lg hidden-md hidden-sm">
