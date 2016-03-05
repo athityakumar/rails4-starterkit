@@ -57,7 +57,7 @@ $(document).ready(function() {
         alert("This form isn't valid");
       }
     });
-    $('#concierge_name').on('keypress', function() {
+    $('#concierge_name').on('blur', function() {
       var name = $(this).val();
       $('#request_person_name').text(name);
     })
