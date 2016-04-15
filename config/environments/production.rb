@@ -102,11 +102,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.mandrillapp.com",
-    :port                 => 587,
-    :user_name            => "ashwin@tapiphany.org",
-    :password             => "-rjR335JJJ7qtMOce4Y3GA",
-    :authentication       => :plain,
+    :user_name => 'contractiq',
+    :password => 'ctiq_sendgrid1905',
+    :domain => 'contractiq.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
     :enable_starttls_auto => true
   }
 
