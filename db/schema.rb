@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303051910) do
+ActiveRecord::Schema.define(version: 20160415124034) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -26,6 +26,32 @@ ActiveRecord::Schema.define(version: 20160303051910) do
     t.string   "email",      limit: 255, default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+  end
+
+  create_table "twitter_followers", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "screen_name",  limit: 255
+    t.string   "twitter_id",   limit: 255
+    t.boolean  "is_friend",                default: false
+    t.boolean  "is_following",             default: false
+    t.boolean  "is_processed",             default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "twitter_followers", ["screen_name"], name: "index_twitter_followers_on_screen_name", unique: true, using: :btree
+
+  create_table "twitter_user_followers", force: :cascade do |t|
+    t.integer  "twitter_user_id",     limit: 4
+    t.integer  "twitter_follower_id", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  create_table "twitter_users", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

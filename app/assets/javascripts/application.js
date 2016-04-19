@@ -1,7 +1,20 @@
 //= require jquery
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require_tree
 'use strict';
 $(document).ready(function() {
+  $.fn.randomString = function(length) {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".split("");
+    if (!length) {
+      length = Math.floor(Math.random() * chars.length);
+    }
+    var str = "";
+    for (var i = 0; i < length; i++) {
+      str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
+  }
   $.fn.show_request_access_modal = function() {
     // Set to scrollTop
     $(document).scrollTop($('#section_7').position().top);
@@ -61,5 +74,92 @@ $(document).ready(function() {
       var name = $(this).val();
       $('#request_person_name').text(name);
     })
+  }
+  if ( $('#twitter_form').length > 0 ) {
+    $('#twitter_form').parsley();
+  }
+  if ( $('#twitter_followers').length > 0 ) {
+    var twitterTable = $('#twitter_followers').dataTable({
+      sPaginationType: "simple_numbers",
+      bInfo: true,
+      bProcessing: true,
+      bServerSide: true,
+      sDom: 'rt<"bottom"p><"clear">',
+      language: {
+        "sInfoEmpty": 'No entries to show',
+        "sEmptyTable": 'There are no followers to show.'
+      },
+      "lengthMenu": [[10, 20, 40, 80, -1], [10, 20, 40, 80, "All"]],
+      "autoWidth": false,
+      aoColumns: [
+        {
+          "sWidth": "225px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "150px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "150px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "50px",
+          "sClass": "text-center",
+          "bSortable": false,
+          "bVisible": true
+        },
+        {
+          "bVisible": false
+        },
+        {
+          "bVisible": false
+        }
+      ],
+      sAjaxSource: $('#twitter_followers').data('source'),
+      drawCallback: function( settings ) {
+        var api = this.api();
+        var info = api.page.info();
+        if (info.recordsTotal <= info.length) {
+          $("#twitter_datatable .dataTables_paginate").hide();
+        }
+        else{
+          $("#twitter_datatable .dataTables_paginate").show();
+        }
+        // DataTable Custom Select Option
+        $('#dataTablesInfo').html(
+          'Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' documents'
+        );
+      }
+    });
+    var twitterTableApi = twitterTable.api();
+    // DataTable Custom Search
+    $('#twitterFollowerSearch').keyup(function(){
+      twitterTableApi.search($(this).val()).draw();
+    });
+    $('#twitterScreenName').on('change', function() {
+      var element = $(this);
+      var id = element.val();
+      var name = element.find("option:selected").text();
+      twitterTableApi.ajax.url("/admin/twitter/"+id+"/followers.json").load();
+      $('#twitterUpdateLink').html(
+        $('<a>', {href: "/admin/twitter/"+id+"/update"})
+          .addClass('update-tweet-confirmation')
+          .css("text-decoration", "underline")
+          .attr("data-name", name)
+          .text("Update '"+name+"' Followers List")
+      );
+    });
+    $.fn.changeDataTableLength = function(length) {
+      twitterTableApi.page.len(length).draw();
+    }
+    $(document).on('click', '.update-tweet-confirmation', function () {
+      var screenName = $(this).attr("data-name");
+      return confirm('Are you sure want to update the twitter user "'+screenName+'"?');
+    });
   }
 });

@@ -7,8 +7,12 @@ Rails.application.routes.draw do
 
   # get    "/thank-you"           => "home#thank_you",         as: :thank_you
   # post   "/email/process"       => "home#email_process",     as: :email_process
-  post   "/concierge/process"    => "home#concierge_process", as: :concierge_process
-  get    "*unmatched_route"      => "home#no_route_match_error"
+  post   "/concierge/process"             => "home#concierge_process", as: :concierge_process
+  get    "/admin/twitter"                 => "admin#twitter",          as: :twitter
+  post   "/admin/twitter"                 => "admin#twitter"
+  get    "/admin/twitter/:id/followers"   => "admin#twitter_followers"
+  get    "/admin/twitter/:id/update"      => "admin#twitter_update"
+  get    "*unmatched_route"               => "home#no_route_match_error"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

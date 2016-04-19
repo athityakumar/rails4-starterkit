@@ -9,6 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap
+ *= require font-awesome
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require_self
  *= require_tree .
  */
@@ -41,6 +43,7 @@
 html {
   font-family: sans-serif;
   font-size: 16px;
+  height: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
@@ -52,6 +55,7 @@ body {
   color: #333;
   background-color: #fff;
   margin: 0;
+  height: 100%;
 }
 /*p {
   margin: 0 0 0px;
@@ -120,6 +124,12 @@ a:hover, a:focus {
 }
 .full-spaced-bottom {
   padding-bottom: 30px;
+}
+.no-margin {
+  margin: 0 !important;
+}
+.sharp-corners {
+  border-radius: 0px !important;
 }
 /*.ubuntu-bold {
   font-family: "ubuntu-bold";

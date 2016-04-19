@@ -18,6 +18,29 @@
   </head>
   <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 
+    <% if !notice.nil? || !alert.nil? %>
+      <div class="position: absolute;width: 100%;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-10 col-xs-12 col-centered full-spaced">
+              <% if !notice.nil? %>
+                <div class="alert alert-success text-center">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <%= notice %>
+                </div>
+              <% end %>
+              <% if !alert.nil? %>
+                <div class="alert alert-danger text-center">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <%= alert %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <%= yield %>
 
     <%= javascript_include_tag 'application', cache: true %>

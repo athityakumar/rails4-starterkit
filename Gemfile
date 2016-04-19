@@ -12,6 +12,15 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+# Use Twitter gem for follow/unfollow in twitter
+gem 'twitter', '~> 5.16'
+
+# Jquery Datatable.
+gem 'jquery-datatables-rails', '~> 3.4'
+
+# For pagination
+gem 'will_paginate', '~> 3.1'
+
 group :production do 
   
   # To enable html compression

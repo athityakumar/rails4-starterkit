@@ -1,0 +1,73 @@
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tbody>
+    <tr>
+      <td valign="middle">
+        <div class="container full-spaced full-spaced-bottom">
+          <div class="row">
+            <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11 col-centered">
+              <h2 class="text-center no-margin">Twitter follow/unfollow</h2>
+              <%= form_tag twitter_path, method: :post, id: "twitter_form", class: "spaced spaced-bottom" do %>
+                <div class="input-group">
+                  <%= text_field_tag :username, "", class: "form-control sharp-corners", required: true, placeholder: "Twitter Username (PipeCandyHQ)", "data-parsley-error-message" => "Please enter the twitter username only!.", "data-parsley-errors-container" => "#twitter_username_error" %>
+                  <span class="input-group-btn">
+                    <%= submit_tag "Proceed!", id: "twitter_form_submit", class: "btn btn-default sharp-corners" %>
+                  </span>
+                </div>
+                <div id="twitter_username_error"></div>
+              <% end %>
+            </div>
+          </div>
+          <% unless @twitter_users.blank? %>
+            <% first_user = @twitter_users.first %>
+            <div class="row full-spaced">
+              <div class="col-md-9 col-sm-10 col-xs-12 col-centered spaced" id="twitter_datatable">
+                <div class="row-height">
+                  <div class="col-height col-middle">
+                    <%= label_tag "screen_name", "Select Twitter Name" %>
+                    <div class="select-style half-spaced">
+                      <%= select_tag "screen_name[]", options_from_collection_for_select(@twitter_users, :id, :name, first_user.id), id: "twitterScreenName" %>
+                    </div>
+                  </div>
+                  <div class="col-height col-bottom text-right" id="twitterUpdateLink">
+                    <a href="/admin/twitter/<%= first_user.id %>/update" style="text-decoration: underline;" class="update-tweet-confirmation" data-name="<%= first_user.name %>">Update '<%= first_user.name %>' Followers List</a>
+                  </div>
+                </div>
+                <div class="row spaced">
+                  <div class="col-sm-6">
+                    <input id="twitterFollowerSearch" type="text" placeholder="Search" />
+                  </div>
+                  <div class="col-sm-6 text-right">
+                    <div class="dropdown" style="padding-top: 7px;">
+                      <label id="dataTablesInfo"></label>
+                      <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="dataTablesLength" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                      <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dataTablesLength">
+                        <li style="padding: 6px 0px;">Show up to:</li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(10);">&nbsp;&nbsp;10 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(20);">&nbsp;&nbsp;20 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(40);">&nbsp;&nbsp;40 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(80);">&nbsp;&nbsp;80 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(-1);">&nbsp;&nbsp;All</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <table id="twitter_followers" class="table" data-source="/admin/twitter/<%= first_user.id %>/followers.json">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Friend</th>
+                      <th>Following</th>
+                      <th class="text-center" style="padding-right: 0px;">Link</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
