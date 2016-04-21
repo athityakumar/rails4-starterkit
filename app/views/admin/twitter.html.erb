@@ -18,18 +18,16 @@
             </div>
           </div>
           <% unless @twitter_users.blank? %>
-            <% first_user = @twitter_users.first %>
             <div class="row full-spaced">
               <div class="col-md-9 col-sm-10 col-xs-12 col-centered spaced" id="twitter_datatable">
                 <div class="row-height">
                   <div class="col-height col-middle">
                     <%= label_tag "screen_name", "Select Twitter Name" %>
                     <div class="select-style half-spaced">
-                      <%= select_tag "screen_name[]", options_from_collection_for_select(@twitter_users, :id, :name, first_user.id), id: "twitterScreenName" %>
+                      <%= select_tag "screen_name[]", options_from_collection_for_select(@twitter_users, :id, :name), include_blank: "All", id: "twitterScreenName", placeholder: "Select the username" %>
                     </div>
                   </div>
                   <div class="col-height col-bottom text-right" id="twitterUpdateLink">
-                    <a href="/admin/twitter/<%= first_user.id %>/update" style="text-decoration: underline;" class="update-tweet-confirmation" data-name="<%= first_user.name %>">Update '<%= first_user.name %>' Followers List</a>
                   </div>
                 </div>
                 <div class="row spaced">
@@ -51,7 +49,7 @@
                     </div>
                   </div>
                 </div>
-                <table id="twitter_followers" class="table" data-source="/admin/twitter/<%= first_user.id %>/followers.json">
+                <table id="twitter_followers" class="table" data-source="/admin/twitter.json">
                   <thead>
                     <tr>
                       <th>Name</th>

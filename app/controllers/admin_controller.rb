@@ -41,6 +41,11 @@ class AdminController < ApplicationController
       end
     else
       @twitter_users = TwitterUser.all
+      @twitter_followers = TwitterFollower.all
+      respond_to do |format|
+        format.html
+        format.json { render json: TwitterDatatable.new(view_context, @twitter_followers) }
+      end
     end
   end
 

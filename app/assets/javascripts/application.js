@@ -146,15 +146,20 @@ $(document).ready(function() {
     $('#twitterScreenName').on('change', function() {
       var element = $(this);
       var id = element.val();
-      var name = element.find("option:selected").text();
-      twitterTableApi.ajax.url("/admin/twitter/"+id+"/followers.json").load();
-      $('#twitterUpdateLink').html(
-        $('<a>', {href: "/admin/twitter/"+id+"/update"})
-          .addClass('update-tweet-confirmation')
-          .css("text-decoration", "underline")
-          .attr("data-name", name)
-          .text("Update '"+name+"' Followers List")
-      );
+      if (id == "") {
+        twitterTableApi.ajax.url("/admin/twitter.json").load();
+        $('#twitterUpdateLink').html("");
+      } else {
+        var name = element.find("option:selected").text();
+        twitterTableApi.ajax.url("/admin/twitter/"+id+"/followers.json").load();
+        $('#twitterUpdateLink').html(
+          $('<a>', {href: "/admin/twitter/"+id+"/update"})
+            .addClass('update-tweet-confirmation')
+            .css("text-decoration", "underline")
+            .attr("data-name", name)
+            .text("Update '"+name+"' Followers List")
+        );
+      }
     });
     $.fn.changeDataTableLength = function(length) {
       twitterTableApi.page.len(length).draw();
