@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require "whenever/capistrano"
 
 # Used in SSHKit.
 default_run_options[:pty] = true
@@ -12,6 +13,9 @@ ssh_options[:forward_agent] = true
 
 # To set the shell to bash for run in capistrano
 set :default_shell, '/bin/bash -l'
+
+# Update the Cronjob require 'whenever/capistrano'
+set :whenever_command, "bundle exec whenever"
 
 # App Name
 set :application, 'pipecandy'

@@ -2,7 +2,6 @@ class AdminController < ApplicationController
 
   before_filter :authenticate!
   before_filter :initialize_twitter!, only: [:twitter, :twitter_update]
-  MAX_ATTEMPTS = 3
 
   def twitter
     if request.post?
@@ -107,16 +106,16 @@ class AdminController < ApplicationController
 
   def authenticate!
     authenticate_or_request_with_http_basic do |username, password|
-      username == "pipecandy" && password == "pipecandy1905"
+      username == "pipecandy" && password == "pipecandy1905!"
     end
   end
 
   def initialize_twitter!
     @twitter_client = Twitter::REST::Client.new do |config|
-      config.consumer_key = "bKkUkkna5eVuGo7XYVF3j2g0x"
-      config.consumer_secret = "VAXJm2fxhPFyxSP0EAs7Uv8tfrqpYzARg9wXowMedKSw4r8ElH"
-      config.access_token = "340263856-1FfyCE1UR0uC9WGAETo1nYFK6r9NJDcPtuBCuVxK"
-      config.access_token_secret = "yWK6IhJKkBR22X2IBW9Rv1gsRtgqIGvcFdr5c2SoSnk4J"
+      config.consumer_key = "42xShxgXfxcmCafn92vnBWeOQ"
+      config.consumer_secret = "1xuI5cgtl09PRX3t6mdOH8YLlrc8rchr0XwsMK0KK4fgMIof5L"
+      config.access_token = "4812127693-aMMjNTgPYulpN19KGp4Hqq3hp4LJtTNiL2nw1Up"
+      config.access_token_secret = "kqOjj49JVP5YhICMKS4xvVg2ocefpGMHf7B4Z4MVzfDmO"
     end
   end
 end

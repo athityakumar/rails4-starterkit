@@ -1,0 +1,18 @@
+<div>Hi Thangadurai,</div>
+<br/>
+<div>Twitter Update Following Status. I've the details below.</div>
+<br/>
+<div>New Follow Back:</div>
+<div>Click here and see those profiles</div>
+<br/>
+<% count = 0 %>
+<div>
+  <% @following.each do |f| %>
+    <% if @new_following_ids.include?(f[:twitter_id]) %>
+      <span><a href="https://twitter.com/<%= f[:screen_name] %>"><%= f[:name] %></a> |</span>
+      <% count = count + 1 %>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<div> Total new followback users: <%= count %>.</div>

@@ -21,6 +21,9 @@ gem 'jquery-datatables-rails', '~> 3.4'
 # For pagination
 gem 'will_paginate', '~> 3.1'
 
+# Rails Cron
+gem 'whenever', '~> 0.9.4', require: false
+
 group :production do 
   
   # To enable html compression

@@ -4,9 +4,10 @@ class CreateTwitterFollowers < ActiveRecord::Migration
       t.string :name
       t.string :screen_name
       t.string :twitter_id
-      t.boolean :is_friend, default: false
-      t.boolean :is_following, default: false
-      t.boolean :is_processed, default: false
+      t.boolean :following, default: false
+      t.boolean :followers, default: false
+      t.date :date_processed
+      t.integer :attempts, default: 0
 
       t.timestamps null: false
     end

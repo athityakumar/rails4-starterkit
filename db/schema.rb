@@ -29,14 +29,15 @@ ActiveRecord::Schema.define(version: 20160415124034) do
   end
 
   create_table "twitter_followers", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "screen_name",  limit: 255
-    t.string   "twitter_id",   limit: 255
-    t.boolean  "is_friend",                default: false
-    t.boolean  "is_following",             default: false
-    t.boolean  "is_processed",             default: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.string   "name",           limit: 255
+    t.string   "screen_name",    limit: 255
+    t.string   "twitter_id",     limit: 255
+    t.boolean  "following",                  default: false
+    t.boolean  "followers",                  default: false
+    t.date     "date_processed"
+    t.integer  "attempts",       limit: 4,   default: 0
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   add_index "twitter_followers", ["screen_name"], name: "index_twitter_followers_on_screen_name", unique: true, using: :btree

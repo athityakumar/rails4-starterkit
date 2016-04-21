@@ -21,11 +21,11 @@ class TwitterDatatable
     results.map do |f|
       [
         f.name,
-        get_is_friend(f.is_friend),
-        get_is_following(f.is_following),
+        get_following(f.following),
+        get_followers(f.followers),
+        f.date_processed.blank? ? "Not Yet" : f.date_processed,
         get_twitter_link(f.screen_name),
-        f.twitter_id,
-        f.is_processed
+        f.twitter_id
       ]
     end
   end
@@ -43,7 +43,7 @@ class TwitterDatatable
   end
 
   def sort_column
-    columns = %w[name is_friend is_following "" "" ""]
+    columns = %w[name following followers date_processed "" "" ""]
     columns[params[:iSortCol_0].to_i]
   end
 
@@ -63,19 +63,19 @@ class TwitterDatatable
     "<a href='https://twitter.com/"+screen_name+"' target='_blank'><img src='/assets/twitter.png' width='20'/></a>".html_safe
   end
 
-  def get_is_friend bool_friend
-    if bool_friend
-      return "<span>Friend</span>".html_safe
-    else
-      return "<span>Not Friend</span>".html_safe
-    end
-  end
-
-  def get_is_following bool_follow
-    if bool_follow
+  def get_following bool_following
+    if bool_following
       return "<span>Following</span>".html_safe
     else
       return "<span>Not Following</span>".html_safe
+    end
+  end
+
+  def get_followers bool_follower
+    if bool_follower
+      return "<span>Follower</span>".html_safe
+    else
+      return "<span>Not Follower</span>".html_safe
     end
   end
 

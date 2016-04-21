@@ -108,13 +108,15 @@ $(document).ready(function() {
           "bVisible": true
         },
         {
+          "sWidth": "100px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
           "sWidth": "50px",
           "sClass": "text-center",
           "bSortable": false,
           "bVisible": true
-        },
-        {
-          "bVisible": false
         },
         {
           "bVisible": false
