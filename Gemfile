@@ -21,6 +21,12 @@ gem 'jquery-datatables-rails', '~> 3.4'
 # For pagination
 gem 'will_paginate', '~> 3.1'
 
+# Kick out synchronous delaying guys and process as queues, asynchronously!
+gem 'sidekiq'
+
+# if you require 'sinatra' you get the DSL extended to Object
+gem 'sinatra', :require => nil
+
 # Rails Cron
 gem 'whenever', '~> 0.9.4', require: false
 

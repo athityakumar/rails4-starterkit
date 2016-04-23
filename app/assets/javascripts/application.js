@@ -153,7 +153,7 @@ $(document).ready(function() {
         var name = element.find("option:selected").text();
         twitterTableApi.ajax.url("/admin/twitter/"+id+"/followers.json").load();
         $('#twitterUpdateLink').html(
-          $('<a>', {href: "/admin/twitter/"+id+"/update"})
+          $('<a>', {href: "/admin/twitter/"+id+"/job"})
             .addClass('update-tweet-confirmation')
             .css("text-decoration", "underline")
             .attr("data-name", name)

@@ -20,7 +20,7 @@ namespace :twitter_follow_unfollow do
       end
 
       puts "Sleeping for 1 minute"
-      sleep 60
+      sleep 900
       puts "Wake up at #{Time.now}"
 
       # Friends update

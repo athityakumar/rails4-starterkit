@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -11,7 +13,13 @@ Rails.application.routes.draw do
   get    "/admin/twitter"                 => "admin#twitter",          as: :twitter
   post   "/admin/twitter"                 => "admin#twitter"
   get    "/admin/twitter/:id/followers"   => "admin#twitter_followers"
-  get    "/admin/twitter/:id/update"      => "admin#twitter_update"
+  get    "/admin/twitter/:id/job"         => "admin#twitter_job_rerun"
+
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == "sidekiq" && password == "sidekiq1905!"
+  end if Rails.env.production?
+  mount Sidekiq::Web, at: "/sidekiq"
+  
   get    "*unmatched_route"               => "home#no_route_match_error"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
