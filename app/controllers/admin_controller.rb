@@ -5,10 +5,15 @@ class AdminController < ApplicationController
   def twitter
     if request.post?
       begin
-        twitter_user = TwitterUser.create(name: params[:username].to_s, is_processing: true)
-        # perform add followers_list to the follower table
-        FetchCreateFollowerJob.perform_later(twitter_user)
-        flash[:notice] = "User added successfully. Please click process button to process this user!"
+        twitter_user = TwitterUser.find_by_name(params[:username].to_s)
+        if twitter_user.blank?
+          twitter_user = TwitterUser.create(name: params[:username].to_s, is_processing: true)
+          # perform add followers_list to the follower table
+          FetchCreateFollowerJob.perform_later(twitter_user)
+          flash[:notice] = "User Added Successfully"
+        else
+          flash[:notice] = "User is already addded. Click update in the below table!"
+        end
         redirect_to twitter_path
       rescue Exception => e
         flash[:alert] = "Error when saving the user"
@@ -45,7 +50,7 @@ class AdminController < ApplicationController
       if twitter_user.is_processing
         flash[:notice] = "This user job is already running. So keep wait!"
       else
-        flash[:notice] = "Rerun to update this user list. Verify sidekiq!"
+        flash[:notice] = "Rerunning to update this user list. Verify sidekiq!"
         FetchCreateFollowerJob.perform_later(twitter_user)
       end
       redirect_to twitter_path
