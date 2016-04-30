@@ -39,11 +39,8 @@ set :use_sudo, false
 # Set the user on our server that we want Capistrano to run commands
 set :user, "pipecandy"
 
-# Enter the password for the user
-set :password, "FwNDbsp-!9o5"
-
 # Role Declaration for single staging server
-server "104.131.232.215", :app, :web, :db, :primary => true
+server "107.170.62.128", :app, :web, :db, :primary => true
 
 # Deploy Location
 set :deploy_to, "/home/pipecandy/public_html"

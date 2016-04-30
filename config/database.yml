@@ -44,4 +44,4 @@ production:
   <<: *default
   database: pipecandy
   username: pipecandy
-  password: "CIQMain0302"
+  password: "PipeCandy1602!"
