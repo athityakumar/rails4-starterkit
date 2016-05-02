@@ -18,11 +18,6 @@ set :default_shell, '/bin/bash -l'
 # Update the Cronjob require 'whenever/capistrano'
 set :whenever_command, "bundle exec whenever"
 
-# Enable sidekiq after deploying the app
-set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
-set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
-set :sidekiq_log, "#{current_path}/log/sidekiq.log"
-
 # App Name
 set :application, 'pipecandy'
 
@@ -50,6 +45,11 @@ server "107.170.62.128", :app, :web, :db, :primary => true
 
 # Deploy Location
 set :deploy_to, "/home/pipecandy/public_html"
+
+# Enable sidekiq after deploying the app
+set :pty,  false
+set :sidekiq_log, "#{current_path}/log/sidekiq.log"
+set :sidekiq_cmd, "bundle exec sidekiq -C #{current_path}/config/sidekiq.yml"
 
 # The last n releases are kept for possible rollbacks.
 set :keep_releases, 5

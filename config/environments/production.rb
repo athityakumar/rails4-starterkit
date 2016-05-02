@@ -100,17 +100,15 @@ Rails.application.configure do
     simple_boolean_attributes: true,
     simple_doctype: false
 
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => 'contractiq',
-    :password => 'ctiq_sendgrid1905',
-    :domain => 'contractiq.com',
-    :address => 'smtp.sendgrid.net',
-    :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
+    user_name: "contractiq",
+    password: "ctiq_sendgrid1905",
+    address: "smtp.sendgrid.net",
+    domain: "107.170.62.128",
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true
   }
-
-  config.action_mailer.default_url_options = { :host => "pipecandy.com" }
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: "107.170.62.128" }
 end

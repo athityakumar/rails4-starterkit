@@ -23,13 +23,13 @@
         <% if !notice.nil? %>
           <div class="alert alert-success text-center">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <%= notice %>
+            <%= notice.html_safe %>
           </div>
         <% end %>
         <% if !alert.nil? %>
           <div class="alert alert-danger text-center">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <%= alert %>
+            <%= alert.html_safe %>
           </div>
         <% end %>
       </div>
