@@ -1,5 +1,6 @@
-require 'bundler/capistrano'
+require "bundler/capistrano"
 require "whenever/capistrano"
+require "capistrano/sidekiq"
 
 # Used in SSHKit.
 default_run_options[:pty] = true
@@ -16,6 +17,11 @@ set :default_shell, '/bin/bash -l'
 
 # Update the Cronjob require 'whenever/capistrano'
 set :whenever_command, "bundle exec whenever"
+
+# Enable sidekiq after deploying the app
+set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+set :sidekiq_log, "#{current_path}/log/sidekiq.log"
 
 # App Name
 set :application, 'pipecandy'

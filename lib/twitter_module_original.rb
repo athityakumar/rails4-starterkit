@@ -1,4 +1,4 @@
-module TwitterModule
+module TwitterModuleOriginal
 
   def client
     if Rails.env.production?

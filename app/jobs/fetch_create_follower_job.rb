@@ -1,4 +1,4 @@
-require "twitter_module"
+require "twitter_module_fake"
 
 class FetchCreateFollowerJob < ActiveJob::Base
   queue_as :twitter_followers_job
@@ -11,7 +11,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
       # Get the old Ids in the database
       old_followers_ids = twitter_followers.map(&:twitter_id).map(&:to_i)
       # Get the twitter_client
-      twitter_client = TwitterModule.client
+      twitter_client = TwitterModuleFake.client
       # Get the follower_ids
       follower_ids = twitter_client.follower_ids(twitter_user.name)
       # Sleep for 10 seconds

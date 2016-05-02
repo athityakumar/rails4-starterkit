@@ -51,6 +51,9 @@ group :development do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 2.15.5'
 
+  # Sidekiq integration for Capistrano
+  gem 'capistrano-sidekiq'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 

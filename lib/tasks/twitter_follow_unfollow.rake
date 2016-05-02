@@ -1,3 +1,4 @@
+require "twitter_module_original"
 namespace :twitter_follow_unfollow do
   
   desc "Twitter auto update API for follow back and friend status"
@@ -9,7 +10,7 @@ namespace :twitter_follow_unfollow do
       idFilter = Proc.new { |x| x[:twitter_id] }
 
       # Following back
-      followers = twitter_client.followers.map(&customFilter)
+      followers = TwitterModuleOriginal.client.followers.map(&customFilter)
       follower_ids = followers.map(&idFilter).map(&:to_i)
       old_follower_ids = TwitterFollower.where(followers: true).pluck(:twitter_id).map(&:to_i)
       new_follower_ids = follower_ids - old_follower_ids
@@ -24,7 +25,7 @@ namespace :twitter_follow_unfollow do
       puts "Wake up at #{Time.now}"
 
       # Friends update
-      following = twitter_client.friends.map(&customFilter)
+      following = TwitterModuleOriginal.client.friends.map(&customFilter)
       following_ids = following.map(&idFilter).map(&:to_i)
       old_following_ids = TwitterFollower.where(following: true).pluck(:twitter_id).map(&:to_i)
       new_following_ids = following_ids - old_following_ids
@@ -64,7 +65,7 @@ namespace :twitter_follow_unfollow do
       if unfollowed_ids.blank?
         puts "DB is empty?................"
       else
-        twitter_client.follow(unfollowed_ids)
+        TwitterModuleOriginal.client.follow(unfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", unfollowed_ids).update_all(following: true, date_processed: Date.today.to_s)
         PipecandyMailer.twitter_rake_success("follow").deliver_now
       end
@@ -97,9 +98,13 @@ namespace :twitter_follow_unfollow do
 
     begin
       puts "Twitter UnFollowing Starts Here..................."
-      twitter_client.unfollow(notfriendfollowed_ids)
-      TwitterFollower.where("twitter_id IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1")
-      PipecandyMailer.twitter_rake_success("unfollow").deliver_now
+      if notfriendfollowed_ids.blank?
+        puts "DB is empty?................"
+      else
+        TwitterModuleOriginal.client.unfollow(notfriendfollowed_ids)
+        TwitterFollower.where("twitter_id IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1")
+        PipecandyMailer.twitter_rake_success("unfollow").deliver_now
+      end
       puts "Twitter UnFollowing Ends Here..................."
     rescue Twitter::Error::Unauthorized
       error_handle("Twitter - UnFollow Authorize Error", "Not authorized error occurs, when try to twitter_unfollow", notfriendfollowed_ids)    
@@ -119,27 +124,6 @@ namespace :twitter_follow_unfollow do
     end
 
     puts "================Ending Twitter UnFollowing => #{Time.now.to_s}================"
-  end
-
-  # Twitter Configuration Method
-  def twitter_client
-    if Rails.env.production?
-      # Credentials from PipecandyHQ twitter profile
-      Twitter::REST::Client.new do |config|
-        config.consumer_key = "THafGffEG4azNrnHrljFaeoa4"
-        config.consumer_secret = "SUqm76rtjtTihkVOT66OcoA0McxDm61Hs9mDjKIe4hA0wcnIRx"
-        config.access_token = "723870595809595393-VCGcaLDVonTFrLmDVZu1sESWMFp6Uog"
-        config.access_token_secret = "xEkqAoF6ux4wH2ERkFuF7J75Emz5CUBNUN0zBsR3mCz5w"
-      end
-    else 
-      # Credentials from thangadurai twitter profile
-      Twitter::REST::Client.new do |config|
-        config.consumer_key = "bKkUkkna5eVuGo7XYVF3j2g0x"
-        config.consumer_secret = "VAXJm2fxhPFyxSP0EAs7Uv8tfrqpYzARg9wXowMedKSw4r8ElH"
-        config.access_token = "340263856-1FfyCE1UR0uC9WGAETo1nYFK6r9NJDcPtuBCuVxK"
-        config.access_token_secret = "yWK6IhJKkBR22X2IBW9Rv1gsRtgqIGvcFdr5c2SoSnk4J"
-      end
-    end
   end
 
   # Twitter follow unfollow error notification to email
