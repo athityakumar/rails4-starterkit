@@ -5,9 +5,10 @@ class AdminController < ApplicationController
   def twitter
     if request.post?
       begin
-        twitter_user = TwitterUser.find_by_name(params[:username].to_s)
+        username = params[:username].to_s
+        twitter_user = TwitterUser.find_by_name(username)
         if twitter_user.blank?
-          twitter_user = TwitterUser.create(name: params[:username].to_s, is_processing: true)
+          twitter_user = TwitterUser.create(name: username, is_processing: true)
           # perform add followers_list to the follower table
           FetchCreateFollowerJob.perform_later(twitter_user)
           flash[:notice] = "User Added Successfully"

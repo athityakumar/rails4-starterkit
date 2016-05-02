@@ -1,7 +1,7 @@
 require "twitter_module"
 
 class FetchCreateFollowerJob < ActiveJob::Base
-  queue_as :default
+  queue_as :twitter_followers_job
 
   def perform twitter_user
     begin

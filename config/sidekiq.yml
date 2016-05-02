@@ -1,0 +1,6 @@
+:queues:
+  - twitter_followers_job
+:limits:
+  twitter_followers_job: 1
+:process_limits:
+  twitter_followers_job: 1
