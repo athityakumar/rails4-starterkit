@@ -33,6 +33,9 @@ gem 'sinatra', :require => nil
 # Rails Cron
 gem 'whenever', '~> 0.9.4', require: false
 
+# Convert Non Char to Ascii
+gem 'unidecoder'
+
 group :production do 
   
   # To enable html compression

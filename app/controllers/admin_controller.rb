@@ -10,7 +10,8 @@ class AdminController < ApplicationController
         if twitter_user.blank?
           twitter_user = TwitterUser.create(name: username, is_processing: true)
           # perform add followers_list to the follower table
-          FetchCreateFollowerJob.perform_later(twitter_user)
+          job = FetchCreateFollowerJob.perform_later(twitter_user)
+          puts "======>Jobs for #{username}: #{job.to_s}<======"
           flash[:notice] = "&#x263A;&nbsp;&nbsp;User Added Successfully"
         else
           flash[:notice] = "User is already added. Click update in the below table!"
@@ -53,7 +54,8 @@ class AdminController < ApplicationController
       else
         flash[:notice] = "&#x263A;&nbsp;&nbsp;Rerunning to update this user list. Verify sidekiq!"
         twitter.update(is_processing: true)
-        FetchCreateFollowerJob.perform_later(twitter_user)
+        job = FetchCreateFollowerJob.perform_later(twitter_user)
+        puts "======>Jobs for #{username}: #{job.to_s}<======"
       end
       redirect_to twitter_path
     rescue Exception => e

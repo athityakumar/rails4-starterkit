@@ -24,7 +24,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
         unless slice.blank?
           follower_hash = []
           twitter_client.users(slice).each_with_index do |f, j|
-            follower_hash << {name: f.name, screen_name: f.screen_name, twitter_id: f.id}
+            follower_hash << {name: f.name.to_ascii, screen_name: f.screen_name.to_ascii, twitter_id: f.id}
           end
           # create follower associate with user
           twitter_user.twitter_followers.create(follower_hash)
