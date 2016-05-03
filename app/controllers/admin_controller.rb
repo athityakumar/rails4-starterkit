@@ -53,7 +53,7 @@ class AdminController < ApplicationController
         flash[:notice] = "This user job is already running. So keep wait!"
       else
         flash[:notice] = "&#x263A;&nbsp;&nbsp;Rerunning to update this user list. Verify sidekiq!"
-        twitter.update(is_processing: true)
+        twitter_user.update(is_processing: true)
         job = FetchCreateFollowerJob.perform_later(twitter_user)
         puts "======>Jobs for #{username}: #{job.to_s}<======"
       end
