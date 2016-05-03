@@ -4,7 +4,6 @@
 //= require_tree
 'use strict';
 $(document).ready(function() {
-  setTimeout(function() { $('.alert').fadeOut(5000) });
   $.fn.randomString = function(length) {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".split("");
     if (!length) {

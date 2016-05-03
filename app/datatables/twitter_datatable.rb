@@ -65,7 +65,7 @@ class TwitterDatatable
 
   def get_following bool_following
     if bool_following
-      return "<span>Following</span>".html_safe
+      return "<span>Yes</span>".html_safe
     else
       return "<span>Not Following</span>".html_safe
     end
@@ -73,9 +73,9 @@ class TwitterDatatable
 
   def get_followers bool_follower
     if bool_follower
-      return "<span>Follower</span>".html_safe
+      return "<span>Yes</span>".html_safe
     else
-      return "<span>Not Follower</span>".html_safe
+      return "<span>No</span>".html_safe
     end
   end
 
