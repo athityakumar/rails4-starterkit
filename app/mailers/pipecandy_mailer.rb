@@ -14,11 +14,12 @@ class PipecandyMailer < ApplicationMailer
   def twitter_update_followback_status_mailer following, new_following_ids
     @following = following
     @new_following_ids = new_following_ids
-    mail(to: "thangadurai@pipecandy.com", subject: "Twitter Follow Update - New Follow Back Friends For PipeCandy! @ #{Time.now}")
+    mail(to: "thangadurai@pipecandy.com, ashwin@pipecandy.com", subject: "Twitter Follow Update - New Follow Back Friends For PipeCandy! @ #{Time.now}")
   end
 
-  def twitter_rake_success status
+  def twitter_rake_success status, twitter_ids=[]
     @status = status
+    @twitter_ids = twitter_ids
     mail(to: "thangadurai@pipecandy.com", subject: "Twitter #{@status.to_s.capitalize} Success at #{Time.now}")
   end
 

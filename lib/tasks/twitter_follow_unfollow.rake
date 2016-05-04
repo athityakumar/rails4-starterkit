@@ -57,7 +57,7 @@ namespace :twitter_follow_unfollow do
   desc "Twitter Follow Feature"
   task follow: :environment do
     puts "================Starting Twitter Following => #{Time.now.to_s}================"
-    unfollowed = TwitterFollower.where("following = 0 AND attempts < 4")
+    unfollowed = TwitterFollower.where("followers = 0 AND following = 0 AND attempts < 4")
     unfollowed_ids = unfollowed.sample(20).map(&:twitter_id).map(&:to_i)
 
     begin
@@ -67,7 +67,7 @@ namespace :twitter_follow_unfollow do
       else
         TwitterModuleOriginal.client.follow(unfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", unfollowed_ids).update_all(following: true, date_processed: Date.today.to_s)
-        PipecandyMailer.twitter_rake_success("follow").deliver_now
+        PipecandyMailer.twitter_rake_success("follow", unfollowed_ids).deliver_now
       end
       puts "Twitter Following Ends Here..................."
     rescue Twitter::Error::Unauthorized
@@ -103,7 +103,7 @@ namespace :twitter_follow_unfollow do
       else
         TwitterModuleOriginal.client.unfollow(notfriendfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1")
-        PipecandyMailer.twitter_rake_success("unfollow").deliver_now
+        PipecandyMailer.twitter_rake_success("unfollow", notfriendfollowed_ids).deliver_now
       end
       puts "Twitter UnFollowing Ends Here..................."
     rescue Twitter::Error::Unauthorized
