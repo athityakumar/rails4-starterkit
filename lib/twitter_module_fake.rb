@@ -2,7 +2,8 @@ module TwitterModuleFake
 
   def client
     if Rails.env.production?
-      # Credentials from PipecandyHQ twitter profile
+      # Credentials from fake twitter profile (feel_money)
+      # Twitter_account @feel_money => password@123
       @twitter_client = Twitter::REST::Client.new do |config|
         config.consumer_key = "THafGffEG4azNrnHrljFaeoa4"
         config.consumer_secret = "SUqm76rtjtTihkVOT66OcoA0McxDm61Hs9mDjKIe4hA0wcnIRx"
