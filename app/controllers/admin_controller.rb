@@ -55,7 +55,7 @@ class AdminController < ApplicationController
         flash[:notice] = "&#x263A;&nbsp;&nbsp;Rerunning to update this user list. Verify sidekiq!"
         twitter_user.update(is_processing: true)
         job = FetchCreateFollowerJob.perform_later(twitter_user)
-        puts "======>Jobs for #{username}: #{job.to_s}<======"
+        puts "======>Jobs for #{twitter_user.name.to_s}: #{job.to_s}<======"
       end
       redirect_to twitter_path
     rescue Exception => e

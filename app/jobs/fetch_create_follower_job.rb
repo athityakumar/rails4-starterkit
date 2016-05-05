@@ -34,7 +34,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
         puts "====================== Processing Iteration #{i}"
       end
       # Update the twitter_user processing status to false
-      twitter_user.update(is_processing: false)
+      TwitterUser.find(twitter_user.id).update(is_processing: false)
       PipecandyMailer.twitter_fetch_create_follower(twitter_user.name).deliver_now
       puts "End Fetch Followers and Create for Users............#{twitter_user.name.to_s}......#{Time.now}"
     rescue Twitter::Error::Unauthorized
