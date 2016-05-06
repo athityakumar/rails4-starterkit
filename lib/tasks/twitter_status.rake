@@ -7,11 +7,8 @@ namespace :twitter_status do
     puts "===================Starting Twitter auto update for followers in DB => #{Time.now.to_s}=================="
     begin
       puts "Twitter Update Status Starts Here..................."
-      customFilter = Proc.new { |f| {name: f.name, screen_name: f.screen_name, twitter_id: f.id} }
-      idFilter = Proc.new { |x| x[:twitter_id] }
       # Following back
-      followers = PipecandyTwitterClient.api.followers.map(&customFilter)
-      follower_ids = followers.map(&idFilter).map(&:to_i)
+      follower_ids = PipecandyTwitterClient.api.follower_ids.map(&:to_i)
       old_follower_ids = TwitterFollower.where(followers: true).pluck(:twitter_id).map(&:to_i)
       new_follower_ids = follower_ids - old_follower_ids
       unless new_follower_ids.blank?
@@ -31,11 +28,8 @@ namespace :twitter_status do
     puts "===================Starting Twitter auto update for following in DB => #{Time.now.to_s}=================="
     begin
       puts "Twitter Update Status Starts Here..................."
-      customFilter = Proc.new { |f| {name: f.name, screen_name: f.screen_name, twitter_id: f.id} }
-      idFilter = Proc.new { |x| x[:twitter_id] }
       # Friends update
-      following = PipecandyTwitterClient.api.friends.map(&customFilter)
-      following_ids = following.map(&idFilter).map(&:to_i)
+      following_ids = PipecandyTwitterClient.api.friend_ids.map(&:to_i)
       old_following_ids = TwitterFollower.where(following: true).pluck(:twitter_id).map(&:to_i)
       new_following_ids = following_ids - old_following_ids
       unless new_following_ids.blank?
