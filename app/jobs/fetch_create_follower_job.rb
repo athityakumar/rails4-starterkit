@@ -1,4 +1,4 @@
-require "twitter_module_fake"
+require "fake_twitter_client"
 
 class FetchCreateFollowerJob < ActiveJob::Base
   queue_as :twitter_followers_job
@@ -11,7 +11,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
       # Get the old Ids in the database
       old_followers_ids = twitter_followers.map(&:twitter_id).map(&:to_i)
       # Get the twitter_client
-      twitter_client = TwitterModuleFake.client
+      twitter_client = FakeTwitterClient.api
       # Get the follower_ids
       follower_ids = twitter_client.follower_ids(twitter_user.name)
       # Sleep for 10 seconds
@@ -37,27 +37,9 @@ class FetchCreateFollowerJob < ActiveJob::Base
       TwitterUser.find(twitter_user.id).update(is_processing: false)
       PipecandyMailer.twitter_fetch_create_follower(twitter_user.name).deliver_now
       puts "End Fetch Followers and Create for Users............#{twitter_user.name.to_s}......#{Time.now}"
-    rescue Twitter::Error::Unauthorized
-      error_handle("Not authorized error occurs")    
-      puts "Not authorized. Ask developer check the twitter credentials in the code!"
-    rescue Twitter::Error::TooManyRequests => e
-      error_handle("Too Many Request. It's going to retry after #{e.rate_limit.reset_in} seconds. Now time is #{Time.now.to_s}")
-      puts "TooManyRequests: #{e.rate_limit.reset_in}"
-      sleep e.rate_limit.reset_in
-      error_handle("Too Many Request. It's going to retry. Now time is #{Time.now.to_s}")
-      retry
-    rescue Twitter::Error::Forbidden => e
-      error_handle("#{e.to_s}")
-      puts "Forbidden error: #{e.to_s}"
     rescue Exception => e
-      error_handle("#{e.to_s}")
       puts "Something else went wrong: #{e.to_s}"
+      PipecandyMailer.twitter_fetch_create_follower_error("#{e.to_s}").deliver_now
     end
-  end
-
-  private
-
-  def error_handle message
-    PipecandyMailer.twitter_fetch_create_follower_error(message).deliver_now
   end
 end

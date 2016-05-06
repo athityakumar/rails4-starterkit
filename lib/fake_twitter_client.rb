@@ -1,6 +1,6 @@
-module TwitterModuleFake
+module FakeTwitterClient
 
-  def client
+  def api
     if Rails.env.production?
       # Credentials from fake twitter profile (feel_money)
       # Twitter_account @feel_money => password@123
@@ -21,6 +21,6 @@ module TwitterModuleFake
     end
   end
 
-  module_function :client
+  module_function :api
 
 end

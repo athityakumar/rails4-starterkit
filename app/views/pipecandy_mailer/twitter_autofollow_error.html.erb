@@ -1,6 +1,7 @@
 <div>Hi Thangadurai,</div>
 <br/>
 <div>We've got an error in from twitter follow. I've the details below.</div>
+<div>Error Occured at <%= Time.now.to_s %></div>
 <br/>
 <table align="left">
   <tbody>
@@ -9,12 +10,5 @@
       <td valign="top" style="padding-top: 10px">:</td>
       <td valign="top" style="padding-top: 10px"><%= @error_message %></td>
     </tr>
-    <% unless @twitter_ids.blank? %>
-      <tr>
-        <td valign="top" style="padding-top: 10px">Twitter User Ids</td>
-        <td valign="top" style="padding-top: 10px">:</td>
-        <td valign="top" style="padding-top: 10px"><%= @twitter_ids %></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>

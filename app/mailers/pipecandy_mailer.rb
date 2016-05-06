@@ -5,15 +5,14 @@ class PipecandyMailer < ApplicationMailer
     mail(to: "ashwin@pipecandy.com", subject: "Someone is interested in Concierge - PipeCandy")
   end
 
-  def twitter_autofollow_error error_subject, error_message, twitter_ids=nil
+  def twitter_autofollow_error error_subject, error_message
     @error_message = error_message
-    @twitter_ids = twitter_ids
     mail(to: "thangadurai@pipecandy.com", subject: error_subject)
   end
 
-  def twitter_update_followback_status_mailer following, new_following_ids
-    @following = following
-    @new_following_ids = new_following_ids
+  def twitter_update_followback_status_mailer followers, new_follower_ids
+    @followers = followers
+    @new_follower_ids = new_follower_ids
     mail(to: "thangadurai@pipecandy.com, ashwin@pipecandy.com", subject: "Twitter Follow Update - New Follow Back Friends For PipeCandy! @ #{Time.now}")
   end
 

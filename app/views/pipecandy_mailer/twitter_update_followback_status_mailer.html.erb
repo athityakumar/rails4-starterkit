@@ -7,8 +7,8 @@
 <br/>
 <% count = 0 %>
 <div>
-  <% @following.each do |f| %>
-    <% if @new_following_ids.include?(f[:twitter_id]) %>
+  <% @followers.each do |f| %>
+    <% if @new_follower_ids.include?(f[:twitter_id]) %>
       <span><a href="https://twitter.com/<%= f[:screen_name] %>"><%= f[:name] %></a> |</span>
       <% count = count + 1 %>
     <% end %>

@@ -1,6 +1,6 @@
-module TwitterModuleOriginal
+module PipecandyTwitterClient
 
-  def client
+  def api
     if Rails.env.production?
       # Credentials from PipecandyHQ twitter profile
       @twitter_client = Twitter::REST::Client.new do |config|
@@ -20,6 +20,6 @@ module TwitterModuleOriginal
     end
   end
 
-  module_function :client
+  module_function :api
 
 end
