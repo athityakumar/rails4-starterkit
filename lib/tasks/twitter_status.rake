@@ -11,6 +11,7 @@ namespace :twitter_status do
       follower_ids = PipecandyTwitterClient.api.follower_ids.map(&:to_i)
       old_follower_ids = TwitterFollower.where(followers: true).pluck(:twitter_id).map(&:to_i)
       new_follower_ids = follower_ids - old_follower_ids
+      followers = TwitterFollower.all.flatten.uniq
       unless new_follower_ids.blank?
         # Update the followers id
         TwitterFollower.where("twitter_id IN (?)", new_follower_ids).update_all(followers: true)
