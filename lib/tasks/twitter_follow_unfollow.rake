@@ -8,7 +8,7 @@ namespace :twitter_follow_unfollow do
     begin
       puts "Twitter following starts Here..................."
       unfollowed = TwitterFollower.where("followers = 0 AND following = 0 AND attempts < 4")
-      unfollowed_ids = unfollowed.sample(10).map(&:twitter_id).map(&:to_i)
+      unfollowed_ids = unfollowed.pluck(:twitter_id).sample(10).map(&:to_i)
       unless unfollowed_ids.blank?
         PipecandyTwitterClient.api.follow(unfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", unfollowed_ids).update_all(following: true, date_processed: Date.today.to_s)
