@@ -27,7 +27,7 @@ namespace :twitter_follow_unfollow do
     puts "================Starting Twitter UnFollowing => #{Time.now.to_s}================"
     begin
       puts "Twitter UnFollowing Starts Here..................."
-      notfriendfollowed = TwitterFollower.where(following: true, followers: false, date_processed: (Date.today - 5.days).to_s)
+      notfriendfollowed = TwitterFollower.where(following: true, followers: false, date_processed: (Date.today - 3.days).to_s)
       notfriendfollowed_ids = notfriendfollowed.pluck(:twitter_id).sample(10).map(&:to_i)
       unless notfriendfollowed_ids.blank?
         PipecandyTwitterClient.api.unfollow(notfriendfollowed_ids)
