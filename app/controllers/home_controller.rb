@@ -8,6 +8,7 @@ class HomeController < ApplicationController
   def concierge_process
     @prospect = Concierge.new(concierge_params)
     if @prospect.save
+      PipecandyMailer.concierge_user_mail(@prospect).deliver_later!(wait: 30.minutes)
       PipecandyMailer.concierge_mail(@prospect).deliver_now
     end
     render nothing: true, status: 201

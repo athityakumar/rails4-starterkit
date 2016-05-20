@@ -1,8 +1,16 @@
 class PipecandyMailer < ApplicationMailer
+  
+  layout "pipecandy_user_mailer", only: [:concierge_user_mail]
 
   def concierge_mail(prospect)
     @prospect = prospect
     mail(to: "ashwin@pipecandy.com", subject: "Someone is interested in Concierge - PipeCandy")
+  end
+
+  def concierge_user_mail(prospect)
+    @prospect = prospect
+    @prospect_name = prospect.blank? ? "" : prospect.name.blank? ? "" : prospect.name.split(" ").first.to_s
+    mail(to: prospect.email, subject: "#{@prospect_name}, I got the note you left on PipeCandy")
   end
 
   def twitter_autofollow_error error_subject, error_message
