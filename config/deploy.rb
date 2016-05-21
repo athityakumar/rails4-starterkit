@@ -25,7 +25,7 @@ set :application, 'pipecandy'
 set :scm, :git
 
 # Git Repository
-set :repository, 'git@bitbucket.org:ashwinizer/pipecandy.git'
+set :repository, 'git@github.com:Ideas2IT/pipecandy-web.git'
 
 # If you need to touch public/images, public/javascripts, and public/stylesheets on each deploy
 # set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
@@ -48,9 +48,9 @@ set :deploy_to, "/home/pipecandy/public_html"
 
 # Enable sidekiq after deploying the app
 set :pty,  false
-set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
-set :sidekiq_log, "#{current_path}/log/sidekiq.log"
-set :sidekiq_cmd, "bundle exec sidekiq -c 1 -q twitter_followers_job"
+set :sidekiq_role, :app
+set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+set :sidekiq_env, "production"
 
 # The last n releases are kept for possible rollbacks.
 set :keep_releases, 5

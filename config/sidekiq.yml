@@ -1,0 +1,12 @@
+:verbose: false
+:daemon: true
+:concurrency: 20
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - ["pipecandy_mailer", 2]
+  - ["twitter_followers_job", 1]
+:limits:
+  twitter_followers_job: 1
+:process_limits:
+  twitter_followers_job: 1
