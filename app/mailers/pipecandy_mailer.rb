@@ -4,7 +4,7 @@ class PipecandyMailer < ApplicationMailer
 
   def concierge_mail(prospect)
     @prospect = prospect
-    mail(to: "ashwin@pipecandy.com", subject: "Someone is interested in Concierge - PipeCandy")
+    mail(to: "ashwin@pipecandy.com", bcc: "suriyah@pipecandy.com", subject: "Someone is interested in Concierge - PipeCandy")
   end
 
   def concierge_user_mail(prospect)
