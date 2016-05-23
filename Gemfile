@@ -15,6 +15,12 @@ gem 'uglifier', '>= 1.3.0'
 # Use Twitter gem for follow/unfollow in twitter
 gem 'twitter', '~> 5.16'
 
+# Use Nokogiri gem for using mechanize
+gem 'nokogiri', '~> 1.6.7.2'
+
+# Use Mechanize gem for follow/unfollow in Inbound
+gem 'mechanize', '~> 2.7.4'
+
 # Jquery Datatable.
 gem 'jquery-datatables-rails', '~> 3.4'
 
