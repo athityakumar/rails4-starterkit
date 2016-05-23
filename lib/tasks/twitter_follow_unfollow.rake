@@ -8,7 +8,7 @@ namespace :twitter_follow_unfollow do
     begin
       puts "Twitter following starts Here..................."
       unfollowed = TwitterFollower.where("followers = 0 AND following = 0 AND attempts < 4")
-      unfollowed_ids = unfollowed.pluck(:twitter_id).sample(10).map(&:to_i)
+      unfollowed_ids = unfollowed.order(:attempts).pluck(:twitter_id).first(10).map(&:to_i)
       unless unfollowed_ids.blank?
         PipecandyTwitterClient.api.follow(unfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", unfollowed_ids).update_all(following: true, date_processed: Date.today.to_s)
@@ -28,7 +28,7 @@ namespace :twitter_follow_unfollow do
     begin
       puts "Twitter UnFollowing Starts Here..................."
       notfriendfollowed = TwitterFollower.where(following: true, followers: false, date_processed: (Date.today - 3.days).to_s)
-      notfriendfollowed_ids = notfriendfollowed.pluck(:twitter_id).sample(10).map(&:to_i)
+      notfriendfollowed_ids = notfriendfollowed.order(:attempts).pluck(:twitter_id).last(10).map(&:to_i)
       unless notfriendfollowed_ids.blank?
         PipecandyTwitterClient.api.unfollow(notfriendfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1")
