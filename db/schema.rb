@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423132906) do
+ActiveRecord::Schema.define(version: 20160519073451) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -26,6 +26,32 @@ ActiveRecord::Schema.define(version: 20160423132906) do
     t.string   "email",      limit: 255, default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+  end
+
+  create_table "inbound_users", force: :cascade do |t|
+    t.string   "name",             limit: 255
+    t.string   "inbound_link",     limit: 255
+    t.string   "twitter_link",     limit: 255
+    t.string   "facebook_link",    limit: 255
+    t.string   "linkedin_link",    limit: 255
+    t.string   "googleplus_link",  limit: 255
+    t.string   "location",         limit: 255
+    t.string   "designation",      limit: 255
+    t.string   "company",          limit: 255
+    t.integer  "number_followers", limit: 4
+    t.integer  "number_following", limit: 4
+    t.integer  "number_badges",    limit: 4
+    t.integer  "karma",            limit: 4
+    t.text     "badges",           limit: 65535
+    t.string   "recent_activity",  limit: 255
+    t.boolean  "following",                      default: false
+    t.boolean  "follower",                       default: false
+    t.date     "date_processed"
+    t.integer  "attempts",         limit: 4,     default: 0
+    t.string   "image_url",        limit: 255
+    t.string   "userid",           limit: 255
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   create_table "twitter_followers", force: :cascade do |t|

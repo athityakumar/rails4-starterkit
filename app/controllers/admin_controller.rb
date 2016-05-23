@@ -64,6 +64,24 @@ class AdminController < ApplicationController
     end
   end
 
+  def inbound
+     if request.post?
+       input_url = params[:inbound_search_query_link].to_s
+       if input_url.blank?
+        flash[:alert] = "Input link seems invalid"
+       else
+        job = FetchCreateInboundJob.perform_later(input_url)
+       end
+       redirect_to inbound_path
+    else
+      @inbound_users = InboundUser.all
+      respond_to do |format|
+        format.html
+        format.json { render json: InboundDatatable.new(view_context, @inbound_users) }
+      end
+    end
+  end
+
   private
 
   def authenticate!
