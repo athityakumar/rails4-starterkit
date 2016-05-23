@@ -36,3 +36,20 @@ end
     rake "twitter_follow_unfollow:unfollow"
   end
 end
+
+# Rake task to follow 50 followers at a time in inbound
+["12.00 am", "12.00 pm"].each do |at|
+  every :day, at: "8.00 am" do 
+    rake "inbound:update"
+  end
+end
+
+# Rake task to follow 50 followers at a time in inbound
+every :day, at: "8.00 am" do 
+  rake "inbound:follow"
+end
+
+# Rake task to unfollow 50 followers at a time in inbound
+every :day, at: "8.00 pm" do 
+  rake "inbound:unfollow"
+end

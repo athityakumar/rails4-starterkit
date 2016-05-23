@@ -6,7 +6,7 @@ require 'logger'
 namespace :inbound do
 
   mechanize = Mechanize.new
-  mechanize.log = Logger.new "mechanize.log"
+  mechanize.log = Logger.new "log/mechanize.log"
   mechanize.history_added = Proc.new { sleep 5 }
   mechanize.follow_meta_refresh = true 
   mechanize.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -15,13 +15,13 @@ namespace :inbound do
 
   if logged_in != 0
     mechanize.post("https://inbound.org/authenticate/check", {
-      email: "danyjontyrion@gmail.com",
-      password: "dragonblood"
+      email: "ashwin@pipecandy.com",
+      password: "pipecandy0302"
     })
-    mechanize.cookie_jar.save_as "inbound.cookie", session: true, format: :yaml
+    mechanize.cookie_jar.save_as "log/inbound.cookie", session: true, format: :yaml
     puts "Logged in"
   else
-    mechanize.cookie_jar.load "inbound.cookie"
+    mechanize.cookie_jar.load "log/inbound.cookie"
   end
 
   desc "Inbound auto update for all users in pipecandy DB"

@@ -8,8 +8,8 @@ class FetchCreateInboundJob < ActiveJob::Base
 
   def perform input_url
    mechanize = Mechanize.new
-   mechanize.log = Logger.new "mechanize.log"
-   mechanize.history_added = Proc.new { sleep 3 }
+   mechanize.log = Logger.new "log/mechanize.log"
+   mechanize.history_added = Proc.new { sleep 5 }
    mechanize.follow_meta_refresh = true 
    mechanize.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -18,12 +18,12 @@ class FetchCreateInboundJob < ActiveJob::Base
 
    if logged_in != 0
     mechanize.post("https://inbound.org/authenticate/check", {
-     email: "danyjontyrion@gmail.com",
-     password: "dragonblood"
+      email: "ashwin@pipecandy.com",
+      password: "pipecandy0302"
     })
-    mechanize.cookie_jar.save_as "inbound.cookie", session: true, format: :yaml
+    mechanize.cookie_jar.save_as "log/inbound.cookie", session: true, format: :yaml
    else
-    mechanize.cookie_jar.load "inbound.cookie"
+    mechanize.cookie_jar.load "log/inbound.cookie"
    end
    flag_count = 1
    prev_final = 0
