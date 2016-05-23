@@ -3,6 +3,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require_tree
 'use strict';
+
 $(document).ready(function() {
   $.fn.randomString = function(length) {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".split("");
@@ -89,7 +90,7 @@ $(document).ready(function() {
         "sInfoEmpty": 'No entries to show',
         "sEmptyTable": 'There are no followers to show.'
       },
-      "lengthMenu": [[10, 20, 40, 80, -1], [10, 20, 40, 80, "All"]],
+      "deferRender": true,
       "autoWidth": false,
       aoColumns: [
         {
@@ -169,4 +170,77 @@ $(document).ready(function() {
       return confirm('Are you sure want to update the twitter user "'+screenName+'"?');
     });
   }
+  if ($('#inbound_followers').length > 0) {
+      var inboundTable = $('#inbound_followers').dataTable({
+      sPaginationType: "simple_numbers",
+      bInfo: true,
+      bProcessing: true,
+      bServerSide: true,
+      sDom: 'rt<"bottom"p><"clear">',
+      language: {
+        "sInfoEmpty": 'No entries to show',
+        "sEmptyTable": 'There are no Inbound users to show.'
+      },
+      "deferRender": true,
+      "autoWidth": false,
+      aoColumns: [
+        {
+          "sWidth": "200px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "200px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "100px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "100px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "150px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "200px",
+          "bSortable": false,
+          "bVisible": true
+        }
+      ],
+      sAjaxSource: $('#inbound_followers').data('source'),
+      drawCallback: function( settings ) {
+        var api = this.api();
+        var info = api.page.info();
+        if (info.recordsTotal <= info.length) {
+          $("#inbound_datatable .dataTables_paginate").hide();
+        }
+        else{
+          $("#inbound_datatable .dataTables_paginate").show();
+        }
+        // DataTable Custom Select Option
+        $('#dataTablesInfo').html(
+          '<span class="badge">Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' documents</span>'
+        );
+      }
+    });
+    var inboundTableApi = inboundTable.api();
+    // DataTable Custom Search
+    $('.inboundFollowerSearch').keyup(function(){
+      if($(this).val().indexOf("htt") == -1)
+     inboundTableApi.search($(this).val()).draw();
+  
+    });
+    $.fn.changeDataTableLength = function(length) {
+      inboundTableApi.page.len(length).draw();
+    }
+  }
 });
+
