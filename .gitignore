@@ -11,3 +11,25 @@
 /log/*
 !/log/.keep
 /tmp
+/.bundle
+/vendor/bundle
+/vendor/assets
+/vendor/cache/*
+/log/*
+/tmp/*
+*~
+.gitignore
+.project
+/public/system/*
+/public/uploads/*
+/db/schema.rb
+/svr.sh
+.DS_Store
+*.swp
+*.rbc
+*.sassc
+.sass-cache
+mechanize.log
+inbound.cookie
+dump.rdb
+README - Ak.rdoc
