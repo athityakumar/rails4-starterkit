@@ -1,53 +1,64 @@
-<div class="navbar navbar-fixed-top navbar-default">
- <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-centered">
-  <%= form_tag inbound_path, method: :post, id: "inbound_form", class: "spaced spaced-bottom" do %>
-   <div class="input-group">
-    <%= text_field_tag :inbound_search_query_link, "" , class: "inboundFollowerSearch form-control sharp-corners ", required: true, placeholder: "Inbound Search Query Link & Table searcher", "data-parsley-error-message" => "Please enter valid search query link.", "data-parsley-errors-container" => "#inbound_username_error" %>
-     <span class="input-group-btn">
-      <%= submit_tag "Submit link", id: "inbound_form_submit", class: "btn btn-primary sharp-corners" %>
-     </span>
-   </div>
-  <div id="inbound_username_error"></div>
-  <% end %>           
- </div>
-</div>
-
-<% unless @inbound_users.blank? %>
-  <div class="row " style="margin-top: 100px; width: 100%; padding: 0px;">
-    <div class="col-md-10 col-sm-10 col-xs-12 col-centered" id="inbound_datatable">
-      <div class="row spaced col-centered">
-        <div class="col-sm-12 text-right">
-          <div class="dropdown" style="padding-top: 7px;">
-            <label id="dataTablesInfo"></label>
-            <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="dataTablesLength" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
-            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dataTablesLength">
-              <li style="padding: 6px 0px;">Show up to:</li>
-              <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(10);">&nbsp;&nbsp;10 items</a></li>
-              <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(25);">&nbsp;&nbsp;25 items</a></li>
-              <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(50);">&nbsp;&nbsp;50 items</a></li>
-              <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(100);">&nbsp;&nbsp;100 items</a></li>
-            </ul>
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tbody>
+    <tr>
+      <td valign="middle">
+        <div class="container full-spaced full-spaced-bottom">
+          <div class="row">
+            <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11 col-centered">
+              <h2 class="text-center no-margin">Inbound follow/unfollow</h2>
+              <%= form_tag inbound_path, method: :post, id: "inbound_form", class: "spaced spaced-bottom" do %>
+                <div class="input-group">
+                  <%= text_field_tag :inbound_search_query_link, "" , class: "form-control sharp-corners ", required: true, placeholder: "Inbound Search Query Link & Table searcher", "data-parsley-error-message" => "Please enter valid search query link.", "data-parsley-errors-container" => "#inbound_username_error" %>
+                  <span class="input-group-btn">
+                    <%= submit_tag "Submit link", id: "inbound_form_submit", class: "btn btn-default sharp-corners" %>
+                  </span>
+                </div>
+                <div id="inbound_username_error"></div>
+              <% end %>
+            </div>
           </div>
+          <% unless @inbound_users.blank? %>
+            <div class="row">
+              <div class="col-md-9 col-sm-10 col-xs-12 col-centered" id="inbound_datatable">
+                <div class="row spaced">
+                  <div class="col-sm-6">
+                    <input id="inboundFollowerSearch" type="text" placeholder="Search" />
+                  </div>
+                  <div class="col-sm-6 text-right">
+                    <div class="dropdown" style="padding-top: 7px;">
+                      <label id="dataTablesInfo"></label>
+                      <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="dataTablesLength" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                      <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dataTablesLength">
+                        <li style="padding: 6px 0px;">Show up to:</li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(10);">&nbsp;&nbsp;10 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(20);">&nbsp;&nbsp;20 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(40);">&nbsp;&nbsp;40 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(80);">&nbsp;&nbsp;80 items</a></li>
+                        <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(100);">&nbsp;&nbsp;100 items</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <table id="inbound_followers" class="table" data-source="/admin/inbound.json">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Following</th>
+                      <th>Follow Back</th>
+                      <th>Date Processed</th>
+                      <th class="text-center" style="padding-right: 0px; text-align: left;">Social Media Links</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <% end %>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="row" style=" width: 100%; padding: 0px;">
-    <div class="col-md-10 col-sm-10 col-xs-12 col-centered" id="inbound_datatable">
-      <table id="inbound_followers" class="table" data-source="/admin/inbound.json">
-        <thead>
-          <tr>
-            <th>Date of adding to DB</th>
-            <th>Name</th>
-            <th>Following</th>
-            <th>Follow Back</th>
-            <th>Date Processed</th>
-            <th class="text-center" style="padding-right: 0px; text-align: left;">Social Media Links</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>            
-    </div>
-  </div>
-<% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<%# Ajax Inbound User Detail Modal %>
+<div id="inbound_user_modal"></div>

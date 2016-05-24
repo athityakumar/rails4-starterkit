@@ -1,0 +1,5 @@
+$("#inbound_user_modal").html("<%= escape_javascript(render partial: 'ajax_inbound_user_modal') %>");
+$("#inbound_user_modal > div.modal").modal({
+  backdrop: "static",
+  keyboard: false
+});

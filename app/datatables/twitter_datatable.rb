@@ -35,7 +35,7 @@ class TwitterDatatable
   end
 
   def fetch_followers
-    followers = @followers.order("#{sort_column} #{sort_direction}").page(page).per_page(per_page)
+    followers = @followers.order("#{sort_column} #{sort_direction}").order("created_at desc").page(page).per_page(per_page)
     if params[:sSearch].present? 
       followers = followers.where("name like :search or screen_name like :search", search: "%#{params[:sSearch]}%")
     end

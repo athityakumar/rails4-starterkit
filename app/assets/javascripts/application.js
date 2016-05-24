@@ -173,8 +173,11 @@ $(document).ready(function() {
       twitterTableApi.ajax.reload();
     }, 15000);
   }
+  if ( $('#inbound_form').length > 0 ) {
+    $('#inbound_form').parsley();
+  }
   if ($('#inbound_followers').length > 0) {
-      var inboundTable = $('#inbound_followers').dataTable({
+    var inboundTable = $('#inbound_followers').dataTable({
       sPaginationType: "simple_numbers",
       bInfo: true,
       bProcessing: true,
@@ -187,11 +190,6 @@ $(document).ready(function() {
       "deferRender": true,
       "autoWidth": false,
       aoColumns: [
-        {
-          "sWidth": "200px",
-          "bSortable": true,
-          "bVisible": true
-        },
         {
           "sWidth": "200px",
           "bSortable": true,
@@ -230,16 +228,14 @@ $(document).ready(function() {
         }
         // DataTable Custom Select Option
         $('#dataTablesInfo').html(
-          '<span class="badge">Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' documents</span>'
+          'Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' documents'
         );
       }
     });
     var inboundTableApi = inboundTable.api();
     // DataTable Custom Search
-    $('.inboundFollowerSearch').keyup(function(){
-      if($(this).val().indexOf("htt") == -1)
-     inboundTableApi.search($(this).val()).draw();
-  
+    $('#inboundFollowerSearch').keyup(function(){
+      inboundTableApi.search($(this).val()).draw();
     });
     $.fn.changeDataTableLength = function(length) {
       inboundTableApi.page.len(length).draw();
@@ -247,6 +243,10 @@ $(document).ready(function() {
     setInterval(function() {
       inboundTableApi.ajax.reload();
     }, 15000);
+    $(document).on("click", ".inbound-user-modal", function() {
+      var user_id = $(this).data("user-id");
+      $.get("/admin/inbound/"+user_id);
+    });
   }
 });
 

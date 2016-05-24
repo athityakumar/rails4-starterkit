@@ -1,0 +1,152 @@
+<%# Modal Window for Inbound User Details %>
+<div class="modal fade" aria-labelledby="InboundUser" aria-hidden="true">
+  <div class="modal-vertical-align-helper">
+    <div class="modal-dialog modal-vertical-center">
+      <div class="modal-content">
+        <div class="top-strip"></div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="opacity: 0.8"><%= image_tag "/assets/cancel.png", width: "24", height: "24" %></button>
+          <h4 class="modal-title"><%= @inbound_user.name.to_s.titleize %></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="panel panel-default sharp-corners">
+                <div class="panel-body">
+                  <table style="position: absolute;right: 17px;top: 2px;">
+                    <tbody>
+                      <% unless @inbound_user.image_url.blank? %>
+                        <tr>
+                          <td>
+                            <img src="<%= @inbound_user.image_url.to_s %>" alt="Inbound_user_<%= @inbound_user.userid.to_s %>" width="150" id="inbound_user_image" />
+                          </td>
+                        </tr>
+                      <% end %>
+                      <% if !@inbound_user.inbound_link.blank? %>
+                        <tr>
+                          <td class="pull-right half-spaced">
+                            <a href="<%= @inbound_user.inbound_link %>" rel="nofollow" target="_blank">
+                              <img src='/assets/inbound.png' width='30'/>
+                            </a>
+                          </td>
+                        </tr>
+                      <% end %>
+                      <% if !@inbound_user.twitter_link.blank? %>
+                        <tr>
+                          <td class="pull-right half-spaced">
+                            <a href="<%= @inbound_user.twitter_link %>" rel="nofollow" target="_blank">
+                              <img src='/assets/twitter.png' width='30'/>
+                            </a>
+                          </td>
+                        </tr>
+                      <% end %>
+                      <% if !@inbound_user.facebook_link.blank? %>
+                        <tr>
+                          <td class="pull-right half-spaced">
+                            <a href="<%= @inbound_user.facebook_link %>" rel="nofollow" target="_blank">
+                              <img src='/assets/facebook.png' width='30'/>
+                            </a>
+                          </td>
+                        </tr>
+                      <% end %>
+                      <% if !@inbound_user.linkedin_link.blank? %>
+                        <tr>
+                          <td class="pull-right half-spaced">
+                            <a href="<%= @inbound_user.linkedin_link %>" rel="nofollow" target="_blank">
+                              <img src='/assets/linkedin.png' width='30'/>
+                            </a>
+                          </td>
+                        </tr>
+                      <% end %>
+                      <% if !@inbound_user.googleplus_link.blank? %>
+                        <tr>
+                          <td class="pull-right half-spaced">
+                            <a href="<%= @inbound_user.googleplus_link %>" rel="nofollow" target="_blank">
+                              <img src='/assets/googleplus.png' width='30'/>
+                            </a>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td style="border: 0 none;">Name </td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.name.to_s %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Karma </td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.karma.to_s %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Number of followers</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.number_followers.to_s %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Number of following</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.number_following.to_s %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Designation</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.designation.to_s %> <%= @inbound_user.company.blank? ? "" : "@#{@inbound_user.company.to_s}" %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Location</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.location.to_s %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Last Active</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;"><%= @inbound_user.recent_activity.to_s %></td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Following</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;">
+                          <% if @inbound_user.following %>
+                            <img src="/assets/yes.png" width="20" alt="Yes" />
+                          <% else %>
+                            <img src="/assets/no.png" width="20" alt="No" />
+                          <% end %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border: 0 none;">Follow back</td>
+                        <td style="border: 0 none;">:</td>
+                        <td style="border: 0 none;">
+                          <% if @inbound_user.follower %>
+                            <img src="/assets/yes.png" width="20" alt="Yes" />
+                          <% else %>
+                            <img src="/assets/no.png" width="20" alt="No" />
+                          <% end %>
+                        </td>
+                      </tr>
+                      <% unless @inbound_user.badges.blank? %>
+                        <tr>
+                          <td style="border: 0 none;">Badges (<%= @inbound_user.number_badges.to_s %>)</td>
+                          <td style="border: 0 none;">:</td>
+                          <td style="border: 0 none;">
+                            <% @inbound_user.badges.split(",").each do |badge| %>
+                              <span class='badge'><%= badge.to_s.strip %></span>
+                            <% end %>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

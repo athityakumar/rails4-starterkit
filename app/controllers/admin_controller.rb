@@ -65,20 +65,28 @@ class AdminController < ApplicationController
   end
 
   def inbound
-     if request.post?
-       input_url = params[:inbound_search_query_link].to_s
-       if input_url.blank?
+    if request.post?
+      input_url = params[:inbound_search_query_link].to_s
+      if input_url.blank?
         flash[:alert] = "Input link seems invalid"
-       else
+      else
         job = FetchCreateInboundJob.perform_later(input_url)
-       end
-       redirect_to inbound_path
+        flash[:notice] = "You inbound link is added!. Please wait!."
+      end
+      redirect_to inbound_path
     else
       @inbound_users = InboundUser.all
       respond_to do |format|
         format.html
         format.json { render json: InboundDatatable.new(view_context, @inbound_users) }
       end
+    end
+  end
+
+  def ajax_inbound_user_modal
+    @inbound_user = InboundUser.find(params[:id].to_s)
+    respond_to do |format|
+      format.js {render "inbound"}
     end
   end
 
