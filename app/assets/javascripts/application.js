@@ -169,6 +169,9 @@ $(document).ready(function() {
       var screenName = $(this).attr("data-name");
       return confirm('Are you sure want to update the twitter user "'+screenName+'"?');
     });
+    setInterval(function() {
+      twitterTableApi.ajax.reload();
+    }, 15000);
   }
   if ($('#inbound_followers').length > 0) {
       var inboundTable = $('#inbound_followers').dataTable({
@@ -241,6 +244,9 @@ $(document).ready(function() {
     $.fn.changeDataTableLength = function(length) {
       inboundTableApi.page.len(length).draw();
     }
+    setInterval(function() {
+      inboundTableApi.ajax.reload();
+    }, 15000);
   }
 });
 
