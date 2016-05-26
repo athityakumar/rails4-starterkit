@@ -37,19 +37,25 @@ end
   end
 end
 
-# Rake task to follow 50 followers at a time in inbound
+# Update follower status in inbound user follow/unfollow users
 ["12.00 am", "12.00 pm"].each do |at|
   every :day, at: "8.00 am" do 
-    rake "inbound:update"
+    rake "inbound_status:followers"
+  end
+end
+["2.00 am", "2.00 pm"].each do |at|
+  every :day, at: "8.00 am" do 
+    rake "inbound_status:following"
   end
 end
 
+
 # Rake task to follow 50 followers at a time in inbound
 every :day, at: "8.00 am" do 
-  rake "inbound:follow"
+  rake "inbound_follow_unfollow:follow"
 end
 
 # Rake task to unfollow 50 followers at a time in inbound
 every :day, at: "8.00 pm" do 
-  rake "inbound:unfollow"
+  rake "inbound_follow_unfollow:unfollow"
 end
