@@ -1,0 +1,94 @@
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tbody>
+    <tr>
+      <td valign="middle">
+        <div class="container full-spaced full-spaced-bottom">
+          <div class="row">
+            <div class="col-xs-12">
+              <h1>Pipecandy Admin</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-8 col-xs-12 half-spaced">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan="2" style="border: 0 none;">
+                      <h4>Follow/Unfollow Feature</h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="border: 0 none;" width="150">For twitter </td>
+                    <td style="border: 0 none;" width="20">:</td>
+                    <td style="border: 0 none;" width="250">
+                      <a href="<%= twitter_path %>" target="_blank">Twitter Auto Follow/Unfollow</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="border: 0 none;" width="150">For inbound </td>
+                    <td style="border: 0 none;" width="20">:</td>
+                    <td style="border: 0 none;" width="250">
+                      <a href="<%= inbound_path %>" target="_blank">Inbound Auto Follow/Unfollow</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 spaced">
+              <h4>Concierge Emails</h4>
+            </div>
+            <div class="col-xs-12 half-spaced">
+              <strong>Download Report: &nbsp;<a href="./admin.csv" download="Concierge.csv">CSV</a> | <a href="./admin.xls" download="Concierge.xls">XLS</a></strong>
+              <div class="table-responsive half-spaced">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th width="50">#</th>
+                      <th width="225">Name</th>
+                      <th width="275">E-Mail</th>
+                      <th width="180">Company</th>
+                      <th>description</th>
+                      <th width="100">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @concierge.each do |c| %>
+                      <tr>
+                        <td><%= c.id %></td>
+                        <td><%= c.name %></td>
+                        <td><%= c.email %></td>
+                        <td><%= c.company %></td>
+                        <td>
+                          <p>
+                            <% if c.description.to_s.length > 80 %>
+                              <div class="text-justify">
+                                <%= truncate(c.description, length: 80) %>
+                                <a href="javascript:void(0);" onclick="$(this).parent().toggle().next().toggle();">Read more</a>
+                              </div>
+                              <div class="text-justify" style="display:none;">
+                                <%= c.description %>
+                                <a href="javascript:void(0);" onclick="$(this).parent().toggle().prev().toggle();">Read less</a>
+                              </div>
+                            <% else %>
+                              <%= c.description %>
+                            <% end %>
+                          </p>
+                        </td>
+                        <td><%= c.created_at.strftime('%b %d %Y') %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-center">
+                <%= will_paginate @concierge, renderer: BootstrapPagination::Rails, bootstrap: 3, page_links: false %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

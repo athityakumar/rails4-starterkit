@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # get    "/thank-you"           => "home#thank_you",         as: :thank_you
   # post   "/email/process"       => "home#email_process",     as: :email_process
   post   "/concierge/process"             => "home#concierge_process", as: :concierge_process
+  
+  get    "/admin"                         => "admin#index",            as: :admin
   get    "/admin/twitter"                 => "admin#twitter",          as: :twitter
   post   "/admin/twitter"                 => "admin#twitter"
   get    "/admin/twitter/:id/followers"   => "admin#twitter_followers"

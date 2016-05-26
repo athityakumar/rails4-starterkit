@@ -213,6 +213,8 @@ GEM
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (3.1.0)
+    will_paginate-bootstrap (1.0.1)
+      will_paginate (>= 3.0.3)
 
 PLATFORMS
   ruby
@@ -239,3 +241,4 @@ DEPENDENCIES
   web-console (~> 2.0)
   whenever (~> 0.9.4)
   will_paginate (~> 3.1)
+  will_paginate-bootstrap (~> 1.0, >= 1.0.1)

@@ -26,6 +26,7 @@ gem 'jquery-datatables-rails', '~> 3.4'
 
 # For pagination
 gem 'will_paginate', '~> 3.1'
+gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 
 # Kick out synchronous delaying guys and process as queues, asynchronously!
 gem 'sidekiq'

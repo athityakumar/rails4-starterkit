@@ -2,6 +2,15 @@ class AdminController < ApplicationController
 
   before_filter :authenticate!
 
+  def index
+    @concierge = Concierge.order(created_at: :desc).paginate(page: params[:page], per_page: 20)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @concierge.to_csv }
+      format.xls { send_data @concierge.to_csv(col_sep: "\t") }
+    end
+  end
+
   def twitter
     if request.post?
       begin
