@@ -1,3 +1,7 @@
+require 'mechanize'
+require 'logger'
+require 'resolv-replace'
+
 module InboundScraperClient
 
   def api

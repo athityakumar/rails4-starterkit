@@ -1,30 +1,11 @@
-require 'mechanize'
-require 'date'
-require 'resolv-replace'
-require 'logger'
+require "inbound_scraper_client"
 
 class FetchCreateInboundJob < ActiveJob::Base
+  
   queue_as :inbound_job
 
   def perform input_url
-   mechanize = Mechanize.new
-   mechanize.log = Logger.new "log/mechanize.log"
-   mechanize.history_added = Proc.new { sleep 5 }
-   mechanize.follow_meta_refresh = true 
-   mechanize.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-   login_page = mechanize.get("https://inbound.org/login")
-   logged_in = login_page.search(".modal-content .form-login").count
-
-   if logged_in != 0
-    mechanize.post("https://inbound.org/authenticate/check", {
-      email: "ashwin@pipecandy.com",
-      password: "pipecandy0302"
-    })
-    mechanize.cookie_jar.save_as "log/inbound.cookie", session: true, format: :yaml
-   else
-    mechanize.cookie_jar.load "log/inbound.cookie"
-   end
+   mechanize = InboundScraperClient.api
    flag_count = 1
    prev_final = 0
    # prev_final = prev_final.to_s
@@ -148,6 +129,5 @@ class FetchCreateInboundJob < ActiveJob::Base
      named_list = pagemain.search('.panel-body .avatar-offset h4 > a')
     end
    end
-  mechanize.get("https://inbound.org/logout")
   end
 end
