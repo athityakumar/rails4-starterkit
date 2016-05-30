@@ -74,7 +74,7 @@
                       <tr>
                         <td style="border: 0 none;">Name </td>
                         <td style="border: 0 none;">:</td>
-                        <td style="border: 0 none;"><%= @inbound_user.name.to_s %></td>
+                        <td style="border: 0 none;"><%= @inbound_user.name.to_s %><br/>(<% unless @inbound_user.my_link.blank? then %><a href="<%= @inbound_user.my_link.to_s %>" target="_blank">My Link</a><% end %>)</td>
                       </tr>
                       <tr>
                         <td style="border: 0 none;">Karma </td>
@@ -94,7 +94,7 @@
                       <tr>
                         <td style="border: 0 none;">Designation</td>
                         <td style="border: 0 none;">:</td>
-                        <td style="border: 0 none;"><%= @inbound_user.designation.to_s %> <%= @inbound_user.company.blank? ? "" : "@#{@inbound_user.company.to_s}" %></td>
+                        <td style="border: 0 none;"><%= @inbound_user.designation.to_s %> <%= @inbound_user.company.blank? ? "" : "@<a href=\"#{@inbound_user.company_link.blank? ? "#" : @inbound_user.company_link.to_s}\" target=\"_blank\">#{@inbound_user.company.to_s}</a>".html_safe %></td>
                       </tr>
                       <tr>
                         <td style="border: 0 none;">Location</td>
