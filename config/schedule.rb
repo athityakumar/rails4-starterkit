@@ -1,17 +1,15 @@
 # Learn more: http://github.com/javan/whenever
 set :output, '/home/pipecandy/engagement_cronlog.log'
 
-# Follower status update task
-["9.15 am", "7.15 pm"].each do |at|
+# Follower and Following status update task
+["1.50 am", "3.50 am", 
+  "5.50 am", "7.50 am", 
+  "11.50 am", "1.50 pm",
+  "3.50 pm", "5.50 pm",
+  "9.50 pm", "11.50pm"].each do |at|
   every :day, at: at do
     rake "twitter_status:followers"
-  end
-end
-
-# Following status update task
-["9.45 am", "7.45 pm"].each do |at|
-  every :day, at: at do
-    rake "twitter_status:following"
+    rake "twitter_status:following" 
   end
 end
 
@@ -53,7 +51,7 @@ end
 end
 
 # Rake task for update followers/following to crm
-["4.30 am", "10.30 am", "4.30 pm", "10.30 pm"].each do |at|
+["4.50 am", "10.50 am", "4.50 pm", "10.50 pm"].each do |at|
   every :day, at: at do
     rake "inbound:followers"
     rake "inbound:following"
