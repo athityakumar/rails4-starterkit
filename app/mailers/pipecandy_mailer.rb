@@ -40,12 +40,7 @@ class PipecandyMailer < ApplicationMailer
     mail(to: "thangadurai@contractiq.in", subject: "Twitter - Fetch & Create Followers Added at #{Time.now}")
   end
 
-  def inbound_fetch_create_error error_message
-    @error_message = error_message
-    mail(to: "thangadurai@contractiq.in", bcc: "athityakumar@gmail.com", subject: "Inbound - Fetch & Create Users Error at #{Time.now}")
-  end
-
-  def inbound_autofollow_error error_subject, error_message
+  def inbound_error error_subject, error_message
     @error_message = error_message
     mail(to: "thangadurai@contractiq.in", bcc: "athityakumar@gmail.com", subject: error_subject)
   end

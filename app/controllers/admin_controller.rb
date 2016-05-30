@@ -129,7 +129,7 @@ class AdminController < ApplicationController
   def call_rake(task, options = {})
     options[:rails_env] ||= Rails.env
     args = options.map { |n, v| "#{n.to_s.upcase}='#{v}'"}
-    rake_cmd = "bundle exec rake #{task} #{args.join(' ')} > #{Rails.root}/log/crawl_inbound_rake.log &"
+    rake_cmd = "bundle exec rake #{task} #{args.join(' ')} --trace 2>&1 >> #{Rails.root}/log/crawl_inbound_rake.log &"
     # Task executes in the system
     system "cd #{Rails.root.to_s};#{rake_cmd}"
   end

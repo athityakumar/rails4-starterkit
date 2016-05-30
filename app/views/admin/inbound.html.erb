@@ -44,9 +44,9 @@
                           <td class="text-center">
                             <% if t.date_processed.blank? %>
                               <a href="<%= is_processing ? "#" : "/admin/inbound/#{t.id.to_s}/run" %>" class="btn btn-success <%= is_processing ? "disabled" : "" %>">Run</a>
-                            <% elsif t.date_processed == Date.today.to_s %>
+                            <% elsif t.date_processed == Date.today %>
                               <p style="color: red;">Updated!</p>
-                            <% elsif t.date_processed < Date.today.to_s %>
+                            <% elsif t.date_processed < Date.today %>
                               <a href="<%= is_processing ? "#" : "/admin/inbound/#{t.id.to_s}/update" %>" class="btn btn-primary <%= is_processing ? "disabled" : "" %>">Update</a>
                             <% end %>
                           </td>
