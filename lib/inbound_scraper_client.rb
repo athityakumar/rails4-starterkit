@@ -15,17 +15,17 @@ module InboundScraperClient
         a.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
       # Check the Cookie
-      cookie = "log/inbound_cookie.yml"
-      if File.exist?(cookie)
-        @agent.cookie_jar.load(cookie)
-        cookieJar = @agent.cookie_jar.jar
-        unless cookieJar.empty?
-          inboundSession = ["inbound.org", "/", "inbound6session"].reduce(cookieJar) {|v, k| v && v[k]}
-          unless inboundSession.blank?
-            unless inboundSession.expired? then return @agent end
-          end
-        end
-      end
+      # cookie = "log/inbound_cookie.yml"
+      # if File.exist?(cookie)
+      #   @agent.cookie_jar.load(cookie)
+      #   cookieJar = @agent.cookie_jar.jar
+      #   unless cookieJar.empty?
+      #     inboundSession = ["inbound.org", "/", "inbound6session"].reduce(cookieJar) {|v, k| v && v[k]}
+      #     unless inboundSession.blank?
+      #       unless inboundSession.expired? then return @agent end
+      #     end
+      #   end
+      # end
       if Rails.env.production?
         ajax_login = @agent.post("https://inbound.org/authenticate/check", {
           email: "ashwin@pipecandy.com",
@@ -40,7 +40,7 @@ module InboundScraperClient
       # Auth Success
       parse_response = JSON.parse(ajax_login.body)
       if parse_response["success"]
-        @agent.cookie_jar.save_as(cookie)
+        # @agent.cookie_jar.save_as(cookie)
         return @agent
       else
         raise parse_response["message"].to_s
