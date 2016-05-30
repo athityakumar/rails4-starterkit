@@ -22,7 +22,7 @@ namespace :inbound do
     userid = userid_ele.nil? ? nil : userid_ele["data-user-id"]
     # Name
     name_ele = profile_details.at("div.member-details h1")
-    name = name_ele.nil? ? nil : name_ele.text.strip.to_ascii
+    name = name_ele.nil? ? nil : name_ele.text.strip.to_ascii.truncate(200)
     # Company and its link
     company_link_ele = profile_details.at("div.member-banner-tagline p:nth-of-type(1) a")
     if company_link_ele.nil?
@@ -35,10 +35,10 @@ namespace :inbound do
     image = image_ele.nil? ? nil : image_ele["src"].strip
     # Location
     location_ele = profile_details.at("div.member-banner-tagline p:nth-of-type(2)")
-    location = location_ele.nil? ? nil : location_ele.text.strip.to_ascii
+    location = location_ele.nil? ? nil : location_ele.text.strip.to_ascii.truncate(200)
     # Title
     title_ele = profile_details.at("div.member-banner-tagline p:nth-of-type(1)")
-    title = title_ele.nil? ? nil : title_ele.children.first.text.strip.gsub(" at", "").to_ascii
+    title = title_ele.nil? ? nil : title_ele.children.first.text.strip.gsub(" at", "").to_ascii.truncate(200)
     # Karma
     karma_ele = profile_details.at("span.karma")
     karma = karma_ele.nil? ? nil : karma_ele.children.first.text.strip.delete(",").to_i
@@ -67,13 +67,13 @@ namespace :inbound do
       number_badges, badges = nil, nil
     else
       badges = badges_ele.map(&:text).map(&:to_s).map(&:strip)
-      number_badges = badges.count
+      number_badges, badges = badges.count, badges.join(",")
     end
     # Recent Activity
     recent_activity_ele = page.search("li.activity-row span.activity-list-submitted")
     recent_activity = recent_activity_ele.blank? ? nil : recent_activity_ele.first.text.to_s.strip
     unless recent_activity.blank?
-      if recent_activity.include?("ag") || recent_activity.include?("ago")
+      if recent_activity.ends_with?("ago")
         # eval() is a function in ruby used to execute the part of code
         recent_activity = eval(recent_activity.downcase.strip.gsub(" ", ".")).strftime('%b %d %Y')
       end
