@@ -76,19 +76,38 @@ class AdminController < ApplicationController
   def inbound
     if request.post?
       input_url = params[:inbound_search_query_link].to_s
-      if input_url.blank?
-        flash[:alert] = "Input link seems invalid"
-      else
-        job = FetchCreateInboundJob.perform_later(input_url)
-        flash[:notice] = "You inbound link is added!. Please wait!."
+      unless input_url.blank?
+        InboundLink.create(link: input_url)
+        flash[:notice] = "You inbound link is added!. Click the run button!"
       end
       redirect_to inbound_path
     else
+      @inbound_links = InboundLink.all
       @inbound_users = InboundUser.all
       respond_to do |format|
         format.html
         format.json { render json: InboundDatatable.new(view_context, @inbound_users) }
       end
+    end
+  end
+
+  def inbound_crawl
+    begin
+      running_crawl = InboundLink.where(is_processing: true)
+      if running_crawl.exists?
+        flash[:notice] = "&#x1f61e;&nbsp;&nbsp;You can run only one crawl at a time!<br/>Already one crawling process is running"
+      else
+        inbound_link = InboundLink.find(params[:id].to_s)
+        raise if inbound_link.blank?
+        call_rake "inbound:crawl", crawl_url: inbound_link.link
+        puts "Rake Task Started for the url: #{inbound_link.link}"
+        inbound_link.update(is_processing: true)
+        flash[:notice] = "&#x263A;&nbsp;&nbsp;Crawl Started Successfully!"
+      end
+      redirect_to inbound_path
+    rescue Exception => e
+      flash[:alert] = "&#x1f61e;&nbsp;&nbsp;InboundLink not exists in our CRM"
+      redirect_to inbound_path
     end
   end
 
@@ -105,5 +124,13 @@ class AdminController < ApplicationController
     authenticate_or_request_with_http_basic do |username, password|
       username == "pipecandy" && password == "pipecandy1905!"
     end
+  end
+
+  def call_rake(task, options = {})
+    options[:rails_env] ||= Rails.env
+    args = options.map { |n, v| "#{n.to_s.upcase}='#{v}'"}
+    rake_cmd = "bundle exec rake #{task} #{args.join(' ')} > #{Rails.root}/log/crawl_inbound_rake.log &"
+    # Task executes in the system
+    system "cd #{Rails.root.to_s};#{rake_cmd}"
   end
 end

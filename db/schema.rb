@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526143532) do
+ActiveRecord::Schema.define(version: 20160527120512) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20160526143532) do
     t.string   "email",      limit: 255, default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+  end
+
+  create_table "inbound_links", force: :cascade do |t|
+    t.string   "link",           limit: 255
+    t.boolean  "is_processing",              default: false
+    t.date     "date_processed"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "inbound_users", force: :cascade do |t|

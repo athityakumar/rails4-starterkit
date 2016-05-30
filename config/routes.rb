@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   get    "/admin/inbound"                 => "admin#inbound",          as: :inbound
   post   "/admin/inbound"                 => "admin#inbound"
+  get    "/admin/inbound/:id/run"         => "admin#inbound_crawl"
+  get    "/admin/inbound/:id/update"      => "admin#inbound_crawl"
   get    "/admin/inbound/:id"             => "admin#ajax_inbound_user_modal", format: "js"
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
