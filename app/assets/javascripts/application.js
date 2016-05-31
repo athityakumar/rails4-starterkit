@@ -235,14 +235,29 @@ $(document).ready(function() {
     var inboundTableApi = inboundTable.api();
     // DataTable Custom Search
     $('#inboundFollowerSearch').keyup(function(){
-      inboundTableApi.search($(this).val()).draw();
+      var search = $('#inboundFollowerSearch').val()
+      var search2 = $('#inboundFollowerSearch2').val()
+      var query = search.concat(":select:",search2);
+      inboundTableApi.search(query).draw();
+    });
+    $('#inboundFollowerSearch2').change(function(){
+      var search = $('#inboundFollowerSearch').val()
+      var search2 = $('#inboundFollowerSearch2').val()
+      var query = search.concat(":select:",search2);
+      search2 = parseInt(search2);
+      if (search2 > 4) {
+        document.getElementById('inboundFollowerSearch').placeholder = 'For example, 0-100';
+      } else {
+        document.getElementById('inboundFollowerSearch').placeholder = 'Search';
+      }
+      inboundTableApi.search(query).draw();
     });
     $.fn.changeDataTableLength = function(length) {
       inboundTableApi.page.len(length).draw();
     }
-    setInterval(function() {
+    $(document).on("click", ".inbound-user-update", function() {
       inboundTableApi.ajax.reload();
-    }, 15000);
+    });
     $(document).on("click", ".inbound-user-modal", function() {
       var user_id = $(this).data("user-id");
       $.get("/admin/inbound/"+user_id);

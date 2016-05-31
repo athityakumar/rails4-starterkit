@@ -34,9 +34,30 @@ class InboundDatatable
   end
 
   def fetch_inbound_users 
-    inbound_users = @inbound_users.order("#{sort_column} #{sort_direction}").order("created_at desc").page(page).per_page(per_page) 
+    inbound_users = @inbound_users.order("#{sort_column} #{sort_direction}").page(page).per_page(per_page) 
     if params[:sSearch].present?
-      inbound_users = inbound_users.where("name like :search or replace(inbound_link, 'https://inbound.org/in/', '') like :search", search: "%#{params[:sSearch]}%") 
+      search_select = params[:sSearch].split(":select:")[1]
+      params[:sSearch] = params[:sSearch].gsub(":select:","").gsub(search_select,"")    
+      if search_select.to_i > 4
+        lower , upper = params[:sSearch].split("-") 
+      end
+      if search_select == "1"
+        inbound_users = inbound_users.where("name like :search or replace(inbound_link, 'https://inbound.org/in/', '') like :search", search: "%#{params[:sSearch]}%")       
+      elsif search_select == "2"
+        inbound_users = inbound_users.where("company like :search or designation like :search", search: "%#{params[:sSearch]}%")         
+      elsif search_select == "3"
+        inbound_users = inbound_users.where("location like :search", search: "%#{params[:sSearch]}%")             
+      elsif search_select == "4"
+        inbound_users = inbound_users.where("badges like :search", search: "%#{params[:sSearch]}%") 
+      elsif search_select == "5"
+        inbound_users = inbound_users.where("karma < ? and karma > ?", upper , lower)         
+      elsif search_select == "6"
+        inbound_users = inbound_users.where("number_followers < ? and number_followers > ?", upper , lower)         
+      elsif search_select == "7"
+        inbound_users = inbound_users.where("number_following < ? and number_following > ?", upper , lower)         
+      elsif search_select == "8"
+        inbound_users = inbound_users.where("number_badges < ? and number_badges > ?", upper , lower)         
+      end
     end 
     inbound_users
   end
