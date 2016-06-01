@@ -73,6 +73,16 @@ class AdminController < ApplicationController
     end
   end
 
+  def twitter_tweets
+    @twitter_follower = TwitterFollower.find(params[:id].to_s)
+    @tweets_array = @twitter_follower.tweets.split(",")
+    @twitter_tweets = TwitterTweet.where("id IN (?)", @tweets_array)
+    respond_to do |format|
+        format.html
+        format.json { render json: TwitterTweetDatatable.new(view_context, @twitter_tweets) }    
+    end
+  end
+
   def inbound
     if request.post?
       input_url = params[:inbound_search_query_link].to_s

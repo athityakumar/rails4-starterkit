@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post   "/admin/twitter"                 => "admin#twitter"
   get    "/admin/twitter/:id/followers"   => "admin#twitter_followers"
   get    "/admin/twitter/:id/job"         => "admin#twitter_job_rerun"
+  get    "/admin/twitter/:id/tweets"      => "admin#twitter_tweets"
 
   get    "/admin/inbound"                 => "admin#inbound",          as: :inbound
   post   "/admin/inbound"                 => "admin#inbound"
