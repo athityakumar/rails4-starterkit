@@ -10,7 +10,7 @@ class PipecandyMailer < ApplicationMailer
   def concierge_user_mail(prospect)
     @prospect = prospect
     @prospect_name = prospect.blank? ? "" : prospect.name.blank? ? "" : prospect.name.split(" ").first.to_s
-    mail(to: prospect.email, subject: "#{@prospect_name}, I got the note you left on PipeCandy")
+    mail(from: "ashwin@pipecandy.com", to: prospect.email, subject: "#{@prospect_name}, I got the note you left on PipeCandy")
   end
 
   def twitter_autofollow_error error_subject, error_message

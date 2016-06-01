@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "info@pipecandy.com"
+  default from: "candybot@pipecandy.com"
   layout 'pipecandy_mailer'
 end
