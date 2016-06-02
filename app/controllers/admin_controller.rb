@@ -31,12 +31,20 @@ class AdminController < ApplicationController
         redirect_to twitter_path
       end
     else
+      @twitter_tweets_all = TwitterTweet.all
       @twitter_users = TwitterUser.all
       @twitter_followers = TwitterFollower.all
       respond_to do |format|
         format.html
         format.json { render json: TwitterDatatable.new(view_context, @twitter_followers) }
       end
+    end
+  end
+
+  def twitter_tweets_all
+    @twitter_tweets_all = TwitterTweet.all
+    respond_to do |format|
+      format.json { render json: TwitterTweetsAllDatatable.new(view_context, @twitter_tweets_all) }
     end
   end
 
@@ -75,12 +83,15 @@ class AdminController < ApplicationController
 
   def twitter_tweets
     @twitter_follower = TwitterFollower.find(params[:id].to_s)
-    @tweets_array = @twitter_follower.tweets.split(",")
-    @twitter_tweets = TwitterTweet.where("id IN (?)", @tweets_array)
-    respond_to do |format|
+    @twitter_name = @twitter_follower.name  
+    @tweets_by_user = TwitterTweet.where("user_id = ?",@twitter_follower.twitter_id) 
+    unless @tweets_by_user.count == 0
+      respond_to do |format|
         format.html
-        format.json { render json: TwitterTweetDatatable.new(view_context, @twitter_tweets) }    
+        format.json { render json: TwitterTweetsDatatable.new(view_context, @tweets_by_user) }    
+      end
     end
+    
   end
 
   def inbound

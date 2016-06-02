@@ -16,13 +16,14 @@ Rails.application.routes.draw do
   post   "/admin/twitter"                 => "admin#twitter"
   get    "/admin/twitter/:id/followers"   => "admin#twitter_followers"
   get    "/admin/twitter/:id/job"         => "admin#twitter_job_rerun"
-  get    "/admin/twitter/:id/tweets"      => "admin#twitter_tweets"
+  get    "/admin/twitter/tweets/:id"      => "admin#twitter_tweets" 
 
   get    "/admin/inbound"                 => "admin#inbound",          as: :inbound
   post   "/admin/inbound"                 => "admin#inbound"
   get    "/admin/inbound/:id/run"         => "admin#inbound_crawl"
   get    "/admin/inbound/:id/update"      => "admin#inbound_crawl"
   get    "/admin/inbound/:id"             => "admin#ajax_inbound_user_modal", format: "js"
+  get    "/admin/twitter-tweets-all"      => "admin#twitter_tweets_all",      format: "json"
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == "sidekiq" && password == "sidekiq1905!"

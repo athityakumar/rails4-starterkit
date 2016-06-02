@@ -169,9 +169,9 @@ $(document).ready(function() {
       var screenName = $(this).attr("data-name");
       return confirm('Are you sure want to update the twitter user "'+screenName+'"?');
     });
-    setInterval(function() {
-      twitterTableApi.ajax.reload();
-    }, 15000);
+    // setInterval(function() {
+    //   twitterTableApi.ajax.reload();
+    // }, 15000);
   }
   if ( $('#inbound_form').length > 0 ) {
     $('#inbound_form').parsley();
@@ -262,6 +262,132 @@ $(document).ready(function() {
       var user_id = $(this).data("user-id");
       $.get("/admin/inbound/"+user_id);
     });
+  }
+  if ($('#twitter_tweets').length > 0) {
+    var tweetsTable = $('#twitter_tweets').dataTable({
+      sPaginationType: "simple_numbers",
+      bInfo: true,
+      bProcessing: true,
+      bServerSide: true,
+      sDom: 'rt<"bottom"p><"clear">',
+      language: {
+        "sInfoEmpty": 'No entries to show',
+        "sEmptyTable": 'There are no Inbound users to show.'
+      },
+      "deferRender": true,
+      "autoWidth": false,
+      aoColumns: [
+        {
+          "sWidth": "200px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "100px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "100px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "150px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "200px",
+          "bSortable": false,
+          "bVisible": true
+        }
+      ],
+      sAjaxSource: $('#twitter_tweets').data('source'),
+      drawCallback: function( settings ) {
+        var api = this.api();
+        var info = api.page.info();
+        if (info.recordsTotal <= info.length) {
+          $("#tweets_datatable .dataTables_paginate").hide();
+        }
+        else{
+          $("#tweets_datatable .dataTables_paginate").show();
+        }
+        // DataTable Custom Select Option
+        $('#dataTablesInfo').html(
+          'Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' documents'
+        );
+      }
+    });
+    var tweetsTableApi = tweetsTable.api();
+    // DataTable Custom Search
+    $('#twitterTweetSearch').keyup(function(){
+      var search = $(this).val()
+      tweetsTableApi.search(search).draw();
+    });
+    $.fn.changeDataTableLength = function(length) {
+      tweetsTableApi.page.len(length).draw();
+    }
+    $(document).on("click", ".twitter-tweets-update", function() {
+      tweetsTableApi.ajax.reload();
+    });
+  }
+  if ($('#twitter_tweets_all').length > 0) {
+    var tweetsAllTable = $('#twitter_tweets_all').dataTable({
+      sPaginationType: "simple_numbers",
+      bInfo: true,
+      bProcessing: true,
+      bServerSide: true,
+      sDom: 'rt<"bottom"p><"clear">',
+      language: {
+        "sInfoEmpty": 'No entries to show',
+        "sEmptyTable": 'There are no Inbound users to show.'
+      },
+      "deferRender": true,
+      "autoWidth": false,
+      aoColumns: [
+        {
+          "sWidth": "800px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "150px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "200px",
+          "bSortable": false,
+          "bVisible": true
+        }
+      ],
+      sAjaxSource: $('#twitter_tweets_all').data('source'),
+      drawCallback: function( settings ) {
+        var api = this.api();
+        var info = api.page.info();
+        if (info.recordsTotal <= info.length) {
+          $("#twitter_tweets_all .dataTables_paginate").hide();
+        }
+        else{
+          $("#twitter_tweets_all .dataTables_paginate").show();
+        }
+        // DataTable Custom Select Option
+        $('#dataTablesInfo0').html(
+          'Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' documents'
+        );
+
+      }
+    });
+    var tweetsAllTableApi = tweetsAllTable.api();
+    // DataTable Custom Search
+    $('#twitterTweetAllSearch').keyup(function(){
+      var search = $(this).val()
+      tweetsAllTableApi.search(search).draw();
+    });
+    $.fn.changeDataTableLength = function(length) {
+      tweetsAllTableApi.page.len(length).draw();
+    }
   }
 });
 

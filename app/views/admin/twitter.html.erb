@@ -5,7 +5,9 @@
         <div class="container full-spaced full-spaced-bottom">
           <div class="row">
             <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11 col-centered">
-              <h2 class="text-center no-margin">Twitter follow/unfollow</h2>
+              <h2 class="text-center no-margin">Twitter Portal</h2>
+              <p class="text-center no-margin">Use the tabs below to toggle between Twitter Tweets & Twitter Users Datatable.</p> 
+
               <%= form_tag twitter_path, method: :post, id: "twitter_form", class: "spaced spaced-bottom" do %>
                 <div class="input-group">
                   <%= text_field_tag :username, "", class: "form-control sharp-corners", required: true, placeholder: "Twitter Username (PipeCandyHQ)", "data-parsley-error-message" => "Please enter the twitter username only!.", "data-parsley-errors-container" => "#twitter_username_error" %>
@@ -17,6 +19,61 @@
               <% end %>
             </div>
           </div>
+          <br><br>
+          <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <ul class="nav nav-tabs nav-justified">
+              <% unless @twitter_tweets_all.blank? %>
+                <li class="active"><a data-toggle="tab" href="#tweets">Twitter Tweets</a></li>
+              <% end %>
+              <% unless @twitter_followers.blank? %>
+                <li><a data-toggle="tab" href="#table">Twitter Followers Table</a></li>
+              <% end %>
+            </ul>
+            </div>
+          </div>
+           <div class="tab-content">         
+                        <% unless @twitter_tweets_all.blank? %>
+
+           <div id="tweets" class="tab-pane fade in active">
+             <div class="row full-spaced">
+                          <div class="col-md-10 col-sm-10 col-xs-12 col-centered spaced" id="twitter_tweet_all_datatable">
+                              <div class="col-sm-12">
+                                <input id="twitterTweetAllSearch" type="text" placeholder="Search" />
+                              </div>
+                              <div class="col-sm-12 text-right">
+                                <div class="dropdown" style="padding-top: 7px;">
+                                  <label id="dataTablesInfo0"></label>
+                                  <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="dataTablesLength0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                                  <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dataTablesLength0">
+                                    <li style="padding: 6px 0px;">Show up to:</li>
+                                    <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(10);">&nbsp;&nbsp;10 items</a></li>
+                                    <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(20);">&nbsp;&nbsp;20 items</a></li>
+                                    <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(40);">&nbsp;&nbsp;40 items</a></li>
+                                    <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(80);">&nbsp;&nbsp;80 items</a></li>
+                                    <li><a href="javascript:void(0);" onclick="$.fn.changeDataTableLength(100);">&nbsp;&nbsp;100 items</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            <table id="twitter_tweets_all" class="table table-bordered" data-source="/admin/twitter-tweets-all.json">
+                              <thead>
+                                <tr>
+                                  <th>Tweet</th>
+                                  <th>User</th>
+                                  <th>Links</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>           
+
+           </div>
+                         <% end %>
+
+
+           <div id="table" class="tab-pane fade in">
           <% unless @twitter_users.blank? %>
             <div class="row full-spaced">
               <div class="col-md-9 col-sm-10 col-xs-12 col-centered spaced" id="twitter_datatable">
@@ -49,7 +106,7 @@
                     </div>
                   </div>
                 </div>
-                <table id="twitter_followers" class="table" data-source="/admin/twitter.json">
+                <table id="twitter_followers" class="table table-bordered" data-source="/admin/twitter.json">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -65,6 +122,8 @@
               </div>
             </div>
           <% end %>
+          </div>
+          </div>
         </div>
       </td>
     </tr>

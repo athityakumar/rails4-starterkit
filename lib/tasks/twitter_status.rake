@@ -44,4 +44,46 @@ namespace :twitter_status do
     puts "===================Ending Twitter auto update for following in DB => #{Time.now.to_s}=================="
   end
 
+  desc "Twitter auto fetch tweets from Pipecandy's timeline & store meaningful ones in Pipecandy DB"
+  task fetch_tweets: :environment do
+    
+  def get_data tweet
+    tweet_value = tweet.text.strip.to_ascii
+    tweet_id_value = tweet.id.to_s
+    user_id_value = tweet.user.id.to_s
+    username_value = tweet.user.name
+    profile_link_value = "https://twitter.com/"+tweet.user.screen_name
+    tweet_link_value = profile_link_value + "/status/" + tweet_id_value 
+    return {
+      tweet: tweet_value,
+      tweet_id: tweet_id_value,
+      user_id: user_id_value,
+      username: username_value,
+      tweet_link: tweet_link_value,
+      profile_link: profile_link_value
+      }
+  end
+
+    begin
+      puts "Start Fetch Tweets from PipeCandy Timeline..................#{Time.now}"
+      old_tweets = TwitterTweet.pluck(:tweet_id)
+      tweets = PipecandyTwitterClient.api.home_timeline(count:150)
+      unless tweets.empty?
+        tweets.each do |tweet|
+          unless old_tweets.include? tweet.id.to_s
+            data = get_data tweet
+            TwitterTweet.create(data)
+          end
+        end
+      sleep 1000
+      end
+      TwitterUser.find(twitter_user.id).update(is_processing: false)
+      PipecandyMailer.twitter_fetch_create_follower(twitter_user.name).deliver_now
+      puts "End Fetch Tweets............#{twitter_user.name.to_s}......#{Time.now}"
+    rescue Exception => e
+      puts "Something else went wrong: #{e.to_s}"
+      PipecandyMailer.twitter_fetch_create_follower_error("#{e.to_s}").deliver_now
+    end
+  end
+
 end

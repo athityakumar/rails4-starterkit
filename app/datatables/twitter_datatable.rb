@@ -20,7 +20,7 @@ class TwitterDatatable
   def data
     results.map do |f|
       [
-        f.name,
+        get_name(f.name,f.id),
         get_following(f.following),
         get_followers(f.followers),
         f.date_processed.blank? ? "Not Yet" : f.date_processed,
@@ -57,6 +57,10 @@ class TwitterDatatable
 
   def per_page
     params[:iDisplayLength].to_i > 0 ? params[:iDisplayLength].to_i : 10
+  end
+
+  def get_name name, id
+    "<a href= '/admin/twitter/tweets/#{id.to_s}'>"+name+"</a>".html_safe
   end
 
   def get_twitter_link screen_name
