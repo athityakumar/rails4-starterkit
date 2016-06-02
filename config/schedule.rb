@@ -1,6 +1,6 @@
 # Learn more: http://github.com/javan/whenever
 set :output, '/home/pipecandy/engagement_cronlog.log'
-
+# TWITTER
 # Follower and Following status update task
 ["1.50 am", "3.50 am", 
   "5.50 am", "7.50 am", 
@@ -34,6 +34,16 @@ end
     rake "twitter_follow_unfollow:unfollow"
   end
 end
+
+# Rake task to listen to tweets 
+# timing yet to be decided
+timing.each do |at|
+  every :day, at: at do
+    rake "twitter_status:fetch_tweets"
+  end
+end
+
+
 
 # INBOUND.ORG
 # Rake task to follow 25 followers at a time in inbound
