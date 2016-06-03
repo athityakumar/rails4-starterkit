@@ -21,7 +21,7 @@ class TwitterTweetsAllDatatable
     results.map do |f|
       [
         f.tweet,
-        f.username,
+        f.user_screen_name,
         get_links(f.tweet_link,f.profile_link)
       ]
     end
@@ -34,7 +34,7 @@ class TwitterTweetsAllDatatable
   def fetch_tweets
     tweets = @tweets.order("#{sort_column} #{sort_direction}").page(page).per_page(per_page)
     if params[:sSearch].present? 
-      tweets = tweets.where("tweet like :search or username like :search", search: "%#{params[:sSearch]}%")
+      tweets = tweets.where("tweet like :search or user_screen_name like :search", search: "%#{params[:sSearch]}%")
     end
     tweets
   end
@@ -44,7 +44,7 @@ class TwitterTweetsAllDatatable
   end
   
   def sort_column
-    columns = %w[tweet username ""]
+    columns = %w[tweet user_screen_name ""]
     columns[params[:iSortCol_0].to_i]
   end
 

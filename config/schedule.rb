@@ -37,11 +37,11 @@ end
 
 # Rake task to listen to tweets 
 # timing yet to be decided
-timing.each do |at|
-  every :day, at: at do
-    rake "twitter_status:fetch_tweets"
-  end
-end
+# timing.each do |at|
+#   every :day, at: at do
+#     rake "twitter_status:fetch_tweets"
+#   end
+# end
 
 
 

@@ -79,14 +79,19 @@ ActiveRecord::Schema.define(version: 20160601134858) do
   add_index "twitter_followers", ["screen_name"], name: "index_twitter_followers_on_screen_name", unique: true, using: :btree
 
   create_table "twitter_tweets", force: :cascade do |t|
-    t.text     "tweet",        limit: 65535
-    t.string   "tweet_id",     limit: 255
-    t.string   "user_id",      limit: 255
-    t.string   "username",     limit: 255
-    t.string   "tweet_link",   limit: 255
-    t.string   "profile_link", limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.text     "tweet",               limit: 65535
+    t.string   "tweet_hashtags",      limit: 255
+    t.string   "tweet_id",            limit: 255
+    t.string   "user_id",             limit: 255
+    t.string   "user_screen_name",    limit: 255
+    t.string   "tweet_link",          limit: 255
+    t.string   "profile_link",        limit: 255
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "tweet_user_mentions", limit: 255
+    t.boolean  "is_retweet",                        default: false
+    t.string   "tweet_timing",        limit: 255
+    t.integer  "retweet_count",       limit: 4
   end
 
   create_table "twitter_user_followers", force: :cascade do |t|

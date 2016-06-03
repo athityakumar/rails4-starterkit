@@ -3,11 +3,12 @@ class AdminController < ApplicationController
   before_filter :authenticate!
 
   def index
-    @concierge = Concierge.order(created_at: :desc).paginate(page: params[:page], per_page: 20)
+    all_concierge = Concierge.all
+    @concierge = all_concierge.order(created_at: :desc).paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html
-      format.csv { send_data @concierge.to_csv }
-      format.xls { send_data @concierge.to_csv(col_sep: "\t") }
+      format.csv { send_data all_concierge.to_csv }
+      format.xls { send_data all_concierge.to_csv(col_sep: "\t") }
     end
   end
 
@@ -107,6 +108,8 @@ class AdminController < ApplicationController
       @inbound_users = InboundUser.all
       respond_to do |format|
         format.html
+        format.csv { send_data @inbound_users.to_csv }
+        format.xls { send_data @inbound_users.to_csv(col_sep: "\t") }
         format.json { render json: InboundDatatable.new(view_context, @inbound_users) }
       end
     end
