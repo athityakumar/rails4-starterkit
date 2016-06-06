@@ -263,6 +263,79 @@ $(document).ready(function() {
       $.get("/admin/inbound/"+user_id);
     });
   }
+  if ($('#concierge').length > 0) {
+    var conciergeTable = $('#concierge').dataTable({
+      sPaginationType: "simple_numbers",
+      bInfo: true,
+      bProcessing: true,
+      bServerSide: true,
+      sDom: 'rt<"bottom"p><"clear">',
+      language: {
+        "sInfoEmpty": 'No entries to show',
+        "sEmptyTable": 'There are no concierge users to show.'
+      },
+      "iDisplayLength": 20,
+      "deferRender": true,
+      "autoWidth": false,
+      aoColumns: [
+        {
+          "sWidth": "50px",
+          "sClass": "text-center",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "150px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "250px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "sWidth": "170px",
+          "bSortable": true,
+          "bVisible": true
+        },
+        {
+          "bSortable": false,
+          "bVisible": true
+        },
+        {
+          "sWidth": "70px",
+          "bSortable": true,
+          "bVisible": true
+        }
+      ],
+      sAjaxSource: $('#concierge').data('source'),
+      drawCallback: function( settings ) {
+        var api = this.api();
+        var info = api.page.info();
+        if (info.recordsTotal <= info.length) {
+          $("#concierge_datatable .dataTables_paginate").hide();
+        } else{
+          $("#concierge_datatable .dataTables_paginate").show();
+        }
+        // DataTable Custom Select Option
+        $('#dataTablesInfo').html(
+          'Showing '+(info.start+1)+' - '+info.end+ ' of ' +info.recordsTotal+' records'
+        );
+      }
+    });
+    var conciergeTableApi = conciergeTable.api();
+    // DataTable Custom Search
+    $('#conciergeSearch').keyup(function(){
+      conciergeTableApi.search($(this).val()).draw();
+    });
+    $.fn.changeDataTableLength = function(length) {
+      conciergeTableApi.page.len(length).draw();
+    }
+    $(document).on("click", ".concierge-table-update", function() {
+      conciergeTableApi.ajax.reload();
+    });
+  }
   if ($('#twitter_tweets').length > 0) {
     var tweetsTable = $('#twitter_tweets').dataTable({
       sPaginationType: "simple_numbers",
