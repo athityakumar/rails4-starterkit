@@ -182,7 +182,7 @@ namespace :inbound do
           $scraper.get("https://inbound.org/members/follow?user_id=#{id}&follow=0")
           sleep 2
         end
-        InboundUser.where("userid IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1, date_processed = #{Date.today.to_s}")
+        InboundUser.where("userid IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1")
       end
       puts "End unFollowing Inbound.org #{Time.now.to_s}....."
     rescue Exception => e
