@@ -59,7 +59,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
       puts "End Fetch Followers and Create for Users............#{twitter_user.name.to_s}......#{Time.now}"
     rescue Exception => e
       puts "Something else went wrong: #{e.to_s}"
-      PipecandyMailer.twitter_fetch_create_follower_error("#{e.to_s}").deliver_now
+      PipecandyMailer.twitter_autofollow_error("Twitter - Fetch & Create Followers Error at #{Time.now}", "#{e.to_s}").deliver_now
     end
   end
 end

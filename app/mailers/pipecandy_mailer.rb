@@ -18,11 +18,6 @@ class PipecandyMailer < ApplicationMailer
     mail(to: "thangadurai@contractiq.in", subject: error_subject)
   end
 
-  def twitter_fetch_create_follower_error error_message
-    @error_message = error_message
-    mail(to: "thangadurai@contractiq.in", subject: "Twitter - Fetch & Create Followers Error at #{Time.now}")
-  end
-
   def inbound_error error_subject, error_message
     @error_message = error_message
     mail(to: "thangadurai@contractiq.in", bcc: "athityakumar@gmail.com", subject: error_subject)
@@ -31,6 +26,6 @@ class PipecandyMailer < ApplicationMailer
   # Admin Daily Notification Mailer
   def admin_notification_twitter new_followers
     @new_followers = new_followers
-    mail(to: "thangadurai@contractiq.in", subject: "Twitter New Followers Status - Admin | Pipecandy")
+    mail(to: "ashwin@pipecandy.com", bcc: "thangadurai@contractiq.in", subject: "Twitter New Followers Status - Admin | Pipecandy")
   end
 end
