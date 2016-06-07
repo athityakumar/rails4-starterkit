@@ -35,11 +35,6 @@ class PipecandyMailer < ApplicationMailer
     mail(to: "thangadurai@contractiq.in", subject: "Twitter - Fetch & Create Followers Error at #{Time.now}")
   end
 
-  def twitter_fetch_create_follower name
-    @username = name
-    mail(to: "thangadurai@contractiq.in", subject: "Twitter - Fetch & Create Followers Added at #{Time.now}")
-  end
-
   def inbound_error error_subject, error_message
     @error_message = error_message
     mail(to: "thangadurai@contractiq.in", bcc: "athityakumar@gmail.com", subject: error_subject)

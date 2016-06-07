@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601134858) do
+ActiveRecord::Schema.define(version: 20160607085630) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -65,15 +65,27 @@ ActiveRecord::Schema.define(version: 20160601134858) do
   end
 
   create_table "twitter_followers", force: :cascade do |t|
-    t.string   "name",           limit: 255
-    t.string   "screen_name",    limit: 255
-    t.string   "twitter_id",     limit: 255
-    t.boolean  "following",                  default: false
-    t.boolean  "followers",                  default: false
+    t.string   "name",                limit: 255
+    t.string   "screen_name",         limit: 255
+    t.string   "twitter_id",          limit: 255
+    t.boolean  "following",                         default: false
+    t.boolean  "followers",                         default: false
     t.date     "date_processed"
-    t.integer  "attempts",       limit: 4,   default: 0
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.integer  "attempts",            limit: 4,     default: 0
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "profile_image_url",   limit: 255
+    t.string   "location",            limit: 255
+    t.datetime "profile_created_at"
+    t.boolean  "follow_request_sent",               default: false
+    t.string   "url",                 limit: 255
+    t.integer  "followers_count",     limit: 4,     default: 0
+    t.boolean  "protected_profile",                 default: false
+    t.text     "description",         limit: 65535
+    t.boolean  "verified",                          default: false
+    t.string   "time_zone",           limit: 255
+    t.integer  "statuses_count",      limit: 4,     default: 0
+    t.integer  "friends_count",       limit: 4,     default: 0
   end
 
   add_index "twitter_followers", ["screen_name"], name: "index_twitter_followers_on_screen_name", unique: true, using: :btree
