@@ -26,7 +26,7 @@ namespace :twitter_status do
               url: f.url,
               followers_count: f.followers_count,
               protected_profile: f.protected?,
-              description: f.description,
+              description: f.description.to_ascii,
               verified: f.verified?,
               time_zone: f.time_zone.to_ascii,
               statuses_count: f.statuses_count,

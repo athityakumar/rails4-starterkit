@@ -30,7 +30,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
               url: f.url,
               followers_count: f.followers_count,
               protected_profile: f.protected?,
-              description: f.description,
+              description: f.description.to_ascii,
               verified: f.verified?,
               time_zone: f.time_zone.to_ascii,
               statuses_count: f.statuses_count,
@@ -60,6 +60,8 @@ class FetchCreateFollowerJob < ActiveJob::Base
     rescue Exception => e
       puts "Something else went wrong: #{e.to_s}"
       PipecandyMailer.twitter_autofollow_error("Twitter - Fetch & Create Followers Error at #{Time.now}", "#{e.to_s}").deliver_now
+      # Update the twitter_user processing status to false
+      TwitterUser.find(twitter_user.id).update(is_processing: false)
     end
   end
 end

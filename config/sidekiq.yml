@@ -6,11 +6,8 @@
 :queues:
   - ["pipecandy_mailer", 2]
   - ["twitter_followers_job", 1]
-  - ["inbound_job", 1]
 :limits:
   twitter_followers_job: 1
-  inbound_job: 1
 :process_limits:
   twitter_followers_job: 1
-  inbound_job: 1
  
