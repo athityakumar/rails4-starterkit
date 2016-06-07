@@ -5,10 +5,14 @@
 <div>New Follow Back:</div>
 <div>Click here and see those profiles</div>
 <br/>
-<div>
-  <% @new_followers.each do |f| %>
-    <span><a href="https://twitter.com/<%= f.screen_name %>"><%= f.name %></a> |</span>
-  <% end %>
-</div>
-<br/>
-<div>Total new followback users: <%= @new_followers.count %>.</div>
+<% if @new_followers.blank? %>
+  <div>There is no new followers yesterday</div>
+<% else %>
+  <div>
+    <% @new_followers.each do |f| %>
+      <span><a href="https://twitter.com/<%= f.screen_name %>"><%= f.name %></a> |</span>
+    <% end %>
+  </div>
+  <br/>
+  <div>Total new followback users: <%= @new_followers.count %>.</div>
+<% end %>
