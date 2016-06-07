@@ -12,7 +12,6 @@ namespace :twitter_follow_unfollow do
       unless unfollowed_ids.blank?
         PipecandyTwitterClient.api.follow(unfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", unfollowed_ids).update_all(following: true, date_processed: Date.today.to_s)
-        PipecandyMailer.twitter_rake_success("follow", unfollowed_ids).deliver_now
       end
       puts "Twitter following ends Here..................."
     rescue Exception => e
@@ -27,12 +26,11 @@ namespace :twitter_follow_unfollow do
     puts "================Starting Twitter UnFollowing => #{Time.now.to_s}================"
     begin
       puts "Twitter UnFollowing Starts Here..................."
-      notfriendfollowed = TwitterFollower.where(following: true, followers: false, date_processed: (Date.today - 3.days).to_s)
+      notfriendfollowed = TwitterFollower.where(following: true, protected_profile: false, followers: false, date_processed: (Date.today - 3.days).to_s)
       notfriendfollowed_ids = notfriendfollowed.order(:attempts).pluck(:twitter_id).last(10).map(&:to_i)
       unless notfriendfollowed_ids.blank?
         PipecandyTwitterClient.api.unfollow(notfriendfollowed_ids)
         TwitterFollower.where("twitter_id IN (?)", notfriendfollowed_ids).update_all("following = 0, attempts = attempts + 1")
-        PipecandyMailer.twitter_rake_success("unfollow", notfriendfollowed_ids).deliver_now
       end
       puts "Twitter UnFollowing Ends Here..................."
     rescue Exception => e

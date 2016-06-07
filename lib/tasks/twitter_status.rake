@@ -8,14 +8,38 @@ namespace :twitter_status do
     begin
       puts "Twitter Update Status Starts Here..................."
       # Following back
-      follower_ids = PipecandyTwitterClient.api.follower_ids.map(&:to_i)
-      old_follower_ids = TwitterFollower.where(followers: true).pluck(:twitter_id).map(&:to_i)
-      new_follower_ids = follower_ids - old_follower_ids
-      followers = TwitterFollower.all.flatten.uniq
-      unless new_follower_ids.blank?
-        # Update the followers id
-        TwitterFollower.where("twitter_id IN (?)", new_follower_ids).update_all(followers: true)
-        PipecandyMailer.twitter_update_followback_status_mailer(followers, new_follower_ids).deliver_now
+      twitter_client = PipecandyTwitterClient.api
+      follower_ids = twitter_client.follower_ids.map(&:to_i)
+      # update the follower in DB
+      TwitterFollower.where("twitter_id IN (?)", follower_ids).update_all(followers: true)
+      # Update those followers info in DB
+      follower_ids.each_slice(100).with_index do |slice, i|
+        unless slice.blank?
+          twitter_client.users(slice).each_with_index do |f, j|
+            twitter_follower_hash = {
+              name: f.name.to_ascii, 
+              screen_name: f.screen_name.to_ascii,
+              profile_image_url: f.profile_image_url,
+              location: f.location.to_ascii,
+              profile_created_at: f.created_at.to_datetime,
+              follow_request_sent: f.follow_request_sent?,
+              url: f.url,
+              followers_count: f.followers_count,
+              protected_profile: f.protected?,
+              description: f.description,
+              verified: f.verified?,
+              time_zone: f.time_zone.to_ascii,
+              statuses_count: f.statuses_count,
+              friends_count: f.friends_count,
+              following: f.following?
+            }
+            twitter_follower = TwitterFollower.find_by(twitter_id: f.id)
+            twitter_follower.update(twitter_follower_hash) unless twitter_follower.blank?
+          end
+          # Next request after 9 minutes 40 seconds (Approximation by best case).
+          sleep 580
+        end
+        puts "====================== Processing Iteration #{i}"
       end
     rescue Exception => e
       puts "Something else went wrong: #{e.to_s}"
@@ -30,13 +54,10 @@ namespace :twitter_status do
     begin
       puts "Twitter Update Status Starts Here..................."
       # Friends update
-      following_ids = PipecandyTwitterClient.api.friend_ids.map(&:to_i)
-      old_following_ids = TwitterFollower.where(following: true).pluck(:twitter_id).map(&:to_i)
-      new_following_ids = following_ids - old_following_ids
-      unless new_following_ids.blank?
-        # Update the friend id status
-        TwitterFollower.where("twitter_id IN (?)", new_following_ids).update_all(following: true)
-      end
+      twitter_client = PipecandyTwitterClient.api
+      following_ids = twitter_client.friend_ids.map(&:to_i)
+      # update the following in DB
+      TwitterFollower.where("twitter_id IN (?)", following_ids).update_all(following: true)
     rescue Exception => e
       puts "Something else went wrong: #{e.to_s}"
       PipecandyMailer.twitter_autofollow_error("Twitter - Update for following 2 status exception errors", "#{e.to_s}").deliver_now

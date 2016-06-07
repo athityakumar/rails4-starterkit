@@ -15,7 +15,10 @@ class FetchCreateFollowerJob < ActiveJob::Base
       # Process follower_ids
       follower_ids.each_slice(100).with_index do |slice, i|
         unless slice.blank?
+          new_twitter_ids = []
           twitter_client.users(slice).each_with_index do |f, j|
+            # push all twitter ids into array
+            new_twitter_ids.push(f.id.to_i)
             twitter_follower_hash = {
               name: f.name.to_ascii, 
               screen_name: f.screen_name.to_ascii, 
@@ -31,8 +34,7 @@ class FetchCreateFollowerJob < ActiveJob::Base
               verified: f.verified?,
               time_zone: f.time_zone.to_ascii,
               statuses_count: f.statuses_count,
-              friends_count: f.friends_count,
-              following: f.following?
+              friends_count: f.friends_count
             }
             twitter_follower = twitter_user.twitter_followers.find_by(twitter_id: f.id)
             if twitter_follower.blank?
@@ -43,6 +45,10 @@ class FetchCreateFollowerJob < ActiveJob::Base
               twitter_follower.update(twitter_follower_hash)
             end
           end
+          # Delete the old unwanted data to protect follow feature from failure
+          old_twitter_ids = twitter_user.twitter_followers.pluck(:twitter_id).map(&:to_i)
+          old_lookup_ids =  old_twitter_ids - new_twitter_ids
+          TwitterFollower.where("twitter_id IN (?)", old_lookup_ids).destroy_all
           # Next request after 9 minutes 40 seconds (Approximation by best case).
           sleep 580
         end
