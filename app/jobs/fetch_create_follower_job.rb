@@ -13,9 +13,10 @@ class FetchCreateFollowerJob < ActiveJob::Base
       # Sleep for 6 seconds
       sleep 6
       # Process follower_ids
+      new_twitter_ids = []
       follower_ids.each_slice(100).with_index do |slice, i|
         unless slice.blank?
-          new_twitter_ids = []
+          sleep_time = slice.count * 6
           twitter_client.users(slice).each_with_index do |f, j|
             # push all twitter ids into array
             new_twitter_ids.push(f.id.to_i)
@@ -36,24 +37,26 @@ class FetchCreateFollowerJob < ActiveJob::Base
               statuses_count: f.statuses_count,
               friends_count: f.friends_count
             }
-            twitter_follower = twitter_user.twitter_followers.find_by(twitter_id: f.id)
+            twitter_follower = TwitterFollower.find_by(twitter_id: f.id)
             if twitter_follower.blank?
               twitter_user.twitter_followers.create(twitter_follower_hash)
             else
-              # delete the twitter_id from hash
               twitter_follower_hash.delete(:twitter_id)
               twitter_follower.update(twitter_follower_hash)
+              # Create Association between user and followers 
+              TwitterUserFollower.create_twitter_user_follower(twitter_user.id, twitter_follower.id)
             end
           end
-          # Delete the old unwanted data to protect follow feature from failure
-          old_twitter_ids = twitter_user.twitter_followers.pluck(:twitter_id).map(&:to_i)
-          old_lookup_ids =  old_twitter_ids - new_twitter_ids
-          TwitterFollower.where("twitter_id IN (?)", old_lookup_ids).destroy_all
-          # Next request after 9 minutes 40 seconds (Approximation by best case).
-          sleep 580
+          # Next request after sleep time (Approximation by best case).
+          puts "Sleep for #{sleep_time.to_s} seconds"
+          sleep sleep_time
         end
         puts "====================== Processing Iteration #{i}"
       end
+      # Delete the old unwanted data to protect follow feature from failure
+      old_twitter_ids = twitter_user.twitter_followers.pluck(:twitter_id).map(&:to_i)
+      old_lookup_ids =  old_twitter_ids - new_twitter_ids
+      twitter_user.twitter_followers.where("twitter_id IN (?)", old_lookup_ids).destroy_all
       # Update the twitter_user processing status to false
       TwitterUser.find(twitter_user.id).update(is_processing: false)
       puts "End Fetch Followers and Create for Users............#{twitter_user.name.to_s}......#{Time.now}"
