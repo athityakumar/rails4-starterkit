@@ -7,7 +7,7 @@ namespace :twitter_follow_unfollow do
     puts "================Starting Twitter Following => #{Time.now.to_s}================"
     begin
       puts "Twitter following starts Here..................."
-      unfollowed = TwitterFollower.where("followers = 0 AND following = 0 AND attempts < 4")
+      unfollowed = TwitterFollower.where("followers = 0 AND following = 0 AND protected_profile = 0 AND attempts < 4")
       unfollowed_ids = unfollowed.order(:attempts).pluck(:twitter_id).first(10).map(&:to_i)
       unless unfollowed_ids.blank?
         PipecandyTwitterClient.api.follow(unfollowed_ids)
