@@ -15,17 +15,17 @@ class PipecandyMailer < ApplicationMailer
 
   def twitter_autofollow_error error_subject, error_message
     @error_message = error_message
-    mail(to: "thangadurai@contractiq.in", subject: error_subject)
+    mail(to: "sathishkumar@ideas2it.com", subject: error_subject)
   end
 
   def inbound_error error_subject, error_message
     @error_message = error_message
-    mail(to: "thangadurai@contractiq.in", bcc: "athityakumar@gmail.com", subject: error_subject)
+    mail(to: "sathishkumar@ideas2it.com", bcc: "athityakumar@gmail.com", subject: error_subject)
   end
 
   # Admin Daily Notification Mailer
   def admin_notification_twitter new_followers
     @new_followers = new_followers
-    mail(to: "ashwin@pipecandy.com", bcc: "thangadurai@contractiq.in", subject: "Twitter New Followers Status - Admin | Pipecandy")
+    mail(to: "ashwin@pipecandy.com", bcc: "sathishkumar@ideas2it.com", subject: "Twitter New Followers Status - Admin | Pipecandy")
   end
 end
