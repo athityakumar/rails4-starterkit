@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607085630) do
+ActiveRecord::Schema.define(version: 20160628094213) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160607085630) do
     t.string   "time_zone",           limit: 255
     t.integer  "statuses_count",      limit: 4,     default: 0
     t.integer  "friends_count",       limit: 4,     default: 0
+    t.boolean  "admin_mail",                        default: false
   end
 
   add_index "twitter_followers", ["screen_name"], name: "index_twitter_followers_on_screen_name", unique: true, using: :btree
