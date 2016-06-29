@@ -6,6 +6,11 @@ namespace :twitter_follow_unfollow do
   task follow: :environment do
     puts "================Starting Twitter Following => #{Time.now.to_s}================"
     begin
+      if TwitterFollower.where(following: true).count>400
+        puts "================Following exceeds 400. Starting with unfollow============"
+        Rake::Task["twitter_follow_unfollow:unfollow"].invoke
+        next
+      end
       puts "Twitter following starts Here..................."
       @owner = TwitterFollower.find_by_screen_name("pipecandyhq")
       @owner.delete unless @owner.nil?
