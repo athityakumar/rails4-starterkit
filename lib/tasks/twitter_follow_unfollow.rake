@@ -6,9 +6,10 @@ namespace :twitter_follow_unfollow do
   task follow: :environment do
     puts "================Starting Twitter Following => #{Time.now.to_s}================"
     begin
-      if TwitterFollower.where(following: true).count>400
-        puts "================Following exceeds 400. Starting with unfollow============"
-        Rake::Task["twitter_follow_unfollow:unfollow"].invoke
+      follower_id = PipecandyTwitterClient.api.follower_ids.map(&:to_i)
+      following_id = PipecandyTwitterClient.api.friend_ids.map(&:to_i)
+      if following_id.count > (200 + follower_id.count)
+        puts "================Following exceeds 200+ of follower.Existing============"
         next
       end
       puts "Twitter following starts Here..................."
@@ -17,8 +18,16 @@ namespace :twitter_follow_unfollow do
       unfollowed = TwitterFollower.where("followers = 0 AND following = 0 AND protected_profile = 0 AND attempts < 4")
       unfollowed_ids = unfollowed.order(:attempts).pluck(:twitter_id).first(10).map(&:to_i)
       unless unfollowed_ids.blank?
-        PipecandyTwitterClient.api.follow(unfollowed_ids)
-        TwitterFollower.where("twitter_id IN (?)", unfollowed_ids).update_all(following: true, date_processed: Date.today.to_s)
+        unfollowed_ids.each do |t|
+          if following_id.include? t.to_i
+            PipecandyTwitterClient.api.follow(t)
+            TwitterFollower.where("twitter_id = ?", t).update(following: true, date_processed: Date.today.to_s)
+          else
+            @delete_local = TwitterFollower.find_by_twitter_id(t)
+            PipecandyMailer.blocked_profile(@delete_local).deliver_now
+            @delete_local.delete
+          end
+        end
       end
       puts "Twitter following ends Here..................."
     rescue Exception => e
