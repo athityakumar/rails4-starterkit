@@ -184,7 +184,7 @@ namespace :twitter_status do
     begin
       puts "Start Fetch Searched Tweets from Twitter..................#{Time.now}"
       old_tweets = TwitterTweet.pluck(:tweet_id)
-      tweets = PipecandyTwitterClient.api.search(args[:query]).to_a
+      tweets = FakeTwitterClient.api.search(args[:query]).to_a
       unless tweets.empty?
         tweets.each do |tweet|
           unless old_tweets.include? tweet.id.to_s
