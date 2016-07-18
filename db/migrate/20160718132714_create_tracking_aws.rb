@@ -12,5 +12,6 @@ class CreateTrackingAws < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :tracking_aws, [:email, :message_id], unique: true
   end
 end
