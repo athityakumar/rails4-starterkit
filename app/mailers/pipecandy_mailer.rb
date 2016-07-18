@@ -33,4 +33,9 @@ class PipecandyMailer < ApplicationMailer
     @twitter_follower = twitter_follower
     mail(from: "candybot@pipecandy.com", to: "sathish@contractiq.in", subject: "Twitter | Blocked profile")
   end
+
+  def developer_mails mode, params
+    @params = params
+    mail(from: "candybot@pipecandy.com", to: "sathish@contractiq.in", subject: "#{mode} | Params")
+  end
 end
