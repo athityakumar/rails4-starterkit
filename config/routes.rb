@@ -25,6 +25,12 @@ Rails.application.routes.draw do
   get    "/admin/inbound/:id"             => "admin#ajax_inbound_user_modal", format: "js"
   get    "/admin/twitter-tweets-all"      => "admin#twitter_tweets_all",      format: "json"
 
+  # AWS tracking
+  get    "/admin/tracking/90078359cb94c2401bb7dc6e4d68ac32/bounce"         =>  "admin/aws#bounce"
+  get    "/admin/tracking/02abbe35eecc06b40e4e9794d097be46/complaint"      =>  "admin/aws#complaint"
+  get    "/admin/tracking/227d6bc3c8858f21c1ab216c79ff1ed2/delivered"      =>  "admin/aws#delivered"
+  get    "/admin/aws"                                                      =>  "admin/aws#view"
+
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == "sidekiq" && password == "sidekiq1905!"
   end if Rails.env.production?
