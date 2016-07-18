@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607085630) do
+ActiveRecord::Schema.define(version: 20160718132714) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -64,6 +64,21 @@ ActiveRecord::Schema.define(version: 20160607085630) do
     t.string   "my_link",          limit: 255
   end
 
+  create_table "tracking_aws", force: :cascade do |t|
+    t.string   "message_id",         limit: 255
+    t.string   "email",              limit: 255
+    t.string   "bounce_type",        limit: 255
+    t.string   "bounce_status",      limit: 255
+    t.string   "bounce_action",      limit: 255
+    t.string   "complaint",          limit: 255
+    t.string   "complaint_feedback", limit: 255
+    t.string   "delivered",          limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "tracking_aws", ["email", "message_id"], name: "index_tracking_aws_on_email_and_message_id", unique: true, using: :btree
+
   create_table "twitter_followers", force: :cascade do |t|
     t.string   "name",                limit: 255
     t.string   "screen_name",         limit: 255
@@ -86,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160607085630) do
     t.string   "time_zone",           limit: 255
     t.integer  "statuses_count",      limit: 4,     default: 0
     t.integer  "friends_count",       limit: 4,     default: 0
+    t.boolean  "admin_mail",                        default: false
   end
 
   add_index "twitter_followers", ["screen_name"], name: "index_twitter_followers_on_screen_name", unique: true, using: :btree

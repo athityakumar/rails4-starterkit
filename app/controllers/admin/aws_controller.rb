@@ -1,5 +1,6 @@
 class Admin::AwsController < ApplicationController
 	before_filter :authenticate!,  :except => [:bounce, :complaint, :delivered]
+	skip_before_action :verify_authenticity_token, only: [:bounce, :complaint, :delivered]
 
 	def bounce
 		begin
