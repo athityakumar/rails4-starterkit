@@ -56,7 +56,9 @@ group :production do
 
 end
 
+# aws sns subscription 
 gem "aws_sns_subscription"
+gem 'aws-sdk'
 
 group :development do
 
