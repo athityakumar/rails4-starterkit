@@ -56,6 +56,8 @@ group :production do
 
 end
 
+gem "aws_sns_subscription"
+
 group :development do
 
   # Use Capistrano for deployment

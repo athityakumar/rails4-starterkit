@@ -26,9 +26,9 @@ Rails.application.routes.draw do
   get    "/admin/twitter-tweets-all"      => "admin#twitter_tweets_all",      format: "json"
 
   # AWS tracking
-  post    "/admin/tracking/90078359cb94c2401bb7dc6e4d68ac32/bounce"         =>  "admin/aws#bounce"
-  post    "/admin/tracking/02abbe35eecc06b40e4e9794d097be46/complaint"      =>  "admin/aws#complaint"
-  post    "/admin/tracking/227d6bc3c8858f21c1ab216c79ff1ed2/delivered"      =>  "admin/aws#delivered"
+  post    "/admin/tracking/:candy_token/bounce"         =>  "admin/aws#bounce"
+  post    "/admin/tracking/:candy_token/complaint"      =>  "admin/aws#complaint"
+  post    "/admin/tracking/:candy_token/delivered"      =>  "admin/aws#delivered"
   get    "/admin/aws"                                                      =>  "admin/aws#view"
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
