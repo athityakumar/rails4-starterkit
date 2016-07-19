@@ -1,35 +1,32 @@
-# require 'aws'
 require 'json'
-
 class Admin::AwsController < ApplicationController
 	before_filter :authenticate!,  :except => [:bounce, :complaint, :delivered]
 	skip_before_action :verify_authenticity_token, only: [:bounce, :complaint, :delivered]
 	before_filter :respond_to_aws_sns_subscription_confirmations, only: [:bounce, :complaint, :delivered]
-	before_action :message_logger
+	before_action :message_logger, only: [:bounce, :complaint, :delivered]
 
 	def bounce
 		begin
 			raise unless params[:candy_token] == "90078359cb94c2401bb7dc6e4d68ac32"
-			# pp =JSON.parse(request.raw_post)
-		return render json: {} #unless aws_message.authentic?
-		if type != 'Bounce'
-			Rails.logger.info "Not a bounce - exiting"
-			return render json: {}
-		end
-		bounce = message['bounce']
-		bouncerecps = bounce['bouncedRecipients']
-		bouncerecps.each do |recp|
-		email = recp['emailAddress']
-			# extra_info  = "status: #{recp['status']}, action: #{recp['action']}, diagnosticCode: #{recp['diagnosticCode']}"
-			Rails.logger.info "Creating a bounce record for #{email}"
-			# EmailResponse.create ({ email: email, response_type: 'bounce', extra_info: extra_info})
-		end
-		render json: {}
-
-			PipecandyMailer.developer_mails("aws", JSON.parse(request.raw_post).to_s).deliver_now
-			# render nothing: true, status: 200
+			if notification_type != 'Bounce'
+				Rails.logger.info "Not a bounce - exiting"
+				return render json: {}
+			end
+			bounce = message['bounce']
+			bnc = bounce['bouncedRecipients']
+			bnc.each do |recp|
+			email = recp['emailAddress']
+				puts message_id.to_s
+				@tracking_aws = TrackingAws.where(message_id: message_id, email: email).first
+				if @tracking_aws.blank?
+					TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
+				else
+					TrackingAws.update(notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
+				end
+			end
+			PipecandyMailer.developer_mails("aws | bounce", JSON.parse(request.raw_post)).deliver_now
+			render json: {}
 		rescue Exception => e
-			puts e.inspect
 			render nothing: true, status: 500
 		end
 	end
@@ -37,23 +34,22 @@ class Admin::AwsController < ApplicationController
 	def complaint
 		begin
 			raise unless params[:candy_token] == "02abbe35eecc06b40e4e9794d097be46"
-
-			return render json: {} unless aws_message.authentic?
-			if type != 'Complaint'
+			if notification_type != 'Complaint'
 				Rails.logger.info "Not a complaint - exiting"
 				return render json: {}
 			end
-			complaint = message['complaint']
-			recipients = complaint['complainedRecipients']
-			recipients.each do |recp|
+			complaint= message['complaint']
+			complaint['complainedRecipients'].each do |recp|
 				email = recp['emailAddress']
-				extra_info = "complaintFeedbackType: #{complaint['complaintFeedbackType']}"
-				EmailResponse.create ( { email: email, response_type: 'complaint', extra_info: extra_info } )
+				@tracking_aws = TrackingAws.where(message_id: message_id, email: email).first
+				if @tracking_aws.blank?
+					TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type, complaint_feedback: message['feedbackId'], sender: sender)
+				else
+					@tracking_aws.update(notification_type: notification_type, complaint_feedback: message['feedbackId'], sender: sender)
+				end
 			end
+			PipecandyMailer.developer_mails("aws | complaint", JSON.parse(request.raw_post)).deliver_now
 			render json: {}
-
-			# PipecandyMailer.developer_mails("aws", params.inspect).deliver_now
-			# render nothing: true, status: 200
 		rescue Exception => e
 			render nothing: true, status: 500
 		end
@@ -62,8 +58,8 @@ class Admin::AwsController < ApplicationController
 	def delivered
 		begin
 			raise unless params[:candy_token] == "227d6bc3c8858f21c1ab216c79ff1ed2"
-			# PipecandyMailer.developer_mails("aws", params.inspect).deliver_now
-			# render nothing: true, status: 200
+			PipecandyMailer.developer_mails("aws | delivered", JSON.parse(request.raw_post)).deliver_now
+			render json: {}
 		rescue Exception => e
 			render nothing: true, status: 500
 		end
@@ -91,8 +87,16 @@ class Admin::AwsController < ApplicationController
     @message ||= JSON.parse JSON.parse(request.raw_post)['Message']
   end
 
-  def type
+  def notification_type
     message['notificationType']
+  end
+
+  def message_id
+  	JSON.parse(request.raw_post)['MessageId'].to_s
+  end
+
+  def sender
+  	message['mail']['source']
   end
 
 end
