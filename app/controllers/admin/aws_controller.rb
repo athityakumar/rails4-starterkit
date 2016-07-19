@@ -80,7 +80,39 @@ class Admin::AwsController < ApplicationController
 	end
 
 	def view
-		@tracking_aws = TrackingAws.all.paginate(:page => params[:page], :per_page => 20)
+		@trackings = TrackingAws.all
+		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
+		respond_to do |format|
+      format.html
+      format.csv { send_data @trackings.to_csv_aws }
+    end
+	end
+
+	def bounce
+		@trackings = TrackingAws.where('bounce_status IS NOT NULL OR bounce_action IS NOT NULL')
+		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
+		respond_to do |format|
+      format.html
+      format.csv { send_data @trackings.to_csv_aws }
+    end
+	end
+
+	def complaints
+		@trackings = TrackingAws.where('complaint_feedback IS NOT NULL OR complaint_feedback_type IS NOT NULl')
+		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
+		respond_to do |format|
+      format.html
+      format.csv { send_data @trackings.to_csv_aws }
+    end
+	end
+
+	def delivered
+		@trackings = TrackingAws.where('delivered = ?', 'true')
+		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
+		respond_to do |format|
+      format.html
+      format.csv { send_data @trackings.to_csv_aws }
+    end
 	end
 
 	protected

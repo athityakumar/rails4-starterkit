@@ -26,10 +26,15 @@ Rails.application.routes.draw do
   get    "/admin/twitter-tweets-all"      => "admin#twitter_tweets_all",      format: "json"
 
   # AWS tracking
-  post    "/admin/tracking/:candy_token/bounce"         =>  "admin/aws#bounce"
-  post    "/admin/tracking/:candy_token/complaint"      =>  "admin/aws#complaint"
-  post    "/admin/tracking/:candy_token/delivered"      =>  "admin/aws#delivered"
-  get    "/admin/aws"                                   =>  "admin/aws#view",    as: :aws
+  post   "/admin/tracking/:candy_token/bounce"         =>  "admin/aws#bounce"
+  post   "/admin/tracking/:candy_token/complaint"      =>  "admin/aws#complaint"
+  post   "/admin/tracking/:candy_token/delivered"      =>  "admin/aws#delivered"
+  
+  get    "/admin/aws/all"                               =>  "admin/aws#view"
+  post   "/admin/aws/all"                               =>  "admin/aws#view"
+  get    "/admin/aws/bounce"                            =>  "admin/aws#bounce"
+  get    "/admin/aws/complaints"                        =>  "admin/aws#complaints"
+  get    "/admin/aws/delivered"                         =>  "admin/aws#delivered"
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == "sidekiq" && password == "sidekiq1905!"

@@ -5,7 +5,15 @@
         <div class="container full-spaced full-spaced-bottom">
           <% unless @tracking_aws.blank? %>
             <div class="row full-spaced">
-              <div>AWS Tracking Info</div>
+              <div class="col-xs-12 text-center spaced-bottom">
+                <h1>AWS TRACKS</h1>
+              </div>
+              <div class="col-xs-12">
+                <div>
+                  <strong>Download: </strong>
+                  <a href="/admin/aws/all.csv">All</a> | <a href="/admin/aws/bounce.csv">Bounce</a> | <a href="/admin/aws/spam.csv">Spam</a> | <a href="/admin/aws/delivered.csv">Delivered</a>
+                </div>
+              </div>
               <div class="col-xs-12 spaced">
                 <table id="tracking_aws" class="table table-striped">
                   <thead>
@@ -13,24 +21,22 @@
                       <th>Type</th>
                       <th>Email</th>
                       <th>Bounce Status</th>
+                      <th>Bounce Action</th>
                       <th>Complaint Feedback</th>
                       <th>Complaint Type</th>
                       <th>Delivered status</th>
-                      <th>Sender</th>
-                      <th>Created</th>
                     </tr>
                   </thead>
                   <tbody>
                     <% @tracking_aws.each do |t| %>
                       <tr onclick="$('.show_desc').toggle();">
                         <td><%= t.notification_type.to_s %></td>
-                        <td><%= t.email.to_s %></td>
-                        <td><%= t.bounce_status.to_s %></td>
+                        <td title="<%= t.message_id.to_s %>"><%= t.email.to_s %></td>
+                        <td title="<%= t.updated_at.strftime('%b %d %Y') %>"><%= t.bounce_status.to_s %></td>
+                        <td><%= t.bounce_action.to_s %></td>
                         <td><%= t.complaint_feedback.to_s %></td>
                         <td><%= t.complaint_feedback_type.to_s %></td>
                         <td><%= t.delivered.to_s %></td>
-                        <td><%= t.sender.to_s %></td>
-                        <td><%= t.created_at.strftime('%b %d %Y') %></td>
                       </tr>
                     <% end %>
                   </tbody>
