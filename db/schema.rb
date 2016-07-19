@@ -67,12 +67,12 @@ ActiveRecord::Schema.define(version: 20160718132714) do
   create_table "tracking_aws", force: :cascade do |t|
     t.string   "message_id",         limit: 255
     t.string   "email",              limit: 255
-    t.string   "bounce_type",        limit: 255
+    t.string   "notification_type",  limit: 255
     t.string   "bounce_status",      limit: 255
     t.string   "bounce_action",      limit: 255
-    t.string   "complaint",          limit: 255
     t.string   "complaint_feedback", limit: 255
     t.string   "delivered",          limit: 255
+    t.string   "sender",             limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
