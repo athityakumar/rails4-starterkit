@@ -65,12 +65,21 @@ class Admin::AwsController < ApplicationController
 	def delivered
 		begin
 			raise unless params[:candy_token] == "227d6bc3c8858f21c1ab216c79ff1ed2"
-			delivered = JSON.parse(request.raw_post)
-			@tracking_aws = TrackingAws.where(email: delivered['recipients'].to_s)
+			message ||= JSON.parse JSON.parse(request.raw_post)['Message']
+			notification_type = message['notificationType']
+			message_id = JSON.parse(request.raw_post)['MessageId'].to_s
+			sender = message['mail']['source']
+			if notification_type != 'Delivery'
+				Rails.logger.info "Not a Delivery - exiting"
+				return render json: {}
+			end
+			delivered = message['delivery']
+			email =  delivered['recipients'].first.gsub('\"','')
+			@tracking_aws = TrackingAws.find_by(message_id: message_id,email: email)
 			if @tracking_aws.blank?
-				TrackingAws.create(email: delivered['recipients'].to_s, delivered: "true")
+				TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type, delivered: "true",sender: sender)
 			else
-				@tracking_aws.update_all(delivered: "true")
+				@tracking_aws.update(notification_type: notification_type, delivered: "true", sender: sender)
 			end
 			PipecandyMailer.developer_mails("aws | delivered", JSON.parse(request.raw_post)).deliver_now
 			render json: {}
@@ -88,7 +97,7 @@ class Admin::AwsController < ApplicationController
     end
 	end
 
-	def bounce
+	def bounces
 		@trackings = TrackingAws.where('bounce_status IS NOT NULL OR bounce_action IS NOT NULL')
 		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
 		respond_to do |format|
@@ -106,7 +115,7 @@ class Admin::AwsController < ApplicationController
     end
 	end
 
-	def delivered
+	def delivery
 		@trackings = TrackingAws.where('delivered = ?', 'true')
 		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
 		respond_to do |format|
