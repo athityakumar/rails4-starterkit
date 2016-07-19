@@ -1,0 +1,48 @@
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tbody>
+    <tr>
+      <td valign="middle">
+        <div class="container full-spaced full-spaced-bottom">
+          <% unless @tracking_aws.blank? %>
+            <div class="row full-spaced">
+              <div>AWS Tracking Info</div>
+              <div class="col-xs-12 spaced">
+                <table id="tracking_aws" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Email</th>
+                      <th>Bounce Status</th>
+                      <th>Complaint Feedback</th>
+                      <th>Complaint Type</th>
+                      <th>Delivered status</th>
+                      <th>Sender</th>
+                      <th>Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @tracking_aws.each do |t| %>
+                      <tr onclick="$('.show_desc').toggle();">
+                        <td><%= t.notification_type.to_s %></td>
+                        <td><%= t.email.to_s %></td>
+                        <td><%= t.bounce_status.to_s %></td>
+                        <td><%= t.complaint_feedback.to_s %></td>
+                        <td><%= t.complaint_feedback_type.to_s %></td>
+                        <td><%= t.delivered.to_s %></td>
+                        <td><%= t.sender.to_s %></td>
+                        <td><%= t.created_at.strftime('%b %d %Y') %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-xs-12 text-center">
+                <%= will_paginate @tracking_aws, param_name: 'pages' , renderer: BootstrapPagination::Rails, bootstrap: 3 %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

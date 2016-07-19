@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   post    "/admin/tracking/:candy_token/bounce"         =>  "admin/aws#bounce"
   post    "/admin/tracking/:candy_token/complaint"      =>  "admin/aws#complaint"
   post    "/admin/tracking/:candy_token/delivered"      =>  "admin/aws#delivered"
-  get    "/admin/aws"                                   =>  "admin/aws#view"
+  get    "/admin/aws"                                   =>  "admin/aws#view",    as: :aws
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == "sidekiq" && password == "sidekiq1905!"

@@ -1,6 +1,6 @@
 require 'json'
 class Admin::AwsController < ApplicationController
-	before_filter :authenticate!,  :except => [:bounce, :complaint, :delivered]
+	before_filter :authenticate!, :except => [:bounce, :complaint, :delivered]
 	skip_before_action :verify_authenticity_token, only: [:bounce, :complaint, :delivered]
 	before_filter :respond_to_aws_sns_subscription_confirmations, only: [:bounce, :complaint, :delivered]
 	before_action :message_logger, only: [:bounce, :complaint, :delivered]
@@ -8,6 +8,10 @@ class Admin::AwsController < ApplicationController
 	def bounce
 		begin
 			raise unless params[:candy_token] == "90078359cb94c2401bb7dc6e4d68ac32"
+			message ||= JSON.parse JSON.parse(request.raw_post)['Message']
+			notification_type = message['notificationType']
+			message_id = JSON.parse(request.raw_post)['MessageId'].to_s
+			sender = message['mail']['source']
 			if notification_type != 'Bounce'
 				Rails.logger.info "Not a bounce - exiting"
 				return render json: {}
@@ -16,7 +20,6 @@ class Admin::AwsController < ApplicationController
 			bnc = bounce['bouncedRecipients']
 			bnc.each do |recp|
 			email = recp['emailAddress']
-				puts message_id.to_s
 				@tracking_aws = TrackingAws.where(message_id: message_id, email: email).first
 				if @tracking_aws.blank?
 					TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
@@ -34,6 +37,10 @@ class Admin::AwsController < ApplicationController
 	def complaint
 		begin
 			raise unless params[:candy_token] == "02abbe35eecc06b40e4e9794d097be46"
+			message ||= JSON.parse JSON.parse(request.raw_post)['Message']
+			notification_type = message['notificationType']
+			message_id = JSON.parse(request.raw_post)['MessageId'].to_s
+			sender = message['mail']['source']
 			if notification_type != 'Complaint'
 				Rails.logger.info "Not a complaint - exiting"
 				return render json: {}
@@ -43,9 +50,9 @@ class Admin::AwsController < ApplicationController
 				email = recp['emailAddress']
 				@tracking_aws = TrackingAws.where(message_id: message_id, email: email).first
 				if @tracking_aws.blank?
-					TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type, complaint_feedback: message['feedbackId'], sender: sender)
+					TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type, complaint_feedback: message['feedbackId'], complaint_feedback_type: complaint['complaintFeedbackType'], sender: sender)
 				else
-					@tracking_aws.update(notification_type: notification_type, complaint_feedback: message['feedbackId'], sender: sender)
+					@tracking_aws.update(notification_type: notification_type, complaint_feedback: message['feedbackId'], complaint_feedback_type: complaint['complaintFeedbackType'], sender: sender)
 				end
 			end
 			PipecandyMailer.developer_mails("aws | complaint", JSON.parse(request.raw_post)).deliver_now
@@ -58,6 +65,13 @@ class Admin::AwsController < ApplicationController
 	def delivered
 		begin
 			raise unless params[:candy_token] == "227d6bc3c8858f21c1ab216c79ff1ed2"
+			delivered = JSON.parse(request.raw_post)
+			@tracking_aws = TrackingAws.where(email: delivered['recipients'].to_s)
+			if @tracking_aws.blank?
+				TrackingAws.create(email: delivered['recipients'].to_s, delivered: "true")
+			else
+				@tracking_aws.update_all(delivered: "true")
+			end
 			PipecandyMailer.developer_mails("aws | delivered", JSON.parse(request.raw_post)).deliver_now
 			render json: {}
 		rescue Exception => e
@@ -66,11 +80,7 @@ class Admin::AwsController < ApplicationController
 	end
 
 	def view
-		begin
-			render nothing: true, status:200
-		rescue Exception => e
-			render nothing: true, status:500
-		end
+		@tracking_aws = TrackingAws.all.paginate(:page => params[:page], :per_page => 20)
 	end
 
 	protected
@@ -83,20 +93,11 @@ class Admin::AwsController < ApplicationController
     Rails.logger.info request.raw_post
   end
 
-  def message
-    @message ||= JSON.parse JSON.parse(request.raw_post)['Message']
-  end
-
-  def notification_type
-    message['notificationType']
-  end
-
-  def message_id
-  	JSON.parse(request.raw_post)['MessageId'].to_s
-  end
-
-  def sender
-  	message['mail']['source']
+  private
+  def authenticate!
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "pipecandy" && password == "pipecandy1905!"
+    end
   end
 
 end

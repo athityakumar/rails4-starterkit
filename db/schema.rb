@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718132714) do
+ActiveRecord::Schema.define(version: 20160719094203) do
 
   create_table "concierges", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -65,16 +65,17 @@ ActiveRecord::Schema.define(version: 20160718132714) do
   end
 
   create_table "tracking_aws", force: :cascade do |t|
-    t.string   "message_id",         limit: 255
-    t.string   "email",              limit: 255
-    t.string   "notification_type",  limit: 255
-    t.string   "bounce_status",      limit: 255
-    t.string   "bounce_action",      limit: 255
-    t.string   "complaint_feedback", limit: 255
-    t.string   "delivered",          limit: 255
-    t.string   "sender",             limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "message_id",              limit: 255
+    t.string   "email",                   limit: 255
+    t.string   "notification_type",       limit: 255
+    t.string   "bounce_status",           limit: 255
+    t.string   "bounce_action",           limit: 255
+    t.string   "complaint_feedback",      limit: 255
+    t.string   "delivered",               limit: 255
+    t.string   "sender",                  limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "complaint_feedback_type", limit: 255
   end
 
   add_index "tracking_aws", ["email", "message_id"], name: "index_tracking_aws_on_email_and_message_id", unique: true, using: :btree
