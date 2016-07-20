@@ -27,7 +27,6 @@ class Admin::AwsController < ApplicationController
 					TrackingAws.update(notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
 				end
 			end
-			PipecandyMailer.developer_mails("aws | bounce", JSON.parse(request.raw_post)).deliver_now
 			render json: {}
 		rescue Exception => e
 			render nothing: true, status: 500
@@ -55,7 +54,6 @@ class Admin::AwsController < ApplicationController
 					@tracking_aws.update(notification_type: notification_type, complaint_feedback: message['feedbackId'], complaint_feedback_type: complaint['complaintFeedbackType'], sender: sender)
 				end
 			end
-			PipecandyMailer.developer_mails("aws | complaint", JSON.parse(request.raw_post)).deliver_now
 			render json: {}
 		rescue Exception => e
 			render nothing: true, status: 500
@@ -81,23 +79,25 @@ class Admin::AwsController < ApplicationController
 			else
 				@tracking_aws.update(notification_type: notification_type, delivered: "true", sender: sender)
 			end
-			PipecandyMailer.developer_mails("aws | delivered", JSON.parse(request.raw_post)).deliver_now
 			render json: {}
 		rescue Exception => e
 			render nothing: true, status: 500
 		end
 	end
 
-	def view
+	def view_all
 		@trackings = TrackingAws.all
-		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
+		@tracking_bounce = TrackingAws.where('bounce_status IS NOT NULL OR bounce_action IS NOT NULL').paginate(:page => params[:bounce_page], :per_page => 30)
+		@tracking_complaint = TrackingAws.where('complaint_feedback IS NOT NULL OR complaint_feedback_type IS NOT NULl').paginate(:page => params[:complaint_page], :per_page => 30)
+		@tracking_delivered = TrackingAws.where('delivered = ?', 'true').paginate(:page => params[:delivered_page], :per_page => 30)
+		@tracking_aws = @trackings.paginate(:page => params[:all_page], :per_page => 30)
 		respond_to do |format|
       format.html
       format.csv { send_data @trackings.to_csv_aws }
     end
 	end
 
-	def bounces
+	def view_bounce
 		@trackings = TrackingAws.where('bounce_status IS NOT NULL OR bounce_action IS NOT NULL')
 		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
 		respond_to do |format|
@@ -106,7 +106,7 @@ class Admin::AwsController < ApplicationController
     end
 	end
 
-	def complaints
+	def view_complaint
 		@trackings = TrackingAws.where('complaint_feedback IS NOT NULL OR complaint_feedback_type IS NOT NULl')
 		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
 		respond_to do |format|
@@ -115,7 +115,7 @@ class Admin::AwsController < ApplicationController
     end
 	end
 
-	def delivery
+	def view_delivered
 		@trackings = TrackingAws.where('delivered = ?', 'true')
 		@tracking_aws = @trackings.paginate(:page => params[:page], :per_page => 20)
 		respond_to do |format|

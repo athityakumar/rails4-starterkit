@@ -1,0 +1,193 @@
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tbody>
+    <tr>
+      <td valign="middle">
+        <div class="container full-spaced full-spaced-bottom">
+          <% unless @tracking_aws.blank? %>
+            <div class="row full-spaced">
+              <div class="col-xs-12 text-center spaced-bottom">
+                <h1>AWS TRACKS</h1>
+              </div>
+              <div class="col-xs-12">
+                <div>
+                  <strong>Download: </strong>
+                  <% unless @tracking_aws.blank? %>
+                    <a href="/admin/aws/all.csv">All</a>&nbsp;|&nbsp;
+                  <% end %>
+                  <% unless  @tracking_bounce.blank? %>
+                    <a href="/admin/aws/bounce.csv">Bounce</a>&nbsp;|&nbsp;
+                  <% end %>
+                  <% unless @tracking_complaint.blank? %>
+                    <a href="/admin/aws/spam.csv">Spam</a>&nbsp;|&nbsp;
+                  <% end %>
+                  <% unless @tracking_delivered.blank? %>
+                    <a href="/admin/aws/delivered.csv">Delivered</a>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h1><i class="icon-file"></i>&nbsp;&nbsp;AWS Report</h1>
+                <ul class="nav nav-tabs spaced" style="border: 0px none;">
+                  <li class="active"><a href="#view_all" data-toggle="tab">All</a></li>
+                  <li><a href="#view_bounce" data-toggle="tab">Bounce</a></li>
+                  <li><a href="#view_complaint" data-toggle="tab">Complaint</a></li>
+                  <li><a href="#view_delivered" data-toggle="tab">Delivered</a></li>
+                </ul>
+              </div>
+              <div class="tab-content spaced">
+                <div class="tab-pane active in" id="view_all">
+                  <div class="col-xs-12 spaced">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Type</th>
+                              <th>Email</th>
+                              <th>Bounce Status</th>
+                              <th>Bounce Action</th>
+                              <th>Complaint Feedback</th>
+                              <th>Complaint Type</th>
+                              <th>Delivered status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% @tracking_aws.each do |t| %>
+                              <tr onclick="$('.show_desc').toggle();">
+                                <td><%= t.notification_type.to_s %></td>
+                                <td title="<%= t.message_id.to_s %>"><%= t.email.to_s %></td>
+                                <td title="<%= t.updated_at.strftime('%b %d %Y') %>"><%= t.bounce_status.to_s %></td>
+                                <td><%= t.bounce_action.to_s %></td>
+                                <td><%= t.complaint_feedback.to_s %></td>
+                                <td><%= t.complaint_feedback_type.to_s %></td>
+                                <td><%= t.delivered.to_s %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-xs-12 text-center">
+                        <%= will_paginate @tracking_aws, param_name: "all_page", renderer: BootstrapPagination::Rails, bootstrap: 3 %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="view_bounce">
+                  <div class="col-xs-12 spaced">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Type</th>
+                              <th>Email</th>
+                              <th>Bounce Status</th>
+                              <th>Bounce Action</th>
+                              <th>Complaint Feedback</th>
+                              <th>Complaint Type</th>
+                              <th>Delivered status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% @tracking_bounce.each do |t| %>
+                              <tr onclick="$('.show_desc').toggle();">
+                                <td><%= t.notification_type.to_s %></td>
+                                <td title="<%= t.message_id.to_s %>"><%= t.email.to_s %></td>
+                                <td title="<%= t.updated_at.strftime('%b %d %Y') %>"><%= t.bounce_status.to_s %></td>
+                                <td><%= t.bounce_action.to_s %></td>
+                                <td><%= t.complaint_feedback.to_s %></td>
+                                <td><%= t.complaint_feedback_type.to_s %></td>
+                                <td><%= t.delivered.to_s %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-xs-12 text-center">
+                        <%= will_paginate @tracking_bounce, param_name: "bounce_page", renderer: BootstrapPagination::Rails, bootstrap: 3 %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="view_complaint">
+                  <div class="col-xs-12 spaced">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Type</th>
+                              <th>Email</th>
+                              <th>Bounce Status</th>
+                              <th>Bounce Action</th>
+                              <th>Complaint Feedback</th>
+                              <th>Complaint Type</th>
+                              <th>Delivered status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% @tracking_complaint.each do |t| %>
+                              <tr onclick="$('.show_desc').toggle();">
+                                <td><%= t.notification_type.to_s %></td>
+                                <td title="<%= t.message_id.to_s %>"><%= t.email.to_s %></td>
+                                <td title="<%= t.updated_at.strftime('%b %d %Y') %>"><%= t.bounce_status.to_s %></td>
+                                <td><%= t.bounce_action.to_s %></td>
+                                <td><%= t.complaint_feedback.to_s %></td>
+                                <td><%= t.complaint_feedback_type.to_s %></td>
+                                <td><%= t.delivered.to_s %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-xs-12 text-center">
+                        <%= will_paginate @tracking_complaint, param_name: "complaint_page", renderer: BootstrapPagination::Rails, bootstrap: 3 %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="view_delivered">
+                  <div class="col-xs-12 spaced">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Type</th>
+                              <th>Email</th>
+                              <th>Bounce Status</th>
+                              <th>Bounce Action</th>
+                              <th>Complaint Feedback</th>
+                              <th>Complaint Type</th>
+                              <th>Delivered status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% @tracking_delivered.each do |t| %>
+                              <tr onclick="$('.show_desc').toggle();">
+                                <td><%= t.notification_type.to_s %></td>
+                                <td title="<%= t.message_id.to_s %>"><%= t.email.to_s %></td>
+                                <td title="<%= t.updated_at.strftime('%b %d %Y') %>"><%= t.bounce_status.to_s %></td>
+                                <td><%= t.bounce_action.to_s %></td>
+                                <td><%= t.complaint_feedback.to_s %></td>
+                                <td><%= t.complaint_feedback_type.to_s %></td>
+                                <td><%= t.delivered.to_s %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-xs-12 text-center">
+                        <%= will_paginate @tracking_delivered, param_name: "delivered_page", renderer: BootstrapPagination::Rails, bootstrap: 3 %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

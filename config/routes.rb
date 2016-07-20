@@ -30,11 +30,10 @@ Rails.application.routes.draw do
   post   "/admin/tracking/:candy_token/complaint"      =>  "admin/aws#complaint"
   post   "/admin/tracking/:candy_token/delivered"      =>  "admin/aws#delivered"
   
-  get    "/admin/aws/all"                               =>  "admin/aws#view"
-  post   "/admin/aws/all"                               =>  "admin/aws#view"
-  get    "/admin/aws/bounce"                            =>  "admin/aws#bounces"
-  get    "/admin/aws/complaints"                        =>  "admin/aws#complaints"
-  get    "/admin/aws/delivered"                         =>  "admin/aws#delivery"
+  get    "/admin/aws/all"                               =>  "admin/aws#view_all"
+  get    "/admin/aws/bounce"                            =>  "admin/aws#view_bounce"
+  get    "/admin/aws/complaints"                        =>  "admin/aws#view_complaint"
+  get    "/admin/aws/delivered"                         =>  "admin/aws#view_delivered"
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == "sidekiq" && password == "sidekiq1905!"
