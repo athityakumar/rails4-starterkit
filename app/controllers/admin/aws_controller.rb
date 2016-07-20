@@ -24,7 +24,7 @@ class Admin::AwsController < ApplicationController
 				if @tracking_aws.blank?
 					TrackingAws.create(message_id: message_id, email: email, notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
 				else
-					TrackingAws.update(notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
+					@tracking_aws.update(notification_type: notification_type , bounce_status: bounce['bounceType'], bounce_action:recp['action'], sender: sender)
 				end
 			end
 			render json: {}
