@@ -48,4 +48,13 @@ namespace :twitter_follow_unfollow do
     puts "================Ending Twitter UnFollowing => #{Time.now.to_s}================"
   end
 
+  desc "Twitter update user list"
+  task user_update: :environment do
+    twitter_user = TwitterUser.find_by_name "pipecandyhq"
+    next if twitter_user.blank?
+    next if twitter_user.is_processing
+    twitter_user.update(is_processing: true)
+    job = FetchCreateFollowerJob.perform_later(twitter_user)
+  end
+
 end

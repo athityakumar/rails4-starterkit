@@ -72,3 +72,8 @@ end
     rake "inbound:following"
   end
 end
+
+# update 'pipecandyhq' users. Has to be processed before admin notification
+every :day, at: "3.00 am" do
+  rake "twitter_follow_unfollow:user_update"
+end
