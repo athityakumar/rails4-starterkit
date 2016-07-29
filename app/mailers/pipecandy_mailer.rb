@@ -1,6 +1,6 @@
 class PipecandyMailer < ApplicationMailer
   
-  layout "pipecandy_user_mailer", only: [:concierge_user_mail]
+  layout false, only: [:concierge_user_mail]
 
   def concierge_mail(prospect)
     @prospect = prospect
