@@ -493,3 +493,9 @@ a:hover, a:focus {
   right: 10px;
   top: 10px;
 }
+.tos-privacy a {
+  color: #88a7ba;
+}
+.tos-privacy a:hover {
+  color: #88a7ba;
+}
