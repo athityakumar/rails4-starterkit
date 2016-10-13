@@ -38,13 +38,13 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 # Set the user on our server that we want Capistrano to run commands
-set :user, "pipecandy"
+set :user, "ubuntu"
 
 # Role Declaration for single staging server
-server "107.170.62.128", :app, :web, :db, :primary => true
+server "54.153.35.230", :app, :web, :db, :primary => true
 
 # Deploy Location
-set :deploy_to, "/home/pipecandy/public_html"
+set :deploy_to, "/home/ubuntu/public_html"
 
 # Enable sidekiq after deploying the app
 set :pty,  false

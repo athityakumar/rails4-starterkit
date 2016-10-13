@@ -1,5 +1,5 @@
 # Learn more: http://github.com/javan/whenever
-set :output, '/home/pipecandy/engagement_cronlog.log'
+set :output, '/home/ubuntu/pipecandy-web/engagement_cronlog.log'
 # Admin Notification
 # For twitter update
 every :day, at: "5.00 am" do
