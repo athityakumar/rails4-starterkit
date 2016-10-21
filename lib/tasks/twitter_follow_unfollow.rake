@@ -54,7 +54,7 @@ namespace :twitter_follow_unfollow do
     next if twitter_user.blank?
     next if twitter_user.is_processing
     twitter_user.update(is_processing: true)
-    job = FetchCreateFollowerJob.perform_later(twitter_user)
+    job = FetchCreateFollowerJob.perform_now(twitter_user)
   end
 
 end
