@@ -145,8 +145,9 @@ class AdminController < ApplicationController
   private
 
   def authenticate!
+    config = JSON.parse(File.read("config.json"))[0]
     authenticate_or_request_with_http_basic do |username, password|
-      username == "pipecandy" && password == "pipecandy1905!"
+      username == config["username"] && password == config["password"]
     end
   end
 

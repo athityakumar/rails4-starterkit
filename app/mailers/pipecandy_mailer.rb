@@ -38,4 +38,8 @@ class PipecandyMailer < ApplicationMailer
     @params = params
     mail(from: "candybot@pipecandy.com", to: "sathish@contractiq.in", subject: "#{mode} | Params")
   end
+
+  def ak_mailer
+    mail(from: "candybot@pipecandy.com", to: "athityakumar@gmail.com", subject: "Hi | Params")
+  end
 end

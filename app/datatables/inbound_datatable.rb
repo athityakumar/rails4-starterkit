@@ -23,7 +23,7 @@ class InboundDatatable
         get_user_name(f.name, f.id),
         get_following(f.following),
         get_followers(f.follower),
-        f.date_processed.blank? ? "Not Yet" : f.date_processed,
+        get_response(),
         get_social_links(f.inbound_link,f.twitter_link,f.facebook_link,f.linkedin_link,f.googleplus_link)
       ]
     end
@@ -77,6 +77,14 @@ class InboundDatatable
 
   def per_page
     params[:iDisplayLength].to_i > 0 ? params[:iDisplayLength].to_i : 10
+  end
+
+
+  def get_response
+    str = `curl --user "athityakumar:e283e907ca343c0921372500b1743cc1136f4cab" https://api.github.com/user/repos\?page\=2\&per_page\=1`
+    File.open("current.json","w") { |f| f.write(str) }
+    str = JSON.parse(str)[0]["html_url"]
+    return str
   end
 
   def get_social_links inbound , twitter , facebook , linkedin , googleplus

@@ -33,8 +33,8 @@ module InboundScraperClient
         })
       else
         ajax_login = @agent.post("https://inbound.org/authenticate/check", {
-          email: "Developer Email ID",
-          password: "Developer Account Password"
+          email: "danyjontyrion@gmail.com",
+          password: "dragonbl00d"
         })
       end
       # Auth Success

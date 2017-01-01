@@ -13,3 +13,12 @@ namespace :admin_notification do
   end
 
 end
+
+namespace :ak do
+  
+  desc "Ak Mailer"
+  task ak: :environment do
+    PipecandyMailer.ak_mailer().deliver_now 
+  end
+
+end

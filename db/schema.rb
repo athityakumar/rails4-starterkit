@@ -30,10 +30,11 @@ ActiveRecord::Schema.define(version: 20160719094203) do
 
   create_table "inbound_links", force: :cascade do |t|
     t.string   "link",           limit: 255
-    t.boolean  "is_processing",              default: false
+    t.boolean  "is_processing",                default: false
     t.date     "date_processed"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.text     "userids",        limit: 65535
   end
 
   create_table "inbound_users", force: :cascade do |t|

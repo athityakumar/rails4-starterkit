@@ -104,10 +104,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mechanize (2.7.4)
+    mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
-      mime-types (>= 1.17.2, < 3)
+      mime-types (>= 1.17.2)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
       net-http-persistent (~> 2.5, >= 2.5.2)
       nokogiri (~> 1.6)
@@ -241,7 +241,7 @@ DEPENDENCIES
   capistrano-sidekiq
   htmlcompressor
   jquery-datatables-rails (~> 3.4)
-  mechanize (~> 2.7.4)
+  mechanize (~> 2.7.5)
   mysql2 (>= 0.3.13, < 0.5)
   nokogiri (~> 1.6.7.2)
   passenger
@@ -258,3 +258,6 @@ DEPENDENCIES
   whenever (~> 0.9.4)
   will_paginate (~> 3.1)
   will_paginate-bootstrap (~> 1.0, >= 1.0.1)
+
+BUNDLED WITH
+   1.12.3

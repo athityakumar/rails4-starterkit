@@ -19,7 +19,7 @@ gem 'twitter', '~> 5.16'
 gem 'nokogiri', '~> 1.6.7.2'
 
 # Use Mechanize gem for follow/unfollow in Inbound
-gem 'mechanize', '~> 2.7.4'
+gem 'mechanize', '~> 2.7.5'
 
 # Jquery Datatable.
 gem 'jquery-datatables-rails', '~> 3.4'
