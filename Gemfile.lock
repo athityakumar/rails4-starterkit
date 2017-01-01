@@ -137,6 +137,7 @@ GEM
     passenger (5.0.24)
       rack
       rake (>= 0.8.1)
+    pg (0.17.1)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -245,6 +246,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.13, < 0.5)
   nokogiri (~> 1.6.7.2)
   passenger
+  pg
   rails (= 4.2.5)
   redis-namespace
   sass-rails (~> 5.0)
@@ -260,4 +262,4 @@ DEPENDENCIES
   will_paginate-bootstrap (~> 1.0, >= 1.0.1)
 
 BUNDLED WITH
-   1.12.3
+   1.13.6
